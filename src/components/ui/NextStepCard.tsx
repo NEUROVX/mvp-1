@@ -59,9 +59,15 @@ export function NextStepCard({
 
       {details?.length || owner ? (
         <ul className="mt-5 space-y-2 border-t border-border pt-4">
-          {details?.map((d) => (
+          {details?.map((d, i) => (
             <li key={d} className="flex items-start gap-2.5 text-body-md text-ink">
-              <CalendarDays aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-muted" strokeWidth={1.75} />
+              {i === 0 ? (
+                <CalendarDays aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-muted" strokeWidth={1.75} />
+              ) : (
+                <span aria-hidden="true" className="flex size-5 shrink-0 items-center justify-center">
+                  <span className="size-1.5 rounded-full bg-control" />
+                </span>
+              )}
               <span className="tabular">{d}</span>
             </li>
           ))}

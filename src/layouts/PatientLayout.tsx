@@ -35,7 +35,6 @@ export function PatientLayout() {
         </main>
       </div>
       <BottomNav />
-      <DemoControls className="bottom-4 left-[256px]" />
     </div>
   )
 }
@@ -111,6 +110,7 @@ function ContextHeader() {
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-1">
+          <DemoControls className="mr-2 hidden lg:inline-flex" />
           <Link to="/app/support" className="inline-flex min-h-11 items-center gap-2 rounded-md px-3 text-body-md font-medium text-muted hover:text-ink">
             <CircleHelp aria-hidden="true" className="size-5" strokeWidth={1.75} />
             Help
@@ -126,7 +126,7 @@ function ContextHeader() {
           <span aria-hidden="true" className="mx-1.5 text-muted">·</span>
           <span className={clsx(persona === 'limited-helper' ? 'text-warning' : 'text-muted')}>{signedInAs}</span>
         </p>
-        <DemoControls variant="inline" />
+        <DemoControls className="lg:hidden" />
       </div>
     </header>
   )

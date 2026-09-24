@@ -54,7 +54,7 @@ export function FocusedLayout() {
                 <span aria-hidden="true" className="mx-1.5 text-muted">·</span>
                 <span className="text-muted">{signedInAs}</span>
               </p>
-              {!inSession ? <DemoControls variant="inline" /> : null}
+              {!inSession ? <DemoControls /> : null}
             </div>
           </div>
         ) : null}
@@ -63,7 +63,6 @@ export function FocusedLayout() {
         <Outlet />
         <PrototypeFooter className="mt-16 border-t border-border pt-6" />
       </main>
-      {!inSession ? <DemoControls /> : null}
     </div>
   )
 }

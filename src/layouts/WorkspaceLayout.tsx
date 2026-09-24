@@ -15,7 +15,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { Link, NavLink, Outlet } from 'react-router'
-import { DemoTag, Wordmark } from '@/components/ui'
+import { Wordmark } from '@/components/ui'
 import { useRouteFocus } from '@/lib/hooks'
 import { DemoControls, PrototypeFooter, SkipLink } from './shared'
 
@@ -82,10 +82,7 @@ export function WorkspaceLayout({ workspace }: { workspace: WorkspaceId }) {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <span className="hidden lg:inline-flex">
-              <DemoTag>Demo</DemoTag>
-            </span>
-            <DemoControls variant="inline" />
+            <DemoControls />
             <p className="hidden text-body-md text-muted md:block">{ws.user}</p>
             <Link to="/sign-in" className="inline-flex min-h-11 items-center rounded-md px-3 text-body-md font-medium text-primary hover:text-primary-hover">
               Switch workspace
@@ -118,7 +115,6 @@ export function WorkspaceLayout({ workspace }: { workspace: WorkspaceId }) {
         <Outlet />
         <PrototypeFooter className="mt-16 border-t border-border pt-6" />
       </main>
-      <DemoControls />
     </div>
   )
 }
