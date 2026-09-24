@@ -1,0 +1,37 @@
+{
+  "name": "neurovx-mvp",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "NeuroVX connected-care demo MVP. Synthetic data only. Not for clinical use.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --noEmit",
+    "check:tokens": "node scripts/check-tokens.mjs",
+    "check:copy": "node scripts/check-copy.mjs",
+    "check": "npm run typecheck && npm run check:tokens && npm run check:copy",
+    "qa:screens": "node scripts/qa-screens.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.48.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router": "^7.18.4"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.2",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "playwright": "^1.56.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "5.9",
+    "vite": "^7.3.6"
+  }
+}

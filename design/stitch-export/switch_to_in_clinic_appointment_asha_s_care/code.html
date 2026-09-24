@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "inverse-surface": "#233144", "primary": "#0037b0", "control-border": "#718096", "on-primary-container": "#cad3ff", "secondary-container": "#dde3ee", "primary-fixed-dim": "#b7c4ff", "surface-dim": "#ccdbf4", "on-tertiary-fixed-variant": "#832700", "focus": "#1D4ED8", "inverse-primary": "#b7c4ff", "muted": "#52647A", "tertiary-fixed": "#ffdbcf", "surface-bright": "#f8f9ff", "surface-container-highest": "#d5e3fd", "secondary-fixed-dim": "#c1c7d1", "body": "#334155", "on-primary": "#FFFFFF", "tertiary-container": "#a73400", "on-error": "#ffffff", "on-primary-fixed": "#001551", "background": "#F8FAFD", "tertiary-fixed-dim": "#ffb59c", "on-secondary": "#ffffff", "surface-tint": "#2151da", "secondary": "#585f68", "on-secondary-fixed-variant": "#414750", "surface-container-lowest": "#ffffff", "heading": "#0B1F3A", "inverse-on-surface": "#ebf1ff", "primary-container": "#1d4ed8", "surface-container-high": "#dde9ff", "surface-container": "#e6eeff", "outline-variant": "#c4c5d7", "surface-container-low": "#eff4ff", "on-secondary-fixed": "#161c24", "border": "#DBE4F0", "surface": "#FFFFFF", "error-container": "#ffdad6", "on-tertiary-container": "#ffc9b7", "error": "#B42318", "on-tertiary-fixed": "#390c00", "on-background": "#0d1c2f", "primary-fixed": "#dce1ff", "primary-hover": "#1E40AF", "on-error-container": "#93000a", "soft-blue": "#EEF4FF", "tertiary": "#7f2500", "on-secondary-container": "#5e656e", "error-surface": "#FEF3F2", "on-primary-fixed-variant": "#0039b5", "on-tertiary": "#ffffff", "on-surface": "#0d1c2f", "on-surface-variant": "#434655", "outline": "#747686", "surface-variant": "#d5e3fd", "secondary-fixed": "#dde3ee" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin": "1.5rem", "main-width": "720px", "lg": "24px", "space-xs": "0.25rem", "space-lg": "1.5rem", "xs": "4px", "xl": "32px", "page-top": "56px", "sm": "8px", "md": "16px", "space-md": "1rem", "space-xl": "2rem", "xxl": "48px", "space-xxl": "3rem", "modal-width": "560px", "space-sm": "0.5rem", "gutter": "1rem" }, "fontFamily": { "headline-md": ["Inter"], "label": ["Inter"], "task-title": ["Inter"], "body-md": ["Inter"], "headline-lg-mobile": ["Inter"], "label-md": ["Inter"], "button": ["Inter"], "body-lg": ["Inter"], "page-title": ["Inter"], "label-lg": ["Inter"], "body": ["Inter"], "headline-md-mobile": ["Inter"], "label-sm": ["Inter"], "headline-lg": ["Inter"] }, "fontSize": { "headline-md": ["28px", { "lineHeight": "36.4px", "fontWeight": "600" }], "label": ["16px", { "lineHeight": "1.5", "fontWeight": "500" }], "task-title": ["28px", { "lineHeight": "1.3", "fontWeight": "600" }], "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "600" }], "label-md": ["16px", { "lineHeight": "24px", "fontWeight": "500" }], "button": ["18px", { "lineHeight": "1.4", "fontWeight": "600" }], "body-lg": ["18px", { "lineHeight": "28.8px", "fontWeight": "400" }], "page-title": ["32px", { "lineHeight": "1.25", "fontWeight": "600" }], "label-lg": ["18px", { "lineHeight": "25.2px", "fontWeight": "600" }], "body": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }], "headline-md-mobile": ["22px", { "lineHeight": "30px", "fontWeight": "600" }], "label-sm": ["14px", { "lineHeight": "20px", "fontWeight": "500" }], "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }] } } } };</script></head><body class="bg-background font-body text-body min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-[72px] max-w-[720px] mx-auto px-margin flex items-center justify-between gap-4"><div class="flex items-center gap-3"><span class="font-label-lg text-label-lg tracking-tight text-heading">NeuroVX</span><span class="inline-flex items-center px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-soft-blue text-primary">Demo</span></div><nav class="hidden sm:flex items-center gap-1" data-active-classes="bg-soft-blue text-primary font-semibold"><a class="px-3 py-1.5 rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="home" href="#">Home</a><a class="px-3 py-1.5 rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="appointments" href="#">Appointments</a><a class="px-3 py-1.5 rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="reports" href="#">Reports</a><a class="px-3 py-1.5 rounded-lg font-label-sm text-label-sm text-on-surface-variant hover:text-on-surface transition-colors" data-path="help" href="#">Help</a></nav><div class="flex items-center gap-2"><div class="hidden md:flex flex-col text-right"><span class="font-label-sm text-label-sm text-heading leading-tight">Asha Rao</span><span class="font-label-sm text-label-sm text-muted leading-tight">Meera (Care partner)</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div><div class="bg-surface-container-low/60"><div class="max-w-[720px] mx-auto px-margin py-2.5 flex flex-wrap items-center justify-between gap-2"><div class="flex items-center gap-3"><a class="inline-flex items-center gap-1 font-label-sm text-label-sm text-primary hover:text-primary-hover transition-colors" data-path="return-to-assessment" href="#"><span class="material-symbols-outlined text-[16px]">arrow_back</span><span>Return to assessment</span></a><span class="hidden sm:inline font-label-sm text-label-sm text-muted">•</span><span class="hidden sm:inline font-label-sm text-label-sm text-on-surface-variant">Patient: Asha Rao (68) • Assisted by Meera Rao (Care partner)</span></div><span class="inline-flex items-center px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-soft-blue text-primary">Alternative pathway — Supervised in-clinic visit</span></div></div></header><main class="w-full pt-[116px] bg-background"><div class="max-w-[720px] mx-auto px-margin py-lg"><div class="flex flex-col w-full space-y-6">
+<!-- Reassurance Banner -->
+<section class="bg-surface rounded-xl p-space-lg shadow-sm border border-border flex items-start gap-4 transition-all">
+<div class="w-12 h-12 rounded-full bg-soft-blue flex-shrink-0 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-[26px]">volunteer_activism</span>
+</div>
+<div class="space-y-1.5 flex-1">
+<h2 class="font-headline-md text-headline-md text-heading">
+        Prefer an in-person, clinician-guided assessment?
+      </h2>
+<p class="font-body-md text-body-md text-muted leading-relaxed">
+        Digital check-ins aren’t right for everyone or every day. Choosing an in-person consultation is completely normal and will not count against Asha’s care plan or delay your consultation.
+      </p>
+</div>
+</section>
+<!-- Main Card -->
+<article class="bg-surface rounded-xl p-space-xl border border-border shadow-sm space-y-8">
+<!-- Card Header -->
+<header class="space-y-2">
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded-full font-label-sm text-label-sm bg-soft-blue text-primary font-medium">Care Option</span>
+<span class="font-label-sm text-label-sm text-muted">Asha Rao (68)</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-heading tracking-tight">
+        Switch to in-clinic consultation
+      </h1>
+<p class="font-body-lg text-body-lg text-muted">
+        A qualified clinician will guide Asha through all activities in person during the consultation.
+      </p>
+</header>
+<!-- Visual Anchor: Clinic Atmosphere -->
+<div class="relative rounded-xl overflow-hidden shadow-sm h-48 bg-surface-container-low flex items-end">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="A warm, bright clinical consultation room with modern gentle blue interior accents, soft daylight through large windows, comfortable seating for a patient and family member, no intimidating medical machines, soft natural lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeJIYxh483OsuOp-c75p4nhU6ZbUnZN1cpQxnLFaUZ6-iI0VIq19asqV47pVqhFbHyuM5q-rldQaw0dxcPk5gZkl_sRHDx0-C_L8G7YSNQCOMnNPat14JMFB0F4n61Nk4ZfRUfQ7RWL6kNNzzuJsAUhKBp7IfQ0nbNEK1cMiOX6p6EDcB3xeo-0XtvDGRjM0Vz-T_r1G0DsfphCV2kvBeTXXJWJJPS5ucdRnrFSi9oSmYapfE1E0D1YQ"/>
+<div class="relative z-10 w-full bg-gradient-to-t from-inverse-surface/85 via-inverse-surface/40 to-transparent p-4 flex items-center justify-between text-on-primary">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-on-primary text-[20px]">local_hospital</span>
+<span class="font-label-md text-label-md">Comfort-first physical evaluation suites</span>
+</div>
+<span class="font-label-sm text-label-sm bg-surface/20 backdrop-blur-sm px-2.5 py-0.5 rounded-full">Quiet setting</span>
+</div>
+</div>
+<!-- Section A: Saved Activity Progress Status -->
+<section class="space-y-3">
+<h3 class="font-label-lg text-label-lg text-heading flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">history_edu</span>
+        What happens to the activity you started?
+      </h3>
+<div class="bg-surface-container-low rounded-xl p-4 flex items-start gap-3 border border-border">
+<span class="material-symbols-outlined text-primary text-[22px] flex-shrink-0 mt-0.5">check_circle</span>
+<div class="space-y-1">
+<p class="font-body-md text-body-md text-body">
+            Responses up to <strong class="text-heading font-semibold">Activity 1</strong> are saved as helpful baseline context for your doctor, but no partial or incomplete test score will be recorded. Your clinician conducts a comprehensive in-person evaluation.
+          </p>
+<p class="font-label-sm text-label-sm text-muted">Asha will not need to restart stressful electronic sections.</p>
+</div>
+</div>
+</section>
+<!-- Section B: Benefits of an in-person appointment -->
+<section class="space-y-4">
+<h3 class="font-label-lg text-label-lg text-heading">
+        Benefits of an in-person appointment
+      </h3>
+<ul class="space-y-3">
+<li class="flex items-start gap-3 p-3 rounded-lg bg-soft-blue/40 border border-border">
+<div class="w-7 h-7 rounded-full bg-primary-container text-on-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[16px]">support_agent</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-heading block">Supervised guidance</span>
+<p class="font-body-md text-body-md text-body">A clinical specialist administers cognitive activities at Asha's natural pace.</p>
+</div>
+</li>
+<li class="flex items-start gap-3 p-3 rounded-lg bg-soft-blue/40 border border-border">
+<div class="w-7 h-7 rounded-full bg-primary-container text-on-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[16px]">accessibility_new</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-heading block">Sensory & physical comfort</span>
+<p class="font-body-md text-body-md text-body">Direct clinical support if reading screens, hearing prompts, or hand dexterity feel tiring.</p>
+</div>
+</li>
+<li class="flex items-start gap-3 p-3 rounded-lg bg-soft-blue/40 border border-border">
+<div class="w-7 h-7 rounded-full bg-primary-container text-on-primary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[16px]">groups</span>
+</div>
+<div>
+<span class="font-label-md text-label-md text-heading block">Caregiver conversation</span>
+<p class="font-body-md text-body-md text-body">Meera can share observations directly with the clinician in a supportive room.</p>
+</div>
+</li>
+</ul>
+</section>
+<!-- Section C: Available in-clinic centers near you -->
+<section class="space-y-4">
+<div class="flex items-center justify-between flex-wrap gap-2">
+<h3 class="font-label-lg text-label-lg text-heading">
+          Available in-clinic centers near you
+        </h3>
+<button class="font-label-sm text-label-sm text-primary hover:text-primary-hover inline-flex items-center gap-1 font-medium transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">near_me</span>
+          Noida — sample search area (Change location)
+        </button>
+</div>
+<div aria-label="Available clinic options" class="space-y-3.5" role="radiogroup">
+<!-- Clinic Option 1 (Selected) -->
+<label class="clinic-card relative block p-4 rounded-xl border-2 border-primary bg-soft-blue/30 cursor-pointer shadow-sm transition-all" id="label-clinic-1">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3 flex-1">
+<input checked="" class="mt-1 h-5 w-5 text-primary accent-primary-container cursor-pointer" name="clinic-selection" onchange="handleSelection(this)" type="radio" value="clinic-1"/>
+<div class="space-y-1">
+<div class="flex items-center gap-2 flex-wrap">
+<h4 class="font-label-lg text-label-lg text-heading">Dr. Kavya Rao, MD, DM</h4>
+<span class="px-2 py-0.5 rounded-full text-xs font-semibold bg-primary-container text-on-primary">Recommended</span>
+</div>
+<p class="font-label-sm text-label-sm text-muted">Specialty: Neurology</p>
+<div class="flex items-center gap-1 font-body-md text-body-md text-body pt-1">
+<span class="material-symbols-outlined text-[18px] text-primary">location_on</span>
+<span>Apollo Neuro Clinic, Sector 26, Noida</span>
+<span class="text-muted">(3.2 km away)</span>
+</div>
+<div class="flex items-center gap-2 pt-2 text-primary font-medium font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px]">event_available</span>
+<span>Earliest in-clinic slot: Tomorrow, 25 Oct 2026 at 4:30 PM</span>
+</div>
+</div>
+</div>
+<div class="text-right flex-shrink-0">
+<span class="font-headline-md text-headline-md text-heading block">₹1,800</span>
+<span class="font-label-sm text-label-sm text-muted max-w-[130px] block leading-tight">Includes doctor consult & assessment</span>
+</div>
+</div>
+</label>
+<!-- Clinic Option 2 -->
+<label class="clinic-card relative block p-4 rounded-xl border border-border bg-surface hover:bg-surface-container-low/40 cursor-pointer transition-all" id="label-clinic-2">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-start gap-3 flex-1">
+<input class="mt-1 h-5 w-5 text-primary accent-primary-container cursor-pointer" name="clinic-selection" onchange="handleSelection(this)" type="radio" value="clinic-2"/>
+<div class="space-y-1">
+<h4 class="font-label-lg text-label-lg text-heading">Dr. Rajeshwar Sen, MD</h4>
+<p class="font-label-sm text-label-sm text-muted">Specialty: General Medicine, Geriatrics</p>
+<div class="flex items-center gap-1 font-body-md text-body-md text-body pt-1">
+<span class="material-symbols-outlined text-[18px] text-muted">location_on</span>
+<span>Fortis Care Center, Sector 62, Noida</span>
+<span class="text-muted">(5.8 km away)</span>
+</div>
+<div class="flex items-center gap-2 pt-2 text-body font-medium font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px] text-muted">calendar_today</span>
+<span>Earliest in-clinic slot: Friday, 27 Oct 2026 at 11:00 AM</span>
+</div>
+</div>
+</div>
+<div class="text-right flex-shrink-0">
+<span class="font-headline-md text-headline-md text-heading block">₹1,500</span>
+<span class="font-label-sm text-label-sm text-muted block">Standard consultation</span>
+</div>
+</div>
+</label>
+</div>
+</section>
+<!-- Section D: Actions -->
+<div class="pt-2 flex flex-col items-center gap-4">
+<button class="w-full h-[52px] bg-primary-container hover:bg-primary-hover text-on-primary font-button text-button rounded-[10px] px-4 flex items-center justify-center gap-2 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2" id="confirm-booking-btn" onclick="confirmBooking()" type="button">
+<span>Confirm in-clinic booking</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<a class="font-label-md text-label-md text-muted hover:text-heading transition-colors py-2 flex items-center gap-1.5" data-path="continue-digital" href="#">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+<span>Continue digital assessment instead (returns to Activity 1)</span>
+</a>
+</div>
+</article>
+<!-- Need Assistance Card -->
+<section class="bg-surface rounded-xl p-space-lg border border-border shadow-sm space-y-4">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-soft-blue flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">phone_in_talk</span>
+</div>
+<div>
+<h3 class="font-label-lg text-label-lg text-heading">
+          Need help scheduling or have transport requirements?
+        </h3>
+<p class="font-body-md text-body-md text-muted">
+          Our senior care desk can arrange accessible cab pickups, wheelchair-accessible rooms, or multilingual staff.
+        </p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+<a class="h-[52px] bg-soft-blue hover:bg-surface-container-high text-primary font-button text-button rounded-[10px] px-4 flex items-center justify-center gap-2 transition-colors border border-border" href="tel:18006387689">
+<span class="material-symbols-outlined text-[20px]">call</span>
+<span>Call Care Coordinator</span>
+</a>
+<button class="h-[52px] bg-surface hover:bg-surface-container-low text-body font-button text-button rounded-[10px] px-4 flex items-center justify-center gap-2 border border-border transition-colors" onclick="requestCallback(this)" type="button">
+<span class="material-symbols-outlined text-[20px]">mark_chat_read</span>
+<span>Request clinic callback</span>
+</button>
+</div>
+</section>
+<!-- Subtle Safety Footer Note -->
+<footer class="text-center px-4 py-2 space-y-1">
+<p class="font-label-sm text-label-sm text-muted">
+      NeuroVX Prototype • Assessment preview placeholder — not an authorized medical diagnostic tool.
+    </p>
+<p class="font-label-sm text-label-sm text-error font-medium">
+      For sudden acute symptoms, please seek emergency care immediately.
+    </p>
+</footer>
+</div>
+<script>
+  function handleSelection(radio) {
+    const card1 = document.getElementById('label-clinic-1');
+    const card2 = document.getElementById('label-clinic-2');
+
+    if (radio.value === 'clinic-1') {
+      card1.className = 'clinic-card relative block p-4 rounded-xl border-2 border-primary bg-soft-blue/30 cursor-pointer shadow-sm transition-all';
+      card2.className = 'clinic-card relative block p-4 rounded-xl border border-border bg-surface hover:bg-surface-container-low/40 cursor-pointer transition-all';
+    } else {
+      card2.className = 'clinic-card relative block p-4 rounded-xl border-2 border-primary bg-soft-blue/30 cursor-pointer shadow-sm transition-all';
+      card1.className = 'clinic-card relative block p-4 rounded-xl border border-border bg-surface hover:bg-surface-container-low/40 cursor-pointer transition-all';
+    }
+  }
+
+  function confirmBooking() {
+    const btn = document.getElementById('confirm-booking-btn');
+    btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[20px]">progress_activity</span><span>Reserving appointment...</span>`;
+    btn.disabled = true;
+
+    setTimeout(() => {
+      btn.className = "w-full h-[52px] bg-primary-container text-on-primary font-button text-button rounded-[10px] px-4 flex items-center justify-center gap-2 shadow-sm";
+      btn.innerHTML = `<span class="material-symbols-outlined text-[20px]">done</span><span>In-clinic visit booked successfully</span>`;
+    }, 1000);
+  }
+
+  function requestCallback(btn) {
+    btn.innerHTML = `<span class="material-symbols-outlined text-primary text-[20px]">check</span><span>Callback requested</span>`;
+    btn.classList.add('bg-soft-blue', 'text-primary');
+    btn.disabled = true;
+  }
+</script></div></main><footer class="w-full bg-surface py-lg mt-auto shadow-[0_-1px_8px_rgba(0,0,0,0.02)]"><div class="max-w-[720px] mx-auto px-margin text-center font-label-sm text-label-sm text-muted">NeuroVX Clinical Patient Portal • Prototype • HIPAA Compliant Session / Privacy Practices</div></footer></body></html>

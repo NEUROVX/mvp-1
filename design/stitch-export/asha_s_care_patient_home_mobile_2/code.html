@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "primary-fixed": "#dce1ff", "primary": "#0037b0", "error-surface": "#FEF3F2", "surface-variant": "#dee3e8", "warning": "#92400E", "background": "#f5faff", "tertiary-fixed": "#cfe5ff", "on-background": "#171c20", "control-border": "#7184A0", "on-surface": "#171c20", "on-secondary": "#ffffff", "surface-bright": "#f5faff", "primary-hover": "#1E40AF", "secondary-fixed-dim": "#b5c7ea", "tertiary": "#2e465e", "error": "#B42318", "primary-fixed-dim": "#b7c4ff", "outline": "#747686", "surface-container-highest": "#dee3e8", "inverse-primary": "#b7c4ff", "on-primary-fixed-variant": "#0039b5", "surface-dim": "#d5dbdf", "surface-container-lowest": "#ffffff", "surface-container-high": "#e4e9ee", "accent-soft": "#EAF2FF", "on-tertiary-fixed-variant": "#314961", "on-tertiary-container": "#bed7f5", "inverse-on-surface": "#ecf1f6", "outline-variant": "#c4c5d7", "surface-tint": "#2151da", "surface-container": "#e9eef3", "on-error": "#ffffff", "border-subtle": "#D9E5F2", "secondary": "#4d5f7d", "on-tertiary-fixed": "#011d33", "inverse-surface": "#2b3135", "on-surface-variant": "#434655", "on-secondary-fixed-variant": "#364764", "secondary-fixed": "#d6e3ff", "error-container": "#ffdad6", "primary-container": "#1d4ed8", "on-secondary-fixed": "#071c36", "on-primary": "#ffffff", "surface-container-low": "#eff4f9", "on-secondary-container": "#4e607e", "on-primary-container": "#cad3ff", "secondary-container": "#c8dbfe", "tertiary-container": "#465e77", "surface": "#FFFFFF", "warning-surface": "#FFFBEB", "on-tertiary": "#ffffff", "tertiary-fixed-dim": "#b0c9e6", "on-primary-fixed": "#001551", "on-error-container": "#93000a" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-lg": "1.5rem", "space-xl": "2rem", "space-xs": "0.25rem", "gutter-mobile": "1rem", "space-md": "1rem", "margin-mobile": "1.25rem", "space-sm": "0.5rem", "gutter": "1.5rem", "margin": "2rem" }, fontFamily: { "heading-md": ["Inter"], "display": ["Inter"], "body-lg": ["Inter"], "heading-lg": ["Inter"], "display-mobile": ["Inter"], "label": ["Inter"], "data": ["Inter"], "heading-lg-mobile": ["Inter"], "heading-sm": ["Inter"], "body-md": ["Inter"], "metadata": ["Inter"] }, fontSize: { "heading-md": ["1.5rem", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }], "display": ["3.75rem", { "lineHeight": "1.08", "letterSpacing": "-0.025em", "fontWeight": "700" }], "body-lg": ["1.125rem", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }], "heading-lg": ["2.25rem", { "lineHeight": "1.2", "letterSpacing": "-0.015em", "fontWeight": "600" }], "display-mobile": ["2.5rem", { "lineHeight": "1.12", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label": ["1rem", { "lineHeight": "1.4", "letterSpacing": "0em", "fontWeight": "600" }], "data": ["1rem", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "500" }], "heading-lg-mobile": ["1.75rem", { "lineHeight": "1.25", "letterSpacing": "-0.015em", "fontWeight": "600" }], "heading-sm": ["1.25rem", { "lineHeight": "1.4", "letterSpacing": "0em", "fontWeight": "600" }], "body-md": ["1rem", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }], "metadata": ["0.875rem", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-font-smoothing:antialiased;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background font-body-md text-body-md text-on-surface min-h-screen flex flex-col antialiased selection:bg-accent-soft selection:text-primary"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="bg-accent-soft px-margin-mobile py-1 text-center flex items-center justify-center gap-space-xs"><span class="w-2 h-2 rounded-full bg-primary"></span><span class="font-metadata text-metadata text-primary font-medium tracking-wide">Clinical Prototype • Demonstration Environment</span></div><div class="h-20 px-margin-mobile flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="neurovx logo.png" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1Xa_symeowBscDvFOA8UswknxwGhWxZYdCKeyIVteiRgZ-x1XfiTuB4jea3-qT4VD6vS5c2pmvQr8CSgX-3wNc9hrPRCNu2aYtReSLFV0Fvwdoh-moX3-x59OqUOLdvAXaVXYaxRQK8TppRQuYxGUhGnrpeaAALhv0fS7DZ3fFiDhEM-x7-TTFpHxmRgx1aHU8iAwAfLG2GHVA9edv82M5z544GIAGh9CxEiEJ4O4Gt3BOTcrxGXWa8Befpq9PwMTW4QN1sROapPtY"/><div class="flex flex-col min-w-0 justify-center"><div class="flex items-center gap-space-xs"><span class="font-label text-label text-on-surface truncate">NeuroVX</span><span class="font-metadata text-metadata text-on-surface-variant">•</span><span class="font-metadata text-metadata text-primary font-medium truncate">Home</span></div><button class="min-h-[48px] -my-2 flex items-center gap-space-xs text-left group focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded-lg" title="Asha's care profile" type="button"><span class="font-metadata text-metadata text-on-surface-variant truncate">Asha's care | Signed in as <strong class="font-medium text-on-surface">Meera</strong></span><span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-container text-tertiary font-metadata text-[11px] font-semibold tracking-wider">P21</span></button></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_2px_6px_rgba(0,55,176,0.25)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-28 pb-28 px-margin-mobile bg-background"><div class="flex flex-col w-full space-y-space-md">
+<!-- Identity & Care Context Greeting -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<span class="font-metadata text-metadata text-primary uppercase font-semibold tracking-wider">Asha's care</span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent-soft text-primary font-metadata text-[11px] font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        Demo environment
+      </span>
+</div>
+<h1 class="font-heading-lg-mobile text-heading-lg-mobile text-on-surface">
+      One step at a time
+    </h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+      Your information stays together, secure, and ready whenever you need it.
+    </p>
+</div>
+<!-- Authorized Care Partner Identity Card -->
+<div class="bg-surface-container-low rounded-xl p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-9 h-9 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center flex-shrink-0 font-label text-label">
+        M
+      </div>
+<div class="flex flex-col min-w-0">
+<span class="font-metadata text-metadata text-on-surface-variant">Care partner in charge</span>
+<span class="font-label text-label text-on-surface truncate">Meera Rao</span>
+</div>
+</div>
+<button class="min-h-[48px] px-3 flex items-center gap-1 text-primary hover:text-primary-hover font-label text-label transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-lg" title="Manage permissions and people [P21]" type="button">
+<span class="material-symbols-outlined text-[20px]">manage_accounts</span>
+<span class="font-metadata text-metadata">Access</span>
+</button>
+</div>
+<!-- 1. DOMINANT NEXT-STEP CARD -->
+<section aria-labelledby="next-step-title" class="bg-surface rounded-xl shadow-md p-space-md flex flex-col gap-space-md relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-accent-soft text-primary font-label text-[13px] font-semibold">
+<span class="material-symbols-outlined text-[16px]">flag</span>
+        Your next step
+      </span>
+<span class="font-metadata text-metadata text-on-surface-variant">Step 1 of 5</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<h2 class="font-heading-sm text-heading-sm text-on-surface" id="next-step-title">
+        Start with what you've noticed
+      </h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+        Tell us what has changed. You can pause anytime and add more before the visit.
+      </p>
+</div>
+<!-- Visual Care Journey Snapshot (Micro-Visual) -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-primary text-[22px]">edit_note</span>
+</div>
+<div class="flex flex-col">
+<span class="font-metadata text-metadata text-on-surface-variant font-medium">Gentle observation check-in</span>
+<span class="font-metadata text-metadata text-tertiary">Takes about 6–8 minutes • No test pressure</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col gap-2 pt-1">
+<button aria-label="Start care check-in. Short intake & assessment. Family observations separate [P02]" class="w-full min-h-[52px] bg-primary-container text-on-primary hover:bg-primary-hover active:scale-[0.99] font-label text-label rounded-lg transition-all shadow-sm flex items-center justify-center gap-2 focus:outline-none focus:ring-3 focus:ring-primary" type="button">
+<span>Start care check-in</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+<button class="w-full min-h-[48px] bg-surface-container-low text-primary hover:bg-surface-container active:scale-[0.99] font-label text-label rounded-lg transition-all flex items-center justify-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-primary" title="Assessment is not a booking gate [P08]" type="button">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+<span>Find a clinician first</span>
+</button>
+</div>
+</section>
+<!-- 2. RESTRAINED MOBILE CARELINE COMPONENT -->
+<section aria-label="Care journey roadmap" class="bg-surface rounded-xl p-space-md flex flex-col gap-space-sm shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-metadata text-metadata text-on-surface-variant">Care timeline</span>
+<span class="font-label text-label text-on-surface">Current stage: Prepare (Stage 1 of 5)</span>
+</div>
+<button aria-controls="carelineExpandable" aria-expanded="false" class="min-h-[48px] px-2.5 flex items-center gap-1 text-primary hover:text-primary-hover font-label text-label transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-lg" id="toggleCarelineBtn" type="button">
+<span class="font-metadata text-metadata font-semibold" id="carelineBtnText">View journey</span>
+<span class="material-symbols-outlined text-[20px] transition-transform duration-200" id="carelineIcon">expand_more</span>
+</button>
+</div>
+<!-- Progress indicator bar -->
+<div class="w-full bg-surface-container-high rounded-full h-2 overflow-hidden flex">
+<div class="bg-primary h-full w-1/5 rounded-full"></div>
+</div>
+<!-- Collapsible detailed stage roadmap -->
+<div class="hidden flex-col gap-3 pt-space-xs mt-2 border-t-0" id="carelineExpandable">
+<!-- Stage 1: Active -->
+<div class="flex items-start gap-3 relative">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-metadata text-[12px] font-bold flex-shrink-0 z-10">
+          1
+        </div>
+<div class="flex flex-col min-w-0 flex-1 pt-0.5">
+<span class="font-label text-label text-primary font-semibold">Prepare (Now)</span>
+<span class="font-metadata text-metadata text-on-surface-variant">Record changes, gather records, and list priorities.</span>
+</div>
+</div>
+<!-- Stage 2: Upcoming -->
+<div class="flex items-start gap-3 relative">
+<div class="w-7 h-7 rounded-full bg-surface-container text-tertiary flex items-center justify-center font-metadata text-[12px] font-semibold flex-shrink-0">
+          2
+        </div>
+<div class="flex flex-col min-w-0 flex-1 pt-0.5">
+<span class="font-label text-label text-on-surface font-medium">Clinical Visit</span>
+<span class="font-metadata text-metadata text-on-surface-variant">Comprehensive cognitive & physical evaluation with your neurologist.</span>
+</div>
+</div>
+<!-- Stage 3: Upcoming -->
+<div class="flex items-start gap-3 relative">
+<div class="w-7 h-7 rounded-full bg-surface-container text-tertiary flex items-center justify-center font-metadata text-[12px] font-semibold flex-shrink-0">
+          3
+        </div>
+<div class="flex flex-col min-w-0 flex-1 pt-0.5">
+<span class="font-label text-label text-on-surface font-medium">Tests & Labs (if needed)</span>
+<span class="font-metadata text-metadata text-on-surface-variant">Brain MRI, metabolic panels, or neuropsychological review.</span>
+</div>
+</div>
+<!-- Stage 4: Upcoming -->
+<div class="flex items-start gap-3 relative">
+<div class="w-7 h-7 rounded-full bg-surface-container text-tertiary flex items-center justify-center font-metadata text-[12px] font-semibold flex-shrink-0">
+          4
+        </div>
+<div class="flex flex-col min-w-0 flex-1 pt-0.5">
+<span class="font-label text-label text-on-surface font-medium">Diagnostic Review</span>
+<span class="font-metadata text-metadata text-on-surface-variant">Clear synthesis of findings, discussed at your family's pace.</span>
+</div>
+</div>
+<!-- Stage 5: Upcoming -->
+<div class="flex items-start gap-3 relative">
+<div class="w-7 h-7 rounded-full bg-surface-container text-tertiary flex items-center justify-center font-metadata text-[12px] font-semibold flex-shrink-0">
+          5
+        </div>
+<div class="flex flex-col min-w-0 flex-1 pt-0.5">
+<span class="font-label text-label text-on-surface font-medium">Ongoing Support & Care</span>
+<span class="font-metadata text-metadata text-on-surface-variant">Personalized routines, clinician messaging, and caregiver resources.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. "BEFORE YOUR VISIT" LIST (Optional tasks) -->
+<section aria-labelledby="before-visit-heading" class="bg-surface rounded-xl p-space-md flex flex-col gap-space-sm shadow-sm">
+<div class="flex items-center justify-between">
+<h2 class="font-heading-sm text-heading-sm text-on-surface" id="before-visit-heading">
+        Before your visit
+      </h2>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-metadata text-[12px]">Optional</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+      Gathering items ahead of time helps your care team see the full picture.
+    </p>
+<div class="flex flex-col gap-2 mt-1">
+<!-- Tap Row A: Upload Previous Reports -->
+<button class="w-full min-h-[52px] p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors flex items-center justify-between text-left group focus:outline-none focus:ring-2 focus:ring-primary" title="Records upload [P14]" type="button">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-accent-soft text-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">upload_file</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label text-label text-on-surface font-medium truncate">Add previous reports</span>
+<span class="font-metadata text-metadata text-on-surface-variant truncate">Prior scans, bloodwork, or outside notes</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors flex-shrink-0 ml-2">chevron_right</span>
+</button>
+<!-- Tap Row B: Add Questions -->
+<button class="w-full min-h-[52px] p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors flex items-center justify-between text-left group focus:outline-none focus:ring-2 focus:ring-primary" title="Visit preparation [P16]" type="button">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-accent-soft text-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label text-label text-on-surface font-medium truncate">Add questions for your clinician</span>
+<span class="font-metadata text-metadata text-on-surface-variant truncate">Things you and Asha want to remember to ask</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors flex-shrink-0 ml-2">chevron_right</span>
+</button>
+</div>
+</section>
+<!-- 4. SECONDARY LEARNING & EDUCATION CARD -->
+<section aria-labelledby="learning-heading" class="bg-surface rounded-xl p-space-md flex flex-col gap-space-md shadow-sm">
+<div class="flex flex-col gap-1">
+<span class="font-metadata text-metadata text-primary uppercase font-semibold tracking-wide">Resources</span>
+<h2 class="font-heading-sm text-heading-sm text-on-surface" id="learning-heading">
+        Understand your next step
+      </h2>
+</div>
+<!-- Article Teaser Card -->
+<a class="group block rounded-lg bg-surface-container-low p-space-sm hover:bg-surface-container transition-colors focus:outline-none focus:ring-2 focus:ring-primary" href="#" title="Read guide: What happens at a memory appointment?">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-lg bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[26px]">medical_information</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-label text-label text-on-surface group-hover:text-primary transition-colors line-clamp-1">
+            What happens at a memory appointment?
+          </span>
+<span class="font-metadata text-metadata text-on-surface-variant">3 min read • Plain-language overview</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors flex-shrink-0">open_in_new</span>
+</div>
+</a>
+<!-- Contained Educational Assistant Box: Ask NeuroLearn -->
+<div class="rounded-xl bg-accent-soft p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+</div>
+<span class="font-heading-sm text-[16px] text-on-surface font-semibold">Ask NeuroLearn</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+        Educational guide, not a diagnosing chatbot. Learn medical terms, how to support daily routines, and what clinical steps mean.
+      </p>
+<button class="w-full min-h-[48px] mt-1 bg-surface text-primary hover:bg-surface-bright active:scale-[0.99] font-label text-label rounded-lg transition-all shadow-sm flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary" title="Open NeuroLearn educational assistant [P20]" type="button">
+<span class="material-symbols-outlined text-[20px]">forum</span>
+<span>Open NeuroLearn</span>
+</button>
+</div>
+</section>
+<!-- 5. FOOTER UTILITY & REGULATORY NOTICE -->
+<footer class="flex flex-col items-center justify-center gap-space-sm pt-space-sm pb-space-lg text-center">
+<a class="min-h-[48px] px-4 inline-flex items-center justify-center gap-1.5 text-primary hover:text-primary-hover font-label text-label focus:outline-none focus:ring-2 focus:ring-primary rounded-lg transition-colors" href="#" title="NeuroVX Support & Helpdesk">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span>Need help using NeuroVX?</span>
+</a>
+<!-- Demo Notice Pill -->
+<div class="bg-surface-container rounded-lg px-space-md py-2 text-center max-w-[340px]">
+<p class="font-metadata text-[11px] text-on-surface-variant leading-relaxed">
+        Product preview — not for clinical use | Demo data for Asha Rao (P03)
+      </p>
+</div>
+</footer>
+</div>
+<script>
+  // Simple careline accordion disclosure
+  const toggleBtn = document.getElementById('toggleCarelineBtn');
+  const carelineContent = document.getElementById('carelineExpandable');
+  const carelineIcon = document.getElementById('carelineIcon');
+  const carelineBtnText = document.getElementById('carelineBtnText');
+
+  if (toggleBtn && carelineContent) {
+    toggleBtn.addEventListener('click', () => {
+      const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+      toggleBtn.setAttribute('aria-expanded', !isExpanded);
+      carelineContent.classList.toggle('hidden');
+      carelineContent.classList.toggle('flex');
+      
+      if (!isExpanded) {
+        carelineIcon.style.transform = 'rotate(180deg)';
+        carelineBtnText.textContent = 'Hide journey';
+      } else {
+        carelineIcon.style.transform = 'rotate(0deg)';
+        carelineBtnText.textContent = 'View journey';
+      }
+    });
+  }
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(11,31,58,0.04)]" data-active-classes="text-primary font-semibold"><div class="grid grid-cols-5 h-20 items-center px-space-xs"><a aria-current="page" class="min-h-[48px] min-w-[48px] flex flex-col items-center justify-center gap-1 transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-lg text-primary font-semibold" data-path="home" href="#"><span class="material-symbols-outlined text-[24px]">home</span><span class="font-metadata text-[12px] leading-tight">Home</span></a><a class="min-h-[48px] min-w-[48px] flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-lg" data-path="my-care" href="#"><span class="material-symbols-outlined text-[24px]">favorite</span><span class="font-metadata text-[12px] leading-tight">My care</span></a><a class="min-h-[48px] min-w-[48px] flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-lg" data-path="records" href="#"><span class="material-symbols-outlined text-[24px]">folder_shared</span><span class="font-metadata text-[12px] leading-tight">Records</span></a><a class="min-h-[48px] min-w-[48px] flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-lg" data-path="learn" href="#"><span class="material-symbols-outlined text-[24px]">menu_book</span><span class="font-metadata text-[12px] leading-tight">Learn</span></a><a class="min-h-[48px] min-w-[48px] flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-lg" data-path="support" href="#"><span class="material-symbols-outlined text-[24px]">support_agent</span><span class="font-metadata text-[12px] leading-tight">Support</span></a></div></nav></body></html>

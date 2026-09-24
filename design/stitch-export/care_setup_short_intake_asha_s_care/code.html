@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-primary-fixed-variant":"#0039b5","surface-container-low":"#eff4f9","primary-hover":"#1E40AF","border-subtle":"#D9E5F2","control-border":"#7184A0","secondary-container":"#c8dbfe","on-error-container":"#93000a","primary-fixed-dim":"#b7c4ff","surface":"#FFFFFF","surface-container-highest":"#dee3e8","on-tertiary":"#ffffff","surface-bright":"#f5faff","inverse-surface":"#2b3135","inverse-on-surface":"#ecf1f6","secondary-fixed":"#d6e3ff","on-tertiary-fixed-variant":"#314961","outline-variant":"#c4c5d7","outline":"#747686","error-surface":"#FEF3F2","on-secondary-fixed-variant":"#364764","on-secondary-fixed":"#071c36","primary-container":"#1d4ed8","primary-fixed":"#dce1ff","surface-container-lowest":"#ffffff","surface-dim":"#d5dbdf","secondary-fixed-dim":"#b5c7ea","on-background":"#171c20","on-secondary":"#ffffff","tertiary":"#2e465e","tertiary-container":"#465e77","inverse-primary":"#b7c4ff","error-container":"#ffdad6","on-primary":"#ffffff","primary":"#0037b0","on-surface-variant":"#434655","on-tertiary-container":"#bed7f5","background":"#f5faff","on-primary-fixed":"#001551","surface-container":"#e9eef3","warning-surface":"#FFFBEB","error":"#B42318","on-surface":"#171c20","warning":"#92400E","surface-tint":"#2151da","surface-variant":"#dee3e8","on-error":"#ffffff","secondary":"#4d5f7d","on-tertiary-fixed":"#011d33","surface-container-high":"#e4e9ee","on-secondary-container":"#4e607e","accent-soft":"#EAF2FF","on-primary-container":"#cad3ff","tertiary-fixed-dim":"#b0c9e6","tertiary-fixed":"#cfe5ff"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-lg":"1.5rem","space-sm":"0.5rem","gutter-mobile":"1rem","margin-mobile":"1.25rem",gutter:"1.5rem","space-xl":"2rem","space-xs":"0.25rem","space-md":"1rem",margin:"2rem"},fontFamily:{label:["Inter"],"heading-sm":["Inter"],"heading-lg-mobile":["Inter"],"display-mobile":["Inter"],display:["Inter"],metadata:["Inter"],"body-lg":["Inter"],"heading-lg":["Inter"],"body-md":["Inter"],data:["Inter"],"heading-md":["Inter"]},fontSize:{label:["1rem",{lineHeight:"1.4",letterSpacing:"0em",fontWeight:"600"}],"heading-sm":["1.25rem",{lineHeight:"1.4",letterSpacing:"0em",fontWeight:"600"}],"heading-lg-mobile":["1.75rem",{lineHeight:"1.25",letterSpacing:"-0.015em",fontWeight:"600"}],"display-mobile":["2.5rem",{lineHeight:"1.12",letterSpacing:"-0.02em",fontWeight:"700"}],display:["3.75rem",{lineHeight:"1.08",letterSpacing:"-0.025em",fontWeight:"700"}],metadata:["0.875rem",{lineHeight:"1.5",letterSpacing:"0em",fontWeight:"400"}],"body-lg":["1.125rem",{lineHeight:"1.6",letterSpacing:"0em",fontWeight:"400"}],"heading-lg":["2.25rem",{lineHeight:"1.2",letterSpacing:"-0.015em",fontWeight:"600"}],"body-md":["1rem",{lineHeight:"1.6",letterSpacing:"0em",fontWeight:"400"}],data:["1rem",{lineHeight:"1.5",letterSpacing:"0em",fontWeight:"500"}],"heading-md":["1.5rem",{lineHeight:"1.3",letterSpacing:"-0.01em",fontWeight:"600"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface antialiased min-h-screen"><aside class="fixed left-0 top-0 h-screen w-60 bg-surface z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center gap-space-xs"><img alt="neurovx logo.png" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1WWMzaiJe6-vTw7NwolFlW5OwAl7vf0dSleTrDpKglQVj8DzDP4Ckmpy7G3kDA-kWZut4Wg2Ill3jwRA_AGKqiycXS60NzLr5BBGvDHDLDc92J-5fpMWhE818X1emiaMYz__4satHID5hEsKlqd7J0hYSaluHr2Sx1XceG2PtLGgRe3dT4BcNZ7llQk7f3qf5y8_jBt18727t9lBunbZtd38r2jwKyfEsFlNGAP1fozdx2pZCdaoX8UX4DaDF-WDYLAq449_9iGNcI"/><span class="font-heading-sm text-heading-sm text-primary tracking-tight">NeuroVX</span></div><div class="px-space-md py-space-sm"><div class="bg-accent-soft rounded-lg p-space-sm"><div class="font-label text-metadata text-primary font-semibold">Patient Care Hub</div><div class="font-metadata text-metadata text-secondary truncate">Asha Sharma</div></div></div><nav class="flex flex-col gap-space-xs px-space-md mt-space-sm" data-active-classes="bg-primary-container text-on-primary font-semibold rounded-lg"><a class="flex items-center gap-space-sm px-space-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="home" href="#"><span class="material-symbols-outlined text-xl">home</span><span class="font-label text-body-md">Home</span></a><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-3 transition-colors bg-primary-container text-on-primary font-semibold rounded-lg" data-path="my-care" href="#"><span class="material-symbols-outlined text-xl">volunteer_activism</span><span class="font-label text-body-md">My care</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="records" href="#"><span class="material-symbols-outlined text-xl">folder_shared</span><span class="font-label text-body-md">Records</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="learn" href="#"><span class="material-symbols-outlined text-xl">menu_book</span><span class="font-label text-body-md">Learn</span></a><a class="flex items-center gap-space-sm px-space-md py-3 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="support" href="#"><span class="material-symbols-outlined text-xl">support_agent</span><span class="font-label text-body-md">Support</span></a></nav></div><div class="p-space-md"><div class="bg-surface-container-low rounded-xl p-space-sm flex items-center gap-space-sm"><span class="material-symbols-outlined text-secondary text-2xl">verified_user</span><div><div class="font-label text-metadata text-on-surface">HIPAA Compliant</div><div class="font-metadata text-metadata text-secondary">Secure Care Portal</div></div></div></div></aside><div class="pl-60 flex flex-col min-h-screen"><header class="fixed top-0 left-60 right-0 h-16 z-40 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 w-full px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs font-data text-body-md text-on-surface"><span class="font-semibold text-primary">Asha's care</span><span class="text-outline-variant">•</span><span class="text-secondary font-metadata text-metadata">Signed in as Meera — care partner (P21)</span></div><div class="hidden xl:flex items-center gap-space-xs bg-warning-surface text-warning px-space-sm py-1 rounded-full text-metadata font-label"><span class="material-symbols-outlined text-base">sync</span><span>Demo data • P02 Intake in progress</span></div></div><div class="flex items-center gap-space-md"><button aria-label="Notifications" class="relative p-space-xs rounded-full text-secondary hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-2xl">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-primary"></span></button><div class="flex items-center gap-space-sm pl-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="hidden md:flex flex-col text-left"><span class="font-label text-metadata text-on-surface leading-tight">Meera Patel</span><span class="font-metadata text-metadata text-secondary leading-tight">Caregiver</span></div></div></div></div></header><main class="w-full pt-16"><div class="max-w-[1200px] mx-auto px-space-lg py-space-xl"><div class="flex flex-col w-full">
+<!-- Top Progress & Provenance Hero Strip -->
+<div class="w-full mb-space-xl">
+<div class="flex flex-wrap items-center justify-between gap-space-sm mb-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-soft text-primary font-label text-metadata">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">shield_person</span>
+          Intake Setup • Stage 2 of 4
+        </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-warning-surface text-warning font-label text-metadata">
+<span class="material-symbols-outlined text-sm">science</span>
+          Demo data • Fictional care episode for Asha Rao (P03/P02)
+        </span>
+</div>
+<div class="flex items-center gap-space-xs text-secondary font-metadata text-metadata" id="autosave-indicator">
+<span class="material-symbols-outlined text-base text-primary">cloud_done</span>
+<span>Draft saved automatically 2m ago</span>
+</div>
+</div>
+<!-- Header Titles & Emotional Grounding -->
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md pb-space-lg">
+<div class="max-w-2xl">
+<span class="font-label text-metadata text-secondary uppercase tracking-wider block mb-1">Collaborative Care Setup</span>
+<h1 class="font-heading-lg text-heading-lg text-on-surface tracking-tight">Understanding Asha's experience</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-space-xs leading-relaxed">
+          Completed together by <strong class="text-on-surface font-semibold">Asha Rao</strong> (Patient, 68) and <strong class="text-on-surface font-semibold">Meera Rao</strong> (Daughter & Care Partner). Take your time—answers can be updated anytime before the visit.
+        </p>
+</div>
+<!-- Linear Careline Progress Anchor -->
+<div class="flex items-center gap-3 bg-surface rounded-xl p-space-md shadow-sm">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary font-label text-metadata flex items-center justify-center">1</div>
+<span class="font-label text-metadata text-on-surface">Basics</span>
+</div>
+<div class="w-8 h-0.5 bg-primary"></div>
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-primary-container text-on-primary font-label text-metadata flex items-center justify-center ring-4 ring-accent-soft">2</div>
+<span class="font-label text-metadata text-primary">Concerns</span>
+</div>
+<div class="w-8 h-0.5 bg-surface-container-highest"></div>
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-surface-container-high text-secondary font-label text-metadata flex items-center justify-center">3</div>
+<span class="font-label text-metadata text-secondary">Readiness</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Split Layout (680px Max Reading Column + 380px Provenance & Guidance Panel) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- Left Column: Form Questionnaire (max reading width 680px) -->
+<div class="lg:col-span-8 flex flex-col gap-space-xl max-w-[680px]">
+<!-- Section 1: Care Context -->
+<section class="bg-surface rounded-xl p-space-lg md:p-space-xl shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1.5 bg-primary"></div>
+<div class="flex items-center gap-space-sm mb-space-sm">
+<span class="w-8 h-8 rounded-full bg-accent-soft text-primary font-label text-metadata flex items-center justify-center">01</span>
+<span class="font-label text-metadata text-secondary uppercase tracking-wider">Episode Context</span>
+</div>
+<h2 class="font-heading-md text-heading-md text-on-surface mb-2">What brings you both here today?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-lg">
+          Selecting your primary purpose helps us prepare relevant materials and configure the clinician consultation focus.
+        </p>
+<div aria-label="Care Context Reason" class="flex flex-col gap-space-sm" role="radiogroup">
+<!-- Option A (Selected) -->
+<label class="flex items-start gap-space-md p-space-md rounded-xl bg-accent-soft/60 cursor-pointer transition-all hover:bg-accent-soft group">
+<input checked="" class="mt-1 w-5 h-5 text-primary accent-primary cursor-pointer" name="care_purpose" type="radio" value="new_concerns"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label text-body-md text-primary font-semibold group-hover:text-primary-hover">Noticing new changes or concerns</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-0.5">Subtle differences in memory, language flow, or day-to-day routines that you’d like evaluated.</span>
+</div>
+</label>
+<!-- Option B -->
+<label class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-low/70 cursor-pointer transition-all hover:bg-surface-container group">
+<input class="mt-1 w-5 h-5 text-primary accent-primary cursor-pointer" name="care_purpose" type="radio" value="second_opinion"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label text-body-md text-on-surface font-semibold group-hover:text-primary">Continuing care or second opinion</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-0.5">Reviewing previous laboratory or imaging findings from another physician.</span>
+</div>
+</label>
+<!-- Option C -->
+<label class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-low/70 cursor-pointer transition-all hover:bg-surface-container group">
+<input class="mt-1 w-5 h-5 text-primary accent-primary cursor-pointer" name="care_purpose" type="radio" value="prescribed_test"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label text-body-md text-on-surface font-semibold group-hover:text-primary">Arranging a prescribed assessment or blood biomarker</span>
+<span class="font-body-md text-body-md text-on-surface-variant mt-0.5">Fulfilling an order directly referred by Asha's primary internist or neurologist.</span>
+</div>
+</label>
+</div>
+</section>
+<!-- Section 2: Patient-Reported Concerns (Asha's Voice) -->
+<section class="bg-surface rounded-xl p-space-lg md:p-space-xl shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1.5 bg-primary-container"></div>
+<div class="flex items-center justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="w-8 h-8 rounded-full bg-accent-soft text-primary font-label text-metadata flex items-center justify-center">02</span>
+<span class="font-label text-metadata text-primary uppercase tracking-wider font-semibold">Patient-Reported Concerns</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-accent-soft text-primary font-label text-metadata">
+<span class="material-symbols-outlined text-xs">person</span>
+            Asha's Voice
+          </span>
+</div>
+<h2 class="font-heading-md text-heading-md text-on-surface mb-2">What has Asha felt or noticed directly?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-lg">
+          Please select any areas Asha herself describes experiencing. There are no right or wrong answers, and this is not a diagnostic test.
+        </p>
+<div aria-label="Asha's Concerns" class="space-y-space-sm" role="group">
+<!-- Checkbox 1 -->
+<label class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-low hover:bg-accent-soft/40 cursor-pointer transition-colors">
+<input checked="" class="mt-1 w-5 h-5 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label text-body-md text-on-surface font-semibold">Remembering recent events or appointments</span>
+<span class="font-metadata text-metadata text-secondary mt-0.5">Recalling what happened earlier this week or remembering planned social dates.</span>
+</div>
+</label>
+<!-- Checkbox 2 -->
+<label class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-low hover:bg-accent-soft/40 cursor-pointer transition-colors">
+<input checked="" class="mt-1 w-5 h-5 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label text-body-md text-on-surface font-semibold">Finding familiar words during conversations</span>
+<span class="font-metadata text-metadata text-secondary mt-0.5">Knowing what she wants to express, but the specific name or term takes longer to arrive.</span>
+</div>
+</label>
+<!-- Checkbox 3 -->
+<label class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-low hover:bg-accent-soft/40 cursor-pointer transition-colors">
+<input class="mt-1 w-5 h-5 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label text-body-md text-on-surface font-semibold">Keeping track of dates, multi-step bills, or recipes</span>
+<span class="font-metadata text-metadata text-secondary mt-0.5">Feeling more fatigued when balancing checkbooks or organizing complex family kitchen routines.</span>
+</div>
+</label>
+<!-- Checkbox 4 -->
+<label class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-low hover:bg-accent-soft/40 cursor-pointer transition-colors">
+<input class="mt-1 w-5 h-5 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label text-body-md text-on-surface font-semibold">Navigating familiar routes while driving or walking</span>
+<span class="font-metadata text-metadata text-secondary mt-0.5">Feeling momentarily uncertain at familiar neighborhood intersections.</span>
+</div>
+</label>
+</div>
+<!-- Asha's direct narrative quote box -->
+<div class="mt-space-md pt-space-md">
+<label class="block font-label text-metadata text-on-surface mb-2" for="patient_notes">
+            In Asha's own words (Optional):
+          </label>
+<textarea class="w-full bg-surface-container-low rounded-xl p-space-md text-on-surface font-body-md placeholder:text-secondary focus:outline-none focus:bg-surface focus:shadow-[0_0_0_2px_#1d4ed8] transition-all" id="patient_notes" placeholder=""Sometimes when speaking quickly with the grandkids, the right name slips away. It bothers me more in the evenings when I'm tired."" rows="3"></textarea>
+</div>
+</section>
+<!-- Section 3: Care Partner Observations (Meera's Provenance Record) -->
+<section class="bg-surface rounded-xl p-space-lg md:p-space-xl shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1.5 bg-secondary"></div>
+<div class="flex items-center justify-between gap-space-sm mb-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container font-label text-metadata flex items-center justify-center">03</span>
+<span class="font-label text-metadata text-secondary uppercase tracking-wider font-semibold">Family / Care Partner Observations</span>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-secondary-container text-on-secondary-fixed font-label text-metadata">
+<span class="material-symbols-outlined text-xs">supervisor_account</span>
+            Meera's Observation
+          </span>
+</div>
+<h2 class="font-heading-md text-heading-md text-on-surface mb-2">Meera's day-to-day observations</h2>
+<div class="p-space-md rounded-xl bg-accent-soft mb-space-lg">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-xl mt-0.5">info</span>
+<p class="font-body-md text-body-md text-primary leading-relaxed">
+              Your observations as Asha's daughter are saved as a <strong>distinct clinical record</strong>. They give vital context to the neurologist without replacing or overriding Asha's own voice.
+            </p>
+</div>
+</div>
+<div class="space-y-space-md">
+<!-- Observation checklist item -->
+<div class="space-y-space-sm">
+<span class="font-label text-metadata text-on-surface block">Subtle patterns noticed around the house:</span>
+<label class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input checked="" class="mt-1 w-5 h-5 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label text-body-md text-on-surface font-semibold">Subtle repetition of questions or stories</span>
+<span class="font-metadata text-metadata text-secondary mt-0.5">Asking about weekend family plans 2–3 times within an hour without realizing.</span>
+</div>
+</label>
+<label class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input checked="" class="mt-1 w-5 h-5 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label text-body-md text-on-surface font-semibold">Misplacing everyday items in unusual spots</span>
+<span class="font-metadata text-metadata text-secondary mt-0.5">Reading glasses or pantry tins found in bedroom drawers or linen closet.</span>
+</div>
+</label>
+<label class="flex items-start gap-space-md p-space-md rounded-xl bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input class="mt-1 w-5 h-5 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-label text-body-md text-on-surface font-semibold">Noticeable hesitation with appliances or remotes</span>
+<span class="font-metadata text-metadata text-secondary mt-0.5">Pausing before setting the microwave timer or handling the television remote.</span>
+</div>
+</label>
+</div>
+<!-- Timeframe selector -->
+<div class="pt-space-sm">
+<label class="block font-label text-metadata text-on-surface mb-2" for="timeframe-select">
+              Timeframe when subtle changes were first noticed:
+            </label>
+<div class="relative">
+<select class="w-full bg-surface-container-low rounded-xl px-space-md py-3 text-on-surface font-body-md appearance-none focus:outline-none focus:bg-surface focus:shadow-[0_0_0_2px_#1d4ed8] transition-all cursor-pointer" id="timeframe-select">
+<option selected="" value="4-6_months">About 4–6 months ago (gradual onset)</option>
+<option value="1-3_months">Recently, within the last 1–3 months</option>
+<option value="over_a_year">Gradually over the past 12+ months</option>
+<option value="not_sure">Uncertain / Varied timing</option>
+</select>
+<span class="material-symbols-outlined absolute right-space-md top-1/2 -translate-y-1/2 pointer-events-none text-secondary">expand_more</span>
+</div>
+</div>
+<!-- Care partner direct narrative -->
+<div class="pt-space-xs">
+<label class="block font-label text-metadata text-on-surface mb-2" for="caregiver_notes">
+              Meera's additional observations for Dr. Mercer:
+            </label>
+<textarea class="w-full bg-surface-container-low rounded-xl p-space-md text-on-surface font-body-md placeholder:text-secondary focus:outline-none focus:bg-surface focus:shadow-[0_0_0_2px_#1d4ed8] transition-all" id="caregiver_notes" placeholder='"Mom is in very good spirits and active in her garden, but she has asked me to take over reviewing her monthly bank statements since November."' rows="3"></textarea>
+</div>
+</div>
+</section>
+<!-- Section 4: Clinical Timing & Red-Flag Guidance -->
+<section class="bg-surface rounded-xl p-space-lg md:p-space-xl shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 right-0 h-1.5 bg-warning"></div>
+<div class="flex items-center gap-space-sm mb-space-sm">
+<span class="w-8 h-8 rounded-full bg-warning-surface text-warning font-label text-metadata flex items-center justify-center">04</span>
+<span class="font-label text-metadata text-warning uppercase tracking-wider font-semibold">Timing Baseline & Safety</span>
+</div>
+<h2 class="font-heading-md text-heading-md text-on-surface mb-2">Onset pattern & safety baseline</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-md">
+          Cognitive changes that develop gradually over months follow a very different clinical pathway than abrupt, sudden shifts.
+        </p>
+<!-- Red Flag Alert Box (WCAG Compliant, Non-Diagnostic Emergency Notice) -->
+<div class="rounded-xl bg-error-surface p-space-md mb-space-lg">
+<div class="flex items-start gap-space-md">
+<span class="material-symbols-outlined text-error text-2xl mt-0.5" style="font-variation-settings: 'FILL' 1;">emergency</span>
+<div class="space-y-1">
+<span class="font-label text-body-md text-error block">Immediate Clinical Safety Guidance</span>
+<p class="font-body-md text-metadata text-on-surface leading-relaxed">
+                If sudden confusion, facial or arm weakness, sudden speech difficulty, or severe thunderclap headache occurs, do not wait for this consultation. <strong>Seek immediate emergency medical care (dial 911)</strong>.
+              </p>
+<span class="font-metadata text-metadata text-secondary block pt-1">
+                * This notice is standard clinical precautionary protocol and does not indicate an emergency verdict.
+              </span>
+</div>
+</div>
+</div>
+<!-- Question: Pace of Changes -->
+<div class="space-y-space-sm">
+<span class="font-label text-metadata text-on-surface block">How would you characterize the progression so far?</span>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm">
+<label class="flex flex-col p-space-md rounded-xl bg-accent-soft cursor-pointer text-center group">
+<input checked="" class="sr-only" name="progression_rate" type="radio" value="gradual"/>
+<span class="font-label text-body-md text-primary font-semibold">Very Gradual</span>
+<span class="font-metadata text-metadata text-secondary mt-1">Slow, subtle changes over many months</span>
+</label>
+<label class="flex flex-col p-space-md rounded-xl bg-surface-container-low cursor-pointer text-center group hover:bg-surface-container">
+<input class="sr-only" name="progression_rate" type="radio" value="plateau"/>
+<span class="font-label text-body-md text-on-surface font-semibold">Stable / Plateau</span>
+<span class="font-metadata text-metadata text-secondary mt-1">Same level for a long time</span>
+</label>
+<label class="flex flex-col p-space-md rounded-xl bg-surface-container-low cursor-pointer text-center group hover:bg-surface-container">
+<input class="sr-only" name="progression_rate" type="radio" value="unsure"/>
+<span class="font-label text-body-md text-on-surface font-semibold">Fluctuating</span>
+<span class="font-metadata text-metadata text-secondary mt-1">Good days and tiring days</span>
+</label>
+</div>
+</div>
+</section>
+<!-- Section 5: Visit Readiness & Communication Preferences -->
+<section class="bg-surface rounded-xl p-space-lg md:p-space-xl shadow-sm relative overflow-hidden mb-space-xl">
+<div class="absolute top-0 left-0 right-0 h-1.5 bg-tertiary"></div>
+<div class="flex items-center gap-space-sm mb-space-sm">
+<span class="w-8 h-8 rounded-full bg-surface-container-high text-tertiary font-label text-metadata flex items-center justify-center">05</span>
+<span class="font-label text-metadata text-secondary uppercase tracking-wider font-semibold">Patient Context & Visit Readiness</span>
+</div>
+<h2 class="font-heading-md text-heading-md text-on-surface mb-2">Ensuring a comfortable consultation</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-space-lg">
+          These details ensure testing formats, interpreter services, and conversational pacing are tailored precisely for Asha.
+        </p>
+<div class="space-y-space-lg">
+<!-- Primary Language -->
+<div>
+<label class="block font-label text-metadata text-on-surface mb-2">
+              Primary spoken language at home:
+            </label>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm">
+<label class="flex items-center justify-center p-3 rounded-xl bg-accent-soft text-primary font-label text-body-md cursor-pointer">
+<input checked="" class="sr-only" name="language" type="radio" value="english"/>
+<span>English</span>
+</label>
+<label class="flex items-center justify-center p-3 rounded-xl bg-surface-container-low text-on-surface font-label text-body-md cursor-pointer hover:bg-surface-container">
+<input class="sr-only" name="language" type="radio" value="hindi"/>
+<span>Hindi</span>
+</label>
+<label class="flex items-center justify-center p-3 rounded-xl bg-surface-container-low text-on-surface font-label text-body-md cursor-pointer hover:bg-surface-container">
+<input class="sr-only" name="language" type="radio" value="kannada"/>
+<span>Kannada</span>
+</label>
+<label class="flex items-center justify-center p-3 rounded-xl bg-surface-container-low text-on-surface font-label text-body-md cursor-pointer hover:bg-surface-container">
+<input class="sr-only" name="language" type="radio" value="other"/>
+<span>Other / Both</span>
+</label>
+</div>
+</div>
+<!-- Vision & Hearing Aids -->
+<div>
+<span class="block font-label text-metadata text-on-surface mb-2">Sensory support & adaptive aids:</span>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<label class="flex items-center gap-space-sm p-space-md rounded-xl bg-accent-soft/50 cursor-pointer">
+<input checked="" class="w-5 h-5 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-xl">eyeglasses</span>
+<span class="font-body-md text-on-surface">Uses reading glasses</span>
+</div>
+</label>
+<label class="flex items-center gap-space-sm p-space-md rounded-xl bg-surface-container-low cursor-pointer hover:bg-surface-container">
+<input class="w-5 h-5 rounded text-primary accent-primary cursor-pointer" type="checkbox"/>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-xl">hearing</span>
+<span class="font-body-md text-on-surface">Hearing aid (left/right)</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Flexible deferral link -->
+<div class="flex items-center justify-between pt-space-xs text-secondary font-metadata text-metadata">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-base">info</span>
+              Unsure about educational background or detailed history?
+            </span>
+<button class="text-primary hover:underline font-semibold" type="button">Add later before appointment</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Helper Panel & Provenance Transparency (380px) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg sticky top-20">
+<!-- Transparency Card: Why We Separate Observations -->
+<div class="bg-surface rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center gap-space-xs text-primary mb-space-sm">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">psychology_alt</span>
+<span class="font-label text-metadata uppercase tracking-wider font-semibold">Clinical Transparency</span>
+</div>
+<h3 class="font-heading-sm text-heading-sm text-on-surface mb-space-sm">Why we separate your observations</h3>
+<p class="font-body-md text-metadata text-on-surface-variant leading-relaxed mb-space-md">
+          Neurologists value hearing both the patient's personal perspective and the lived observations of someone close to them.
+        </p>
+<div class="space-y-space-sm bg-surface-container-low rounded-xl p-space-md">
+<div class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-lg mt-0.5">check_circle</span>
+<div class="font-metadata text-metadata text-on-surface">
+<strong>Autonomy preserved:</strong> Asha's self-reported feelings are never overwritten or diminished.
+            </div>
+</div>
+<div class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-lg mt-0.5">check_circle</span>
+<div class="font-metadata text-metadata text-on-surface">
+<strong>Holistic picture:</strong> Meera's timeline clarifies gradual daily patterns Asha might not even notice.
+            </div>
+</div>
+<div class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-primary text-lg mt-0.5">check_circle</span>
+<div class="font-metadata text-metadata text-on-surface">
+<strong>Zero diagnostic scoring:</strong> No automated cognitive score or label is generated here.
+            </div>
+</div>
+</div>
+</div>
+<!-- Verified Care Team Card -->
+<div class="bg-surface rounded-xl p-space-lg shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<span class="font-label text-metadata text-secondary uppercase tracking-wider">Reviewing Clinician</span>
+<span class="inline-flex items-center gap-1 text-primary font-metadata text-metadata bg-accent-soft px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-xs">verified</span>
+            Board Certified
+          </span>
+</div>
+<div class="flex items-center gap-space-md">
+<img class="w-14 h-14 rounded-full object-cover shadow-sm" data-alt="A dignified and warm middle-aged female neurologist wearing clinical attire in an office with natural warm morning light, representing empathetic memory care with deep blues and neutral tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM_yvMaDKFpzao3-kr9L0H-3lzg-KdobSzD0BY4gu2vbQ8anABj4GkoynT2qdXjifKxfa6IvQjOzINX4zkVMYQIzhDkObjYkwl6VRncpDkpGoCeOIAoiVf0F3GJ0HkfV5CvXOgd4H1ulvXBtuFIxI9VZ41H8hhuOCID_IuICFOPjVLFEZ7ANzqvIAIWwmHRBQMdJaRDQLCbWszBo0ryUbchUHngJT8dwLUmvUKD6lORJLfYBa46oDLuw"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label text-body-md text-on-surface font-semibold truncate">Dr. Sarah Mercer, MD</span>
+<span class="font-metadata text-metadata text-secondary truncate">Cognitive Neurology Specialist</span>
+<span class="font-metadata text-metadata text-primary mt-0.5">NeuroVX Care Network</span>
+</div>
+</div>
+<div class="mt-space-md pt-space-md text-secondary font-metadata text-metadata">
+          “These preparatory questions give us 30 minutes of clinical depth before we even step into the consultation room.”
+        </div>
+</div>
+<!-- Quick Need-Help Assistance -->
+<div class="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-xl">contact_support</span>
+<span class="font-metadata text-metadata text-on-surface">Need help filling this together?</span>
+</div>
+<button class="font-label text-metadata text-primary hover:underline" type="button">Care Navigator</button>
+</div>
+</div>
+</div>
+<!-- Bottom Floating Action Bar (Sticky, WCAG 2.2 Compliant, No Booking Gate) -->
+<div class="sticky bottom-4 z-40 w-full mt-space-xl">
+<div class="max-w-[1200px] mx-auto bg-surface/95 backdrop-blur-md rounded-2xl shadow-xl p-space-md md:px-space-lg md:py-space-md flex flex-col md:flex-row items-center justify-between gap-space-md">
+<!-- Left side status & reassurance -->
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-accent-soft flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-2xl">task_alt</span>
+</div>
+<div class="flex flex-col text-left">
+<span class="font-label text-body-md text-on-surface font-semibold">Intake Section 2 Complete</span>
+<span class="font-metadata text-metadata text-secondary">Asha & Meera's responses will be merged into the visit chart</span>
+</div>
+</div>
+<!-- Right side controls: Primary, Secondary, and Quiet Skip -->
+<div class="flex flex-wrap items-center justify-end gap-space-sm w-full md:w-auto">
+<!-- Quiet Alternative (Not a Booking Gate) -->
+<a class="px-space-md py-3 text-secondary hover:text-on-surface font-label text-metadata transition-colors text-center" href="#find-clinician" title="Skip directly to clinician directory">
+          Skip directly to find a clinician →
+        </a>
+<!-- Secondary CTA: Save Draft -->
+<button class="min-h-[48px] px-space-lg rounded-xl bg-surface-container hover:bg-surface-container-highest text-on-surface font-label text-metadata transition-all" id="btn-save-draft" type="button">
+          Save draft & return later
+        </button>
+<!-- Primary CTA: 52px Cobalt Blue #1D4ED8 -->
+<button class="min-h-[52px] px-space-xl rounded-xl bg-[#1D4ED8] hover:bg-primary-hover text-on-primary font-label text-body-md transition-all shadow-md flex items-center justify-center gap-2" id="btn-save-continue" type="button">
+<span>Save & continue to visit preparation</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Inline Vanilla Interactive Handlers for Instant Feedback -->
+<script>
+    (function() {
+      const btnSaveDraft = document.getElementById('btn-save-draft');
+      const btnSaveContinue = document.getElementById('btn-save-continue');
+      const autoSaveIndicator = document.getElementById('autosave-indicator');
+
+      if (btnSaveDraft && autoSaveIndicator) {
+        btnSaveDraft.addEventListener('click', function() {
+          const originalText = btnSaveDraft.textContent;
+          btnSaveDraft.textContent = 'Saving...';
+          btnSaveDraft.disabled = true;
+
+          setTimeout(() => {
+            btnSaveDraft.textContent = 'Saved just now!';
+            autoSaveIndicator.innerHTML = '<span class="material-symbols-outlined text-base text-primary">cloud_done</span><span>Saved just now</span>';
+            setTimeout(() => {
+              btnSaveDraft.textContent = originalText;
+              btnSaveDraft.disabled = false;
+            }, 2500);
+          }, 600);
+        });
+      }
+
+      if (btnSaveContinue) {
+        btnSaveContinue.addEventListener('click', function() {
+          // Route simulated to P07 Visit Preparation Summary
+          btnSaveContinue.innerHTML = '<span class="material-symbols-outlined animate-spin text-lg">sync</span><span>Preparing visit chart...</span>';
+          setTimeout(() => {
+            window.location.hash = '#visit-preparation-p07';
+            btnSaveContinue.innerHTML = '<span>Proceeding to Step 3</span><span class="material-symbols-outlined text-lg">arrow_forward</span>';
+          }, 800);
+        });
+      }
+    })();
+  </script>
+</div></div></main></div></body></html>

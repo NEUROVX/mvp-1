@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "error-surface": "#FEF3F2",
+          "on-tertiary": "#ffffff",
+          "surface-container-low": "#eff4ff",
+          "on-error": "#ffffff",
+          "on-secondary": "#ffffff",
+          "surface-container-highest": "#d5e3fd",
+          "inverse-on-surface": "#ebf1ff",
+          "inverse-primary": "#b7c4ff",
+          "error": "#B42318",
+          "on-error-container": "#93000a",
+          "outline": "#747686",
+          "primary-fixed": "#dce1ff",
+          "secondary-fixed": "#dde3ee",
+          "surface-variant": "#d5e3fd",
+          "surface-container": "#e6eeff",
+          "surface": "#FFFFFF",
+          "on-primary-fixed-variant": "#0039b5",
+          "on-secondary-container": "#5e656e",
+          "on-primary": "#FFFFFF",
+          "tertiary-fixed": "#ffdbcf",
+          "surface-container-lowest": "#ffffff",
+          "primary-fixed-dim": "#b7c4ff",
+          "border": "#DBE4F0",
+          "on-surface": "#0d1c2f",
+          "surface-tint": "#2151da",
+          "on-primary-fixed": "#001551",
+          "on-secondary-fixed": "#161c24",
+          "on-background": "#0d1c2f",
+          "background": "#F8FAFD",
+          "on-tertiary-fixed-variant": "#832700",
+          "on-secondary-fixed-variant": "#414750",
+          "outline-variant": "#c4c5d7",
+          "on-surface-variant": "#434655",
+          "heading": "#0B1F3A",
+          "on-primary-container": "#cad3ff",
+          "tertiary-fixed-dim": "#ffb59c",
+          "surface-dim": "#ccdbf4",
+          "body": "#334155",
+          "tertiary-container": "#a73400",
+          "inverse-surface": "#233144",
+          "surface-bright": "#f8f9ff",
+          "surface-container-high": "#dde9ff",
+          "secondary": "#585f68",
+          "control-border": "#718096",
+          "tertiary": "#7f2500",
+          "on-tertiary-container": "#ffc9b7",
+          "focus": "#1D4ED8",
+          "muted": "#52647A",
+          "on-tertiary-fixed": "#390c00",
+          "primary": "#0037b0",
+          "soft-blue": "#EEF4FF",
+          "secondary-container": "#dde3ee",
+          "secondary-fixed-dim": "#c1c7d1",
+          "primary-container": "#1d4ed8",
+          "error-container": "#ffdad6",
+          "primary-hover": "#1E40AF"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.25rem",
+          "lg": "0.5rem",
+          "xl": "0.75rem",
+          "full": "9999px"
+        },
+        "spacing": {
+          "main-width": "720px",
+          "gutter": "1rem",
+          "xl": "32px",
+          "sm": "8px",
+          "space-md": "1rem",
+          "margin": "1.5rem",
+          "modal-width": "560px",
+          "md": "16px",
+          "space-xs": "0.25rem",
+          "space-xl": "2rem",
+          "xxl": "48px",
+          "space-lg": "1.5rem",
+          "xs": "4px",
+          "page-top": "56px",
+          "lg": "24px",
+          "space-xxl": "3rem",
+          "space-sm": "0.5rem"
+        },
+        "fontFamily": {
+          "label-sm": ["Inter"],
+          "body-lg": ["Inter"],
+          "label-lg": ["Inter"],
+          "body-md": ["Inter"],
+          "label-md": ["Inter"],
+          "headline-md": ["Inter"],
+          "headline-md-mobile": ["Inter"],
+          "task-title": ["Inter"],
+          "button": ["Inter"],
+          "label": ["Inter"],
+          "headline-lg-mobile": ["Inter"],
+          "page-title": ["Inter"],
+          "body": ["Inter"],
+          "headline-lg": ["Inter"]
+        },
+        "fontSize": {
+          "label-sm": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+          "body-lg": ["18px", {"lineHeight": "28.8px", "fontWeight": "400"}],
+          "label-lg": ["18px", {"lineHeight": "25.2px", "fontWeight": "600"}],
+          "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+          "label-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+          "headline-md": ["28px", {"lineHeight": "36.4px", "fontWeight": "600"}],
+          "headline-md-mobile": ["22px", {"lineHeight": "30px", "fontWeight": "600"}],
+          "task-title": ["28px", {"lineHeight": "1.3", "fontWeight": "600"}],
+          "button": ["18px", {"lineHeight": "1.4", "fontWeight": "600"}],
+          "label": ["16px", {"lineHeight": "1.5", "fontWeight": "500"}],
+          "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "600"}],
+          "page-title": ["32px", {"lineHeight": "1.25", "fontWeight": "600"}],
+          "body": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+          "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}]
+        }
+      }
+    }
+  }</script></head><body class="bg-background font-body text-body min-h-screen flex flex-col"><header class="fixed top-0 left-0 right-0 w-full z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-18 max-w-main-width mx-auto px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="font-headline-md text-headline-md text-heading tracking-tight select-none">NeuroVX</span><span class="px-space-sm py-xs rounded-full bg-soft-blue text-primary font-label-sm text-label-sm border border-border">Demo</span></div><div class="flex items-center gap-space-md"><nav class="flex items-center gap-space-sm" data-active-classes="bg-soft-blue text-primary font-label-md rounded-xl"><a class="px-space-sm py-xs font-label-md text-label-md text-muted hover:text-on-surface transition-colors" data-path="help" href="#">Get help</a><a class="px-space-md py-space-sm font-label-md text-label-md rounded-xl bg-soft-blue text-primary hover:bg-surface-container-high transition-colors" data-path="exit-session" href="#">Save &amp; exit</a></nav><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-18 flex-1 flex flex-col bg-background"><div class="flex flex-col w-full">
+<div class="w-full max-w-main-width mx-auto px-margin py-space-xl flex flex-col gap-space-lg">
+<!-- Top Progress & Meta Tracker -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between flex-wrap gap-space-sm">
+<div class="inline-flex items-center gap-space-sm bg-soft-blue px-space-md py-xs rounded-full">
+<div aria-hidden="true" class="flex items-center gap-1.5">
+<!-- Step 1: Completed -->
+<span class="w-2.5 h-2.5 rounded-full bg-primary flex items-center justify-center">
+<span class="w-1 h-1 rounded-full bg-on-primary"></span>
+</span>
+<!-- Step 2: Active -->
+<span class="w-3.5 h-3.5 rounded-full bg-primary-container flex items-center justify-center shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-surface"></span>
+</span>
+<!-- Step 3: Inactive -->
+<span class="w-2.5 h-2.5 rounded-full bg-surface-container-highest"></span>
+</div>
+<span class="font-label-sm text-label-sm text-primary">
+            Step 2 of 3 • Self-paced • Estimated 3–4 mins remaining
+          </span>
+</div>
+<div class="inline-flex items-center gap-1.5 text-muted font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-primary/40 animate-pulse"></span>
+<span>Session active</span>
+</div>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-heading tracking-tight mt-space-xs">
+        Activity 2 of 3 — Memory &amp; Word Association
+      </h1>
+</div>
+<!-- Caregiver Guidance Box -->
+<section aria-label="Caregiver Guidance" class="bg-soft-blue rounded-xl p-space-lg shadow-sm">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-surface flex items-center justify-center flex-shrink-0 text-primary shadow-sm">
+<span class="material-symbols-outlined text-[24px]">support_agent</span>
+</div>
+<div class="flex flex-col gap-xs">
+<h2 class="font-label-lg text-label-lg text-heading">
+            Caregiver Guidance
+          </h2>
+<p class="font-body-md text-body-md text-body leading-relaxed">
+            Please ensure Asha views and hears these words without reminders or repetition assistance. Allow Asha to select the words she remembers seeing earlier.
+          </p>
+</div>
+</div>
+</section>
+<!-- Main Task Card -->
+<main class="bg-surface rounded-xl p-space-xl shadow-sm flex flex-col gap-space-lg">
+<!-- Card Sub-header & Instructions -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-md flex-wrap">
+<h3 class="font-task-title text-task-title text-heading max-w-lg">
+            Select the three words shown in the previous section
+          </h3>
+<span class="inline-block bg-surface-container-low text-muted font-label-sm text-label-sm px-space-sm py-xs rounded-full">
+            Assessment content placeholder — not a clinical test
+          </span>
+</div>
+<!-- Audio prompt trigger -->
+<div>
+<button class="inline-flex items-center gap-space-sm px-space-md py-space-sm bg-soft-blue hover:bg-surface-container-high text-primary rounded-lg font-label-md text-label-md transition-colors cursor-pointer" id="audio-instruction-btn" type="button">
+<span class="material-symbols-outlined text-[20px]" id="audio-icon">volume_up</span>
+<span id="audio-text">Listen to instructions</span>
+</button>
+</div>
+<!-- Instruction banner -->
+<div class="bg-background rounded-lg p-space-md mt-xs">
+<p class="font-body-md text-body-md text-body">
+<strong class="text-heading font-label-md">Recall exercise:</strong> From the group below, choose the words that were presented in your initial orientation list.
+          </p>
+</div>
+</div>
+<!-- Selection Grid (2 cols on desktop, 1 col on small screens) -->
+<div aria-label="Word options for recall" class="grid grid-cols-1 md:grid-cols-2 gap-space-md" role="group">
+<!-- Card 1: River (Selected) -->
+<label class="word-card relative flex items-center justify-between p-space-lg rounded-xl bg-surface cursor-pointer shadow-sm hover:shadow-md transition-all select-none" data-state="selected">
+<input checked="" class="sr-only peer" name="word-recall" type="checkbox" value="River"/>
+<div class="flex items-center gap-space-md">
+<div class="selection-indicator w-6 h-6 rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-label-lg text-label-lg text-heading">River</span>
+</div>
+<span class="text-primary font-label-sm text-label-sm">Selected</span>
+</label>
+<!-- Card 2: Velvet (Selected) -->
+<label class="word-card relative flex items-center justify-between p-space-lg rounded-xl bg-surface cursor-pointer shadow-sm hover:shadow-md transition-all select-none" data-state="selected">
+<input checked="" class="sr-only peer" name="word-recall" type="checkbox" value="Velvet"/>
+<div class="flex items-center gap-space-md">
+<div class="selection-indicator w-6 h-6 rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-label-lg text-label-lg text-heading">Velvet</span>
+</div>
+<span class="text-primary font-label-sm text-label-sm">Selected</span>
+</label>
+<!-- Card 3: Daughter (Unselected) -->
+<label class="word-card relative flex items-center justify-between p-space-lg rounded-xl bg-surface cursor-pointer shadow-sm hover:shadow-md transition-all select-none" data-state="unselected">
+<input class="sr-only peer" name="word-recall" type="checkbox" value="Daughter"/>
+<div class="flex items-center gap-space-md">
+<div class="selection-indicator w-6 h-6 rounded-lg bg-surface-container-lowest flex items-center justify-center text-transparent">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-label-lg text-label-lg text-body">Daughter</span>
+</div>
+<span class="text-transparent font-label-sm text-label-sm">Selected</span>
+</label>
+<!-- Card 4: Church (Unselected) -->
+<label class="word-card relative flex items-center justify-between p-space-lg rounded-xl bg-surface cursor-pointer shadow-sm hover:shadow-md transition-all select-none" data-state="unselected">
+<input class="sr-only peer" name="word-recall" type="checkbox" value="Church"/>
+<div class="flex items-center gap-space-md">
+<div class="selection-indicator w-6 h-6 rounded-lg bg-surface-container-lowest flex items-center justify-center text-transparent">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-label-lg text-label-lg text-body">Church</span>
+</div>
+<span class="text-transparent font-label-sm text-label-sm">Selected</span>
+</label>
+<!-- Card 5: Daisy (Selected) -->
+<label class="word-card relative flex items-center justify-between p-space-lg rounded-xl bg-surface cursor-pointer shadow-sm hover:shadow-md transition-all select-none" data-state="selected">
+<input checked="" class="sr-only peer" name="word-recall" type="checkbox" value="Daisy"/>
+<div class="flex items-center gap-space-md">
+<div class="selection-indicator w-6 h-6 rounded-lg bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-label-lg text-label-lg text-heading">Daisy</span>
+</div>
+<span class="text-primary font-label-sm text-label-sm">Selected</span>
+</label>
+<!-- Card 6: Engine (Unselected) -->
+<label class="word-card relative flex items-center justify-between p-space-lg rounded-xl bg-surface cursor-pointer shadow-sm hover:shadow-md transition-all select-none" data-state="unselected">
+<input class="sr-only peer" name="word-recall" type="checkbox" value="Engine"/>
+<div class="flex items-center gap-space-md">
+<div class="selection-indicator w-6 h-6 rounded-lg bg-surface-container-lowest flex items-center justify-center text-transparent">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-label-lg text-label-lg text-body">Engine</span>
+</div>
+<span class="text-transparent font-label-sm text-label-sm">Selected</span>
+</label>
+</div>
+<!-- Selection Count Status Banner -->
+<div class="flex items-center justify-between bg-surface-container-low px-space-lg py-space-md rounded-xl">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+<span class="font-label-md text-label-md text-heading" id="selection-counter-text">
+            3 of 3 words selected
+          </span>
+</div>
+<span class="font-label-sm text-label-sm text-muted">
+          Ready to continue
+        </span>
+</div>
+<!-- Informative Auto-Save & Calm Messaging -->
+<div class="flex items-center gap-space-sm text-muted font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[18px] text-muted">cloud_done</span>
+<span>Take your time. You can pause, review, or stop at any moment. • Auto-saved</span>
+</div>
+<!-- Action Navigation Buttons -->
+<div class="flex flex-col sm:flex-row items-center justify-between gap-space-md pt-xs">
+<button class="w-full sm:w-auto h-[52px] px-space-lg rounded-lg bg-soft-blue hover:bg-surface-container-high text-primary font-button text-button flex items-center justify-center gap-space-sm transition-colors cursor-pointer" type="button">
+<span class="material-symbols-outlined text-[20px]">pause</span>
+<span>Pause activity</span>
+</button>
+<div class="flex items-center gap-space-lg w-full sm:w-auto justify-end">
+<a class="font-label-md text-label-md text-muted hover:text-heading underline underline-offset-4 transition-colors" href="#">
+            Need assistance?
+          </a>
+<button class="w-full sm:w-auto h-[52px] px-space-xl rounded-lg bg-primary-container hover:bg-primary-hover text-on-primary font-button text-button flex items-center justify-center gap-space-sm shadow-md transition-all cursor-pointer" type="button">
+<span>Next activity</span>
+<span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+<!-- Bottom Helper Banner / Clinic Referral -->
+<aside class="bg-surface-bright rounded-xl p-space-md flex items-center justify-between flex-wrap gap-space-sm shadow-sm">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-muted text-[20px]">local_hospital</span>
+<span class="font-body-md text-body-md text-body">
+          Prefer clinical support in person?
+        </span>
+</div>
+<a class="font-label-md text-label-md text-primary hover:text-primary-hover flex items-center gap-xs transition-colors" href="#">
+<span>Switch to in-clinic appointment</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</aside>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for audio toggle and word selection state management
+  (function() {
+    const audioBtn = document.getElementById('audio-instruction-btn');
+    const audioIcon = document.getElementById('audio-icon');
+    const audioText = document.getElementById('audio-text');
+    let isPlaying = false;
+
+    if (audioBtn) {
+      audioBtn.addEventListener('click', function() {
+        isPlaying = !isPlaying;
+        if (isPlaying) {
+          audioIcon.textContent = 'volume_off';
+          audioText.textContent = 'Mute instructions';
+          audioBtn.classList.add('bg-surface-container-high');
+        } else {
+          audioIcon.textContent = 'volume_up';
+          audioText.textContent = 'Listen to instructions';
+          audioBtn.classList.remove('bg-surface-container-high');
+        }
+      });
+    }
+
+    const cards = document.querySelectorAll('.word-card');
+    const counterText = document.getElementById('selection-counter-text');
+
+    function updateCardUI(card, isChecked) {
+      const indicator = card.querySelector('.selection-indicator');
+      const textLabel = card.querySelector('.font-label-lg');
+      const badge = card.querySelector('.font-label-sm');
+
+      if (isChecked) {
+        card.classList.add('bg-soft-blue/40');
+        indicator.classList.remove('bg-surface-container-lowest', 'text-transparent');
+        indicator.classList.add('bg-primary', 'text-on-primary');
+        textLabel.classList.remove('text-body');
+        textLabel.classList.add('text-heading');
+        badge.classList.remove('text-transparent');
+        badge.classList.add('text-primary');
+      } else {
+        card.classList.remove('bg-soft-blue/40');
+        indicator.classList.add('bg-surface-container-lowest', 'text-transparent');
+        indicator.classList.remove('bg-primary', 'text-on-primary');
+        textLabel.classList.add('text-body');
+        textLabel.classList.remove('text-heading');
+        badge.classList.add('text-transparent');
+        badge.classList.remove('text-primary');
+      }
+    }
+
+    cards.forEach(card => {
+      const checkbox = card.querySelector('input[type="checkbox"]');
+      updateCardUI(card, checkbox.checked);
+
+      card.addEventListener('click', function(e) {
+        // Toggle happens naturally on label click, update after tick
+        setTimeout(() => {
+          updateCardUI(card, checkbox.checked);
+          const totalSelected = document.querySelectorAll('.word-card input:checked').length;
+          if (counterText) {
+            counterText.textContent = totalSelected + ' of 3 words selected';
+          }
+        }, 10);
+      });
+    });
+  })();
+</script></main><footer class="w-full bg-background border-t border-border py-space-lg mt-auto"><div class="max-w-main-width mx-auto px-margin text-center font-label-sm text-label-sm text-muted">NeuroVX Prototype • Assessment preview placeholder — not an authorized medical diagnostic tool</div></footer></body></html>

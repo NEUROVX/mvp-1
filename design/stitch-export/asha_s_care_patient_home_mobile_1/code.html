@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/>
+<meta content="mobile_tab" name="shell-type"/>
+<title>Asha’s care — Patient Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#F8FAFD",
+            heading: "#0B1F3A",
+            body: "#334155",
+            muted: "#52647A",
+            border: "#DBE4F0",
+            primary: "#1D4ED8",
+            "primary-hover": "#1E40AF",
+            surface: "#FFFFFF",
+          },
+          fontFamily: {
+            sans: ["Inter", "sans-serif"],
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    @layer base {
+      html, body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: #F8FAFD;
+      }
+      body {
+        overscroll-behavior: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      .pt-safe {
+        padding-top: env(safe-area-inset-top, 0px);
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-background font-sans text-body min-h-screen flex flex-col antialiased">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 inset-x-0 z-50 pt-safe bg-surface/90 backdrop-blur-md border-b border-border">
+<div class="h-14 px-5 flex items-center justify-between max-w-[420px] mx-auto w-full">
+<!-- Logo & Demo badge -->
+<div class="flex items-center gap-2">
+<span class="text-[20px] font-semibold text-heading tracking-tight">NeuroVX</span>
+<span class="text-xs bg-blue-50 text-blue-700 font-medium px-2 py-0.5 rounded">Demo</span>
+</div>
+<!-- Right actions: Help & Avatar -->
+<div class="flex items-center gap-3">
+<a class="text-sm font-medium text-muted hover:text-heading transition-colors" href="#">Help</a>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-[18px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Scrollable Content -->
+<main class="flex-1 w-full max-w-[420px] mx-auto px-5 pt-20 pb-24 flex flex-col justify-start">
+<!-- Page Header Section -->
+<section class="mt-2">
+<h1 class="text-2xl font-semibold text-heading tracking-tight">Asha’s care</h1>
+<p class="text-base text-muted mt-1">Meera, helping Asha</p>
+</section>
+<!-- Dominant Next Step Card -->
+<section class="bg-surface rounded-2xl p-6 border border-border shadow-sm mt-6">
+<!-- Accent Dot & Label -->
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary inline-block flex-shrink-0"></span>
+<span class="text-primary font-medium text-base">Your next step</span>
+</div>
+<!-- Card Title -->
+<h2 class="text-xl font-semibold text-heading mt-3 leading-snug">
+        Begin your cognitive assessment
+      </h2>
+<!-- Card Description -->
+<p class="text-base text-body leading-relaxed mt-2">
+        A few activities to help your clinician understand memory and thinking.
+      </p>
+<!-- Primary Action CTA -->
+<a class="mt-6 w-full min-h-[52px] bg-primary hover:bg-primary-hover active:scale-[0.99] text-white font-semibold text-base rounded-[10px] flex items-center justify-center gap-2 transition-all shadow-sm select-none" href="#">
+<span>Start assessment</span>
+<span class="text-lg leading-none">→</span>
+</a>
+<!-- Quiet Alternative Link -->
+<a class="mt-4 block w-full text-center text-base font-medium text-primary hover:underline py-1 focus:outline-none transition-colors" href="#">
+        Book a clinician instead
+      </a>
+</section>
+<!-- Beneath the panel grounding text -->
+<p class="mt-6 text-center text-sm text-muted px-4 leading-relaxed">
+      After this, you can add past reports and arrange a visit.
+    </p>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface border-t border-border shadow-sm">
+<div class="flex justify-around items-center h-16 max-w-[420px] mx-auto px-2">
+<!-- 1. Home (Active) -->
+<a aria-current="page" class="flex flex-col items-center justify-center min-w-[64px] py-1 text-primary" href="#">
+<span class="material-symbols-outlined text-[24px]">home</span>
+<span class="text-xs font-semibold mt-0.5">Home</span>
+</a>
+<!-- 2. Appointments (Inactive) -->
+<a class="flex flex-col items-center justify-center min-w-[64px] py-1 text-muted hover:text-heading transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">calendar_today</span>
+<span class="text-xs font-normal mt-0.5">Appointments</span>
+</a>
+<!-- 3. Reports (Inactive) -->
+<a class="flex flex-col items-center justify-center min-w-[64px] py-1 text-muted hover:text-heading transition-colors" href="#">
+<span class="material-symbols-outlined text-[24px]">description</span>
+<span class="text-xs font-normal mt-0.5">Reports</span>
+</a>
+</div>
+</nav>
+</body></html>
