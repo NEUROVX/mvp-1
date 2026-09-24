@@ -58,7 +58,8 @@ React 19 · Vite 7 · TypeScript · React Router 7 · Tailwind CSS v4 · lucide-
 
 ## Tooling
 
-- **Hallmark** (`.claude/skills/hallmark/`), an anti-AI-slop design skill for Claude Code. This project runs it in `designed-as-app` mode, so DESIGN.md is the locked system.
+- **Agent instructions:** [`AGENTS.md`](AGENTS.md) is the source of truth for contributors and AI agents. [`CLAUDE.md`](CLAUDE.md) imports it and maps design skills to tasks. The current status and open work are in [`docs/HANDOFF.md`](docs/HANDOFF.md).
+- **Design skills** in `.claude/skills/`: [Hallmark](https://github.com/nutlope/hallmark), run in `designed-as-app` mode so DESIGN.md is the locked system, plus the 13 [taste-skill](https://github.com/Leonxlnx/taste-skill) skills. They are pinned in `skills-lock.json`.
 - **Stitch MCP** (`.mcp.json`) connects Claude Code to Google Stitch. Set `STITCH_API_KEY` in your environment; see `.env.example`.
 
 ## Deploy

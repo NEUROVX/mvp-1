@@ -106,6 +106,7 @@ One `h1` per page; logical headings; visible labels, never placeholder text used
   - The QA sweep on the affected routes at 1440, 390 and 320 has 0 overflow, 0 console errors and 0 axe violations.
   - You have looked at the screenshots.
   - Cross-page consistency holds for the same `?demo=` stage. What Home says must agree with the visit hub, tests, report, records, care plan, clinician and lab views.
+- **Design skills:** see `CLAUDE.md` for which skill fits which task. DESIGN.md always wins.
 - **Multi-agent work:** give each agent disjoint file ownership. Shared files have one owner, the coordinating session. Agents report the shared changes they need; they do not make them.
 
 ## 7. Git and deploy
