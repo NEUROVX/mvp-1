@@ -47,7 +47,7 @@ Guards: `npm run check:tokens` (no raw colours or palette classes outside `src/s
 - `Wordmark`, `CarelineGlyph`, `FlowProgress` ("Step 1 of 3 · …").
 
 Store (`@/demo/store`): `useDemo()` → `{ state, set, setStage, jumpTo, setPersona, reset }` · `usePeople()` → names and context lines · `useEpisode()` → `{ stage, next, careline }`.
-Episode (`@/demo/episode`): `hasReached`, `nextStepFor`, `carelineFor`, `STAGE_META`, `GOLDEN_PATH`. Fixtures (`@/demo/fixtures`): `CLINICIANS`, `ORDERS`, `LAB_PROVIDERS`, `REPORTS`, `PENDING_REPORT`, `TIMELINE`, `CARE_PLAN`, `CARE_PLAN_SUMMARY`, `ORG`, `EPISODE_DATES`, label maps and `…ById` helpers.
+Episode (`@/demo/episode`): `hasReached`, `nextStepFor`, `carelineFor`, `STAGE_META`, `GOLDEN_PATH`, plus shared selectors every workspace must use instead of re-deriving: `labCollectionFor` (the booked sample collection: provider, slot, type and recorded collection time), `collectedEventFor` (the "Sample collected" timeline event) and `sharedUploads` (previous reports actually in the visit packet, honouring `booking.share.excludedUploadIds`). Fixtures (`@/demo/fixtures`): `CLINICIANS`, `ORDERS`, `LAB_PROVIDERS`, `REPORTS`, `PENDING_REPORT`, `TIMELINE`, `CARE_PLAN`, `CARE_PLAN_SUMMARY`, `ORG`, `EPISODE_DATES`, label maps and `…ById` helpers.
 Hooks (`@/lib/hooks`): `usePageTitle(title)` — call on every page.
 
 ## Page rules

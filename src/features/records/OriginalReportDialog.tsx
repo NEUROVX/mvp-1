@@ -1,8 +1,9 @@
 import { FileText } from 'lucide-react'
 import { useState } from 'react'
 import { Button, Dialog } from '@/components/ui'
+import { labCollectionFor } from '@/demo/episode'
 import { orderById } from '@/demo/fixtures'
-import { usePeople } from '@/demo/store'
+import { useDemo, usePeople } from '@/demo/store'
 import type { Report } from '@/demo/types'
 
 export function originalFileName(report: Report) {
@@ -17,6 +18,7 @@ export function originalFileName(report: Report) {
 export function OriginalReportButton({ report, variant = 'secondary' }: { report: Report; variant?: 'primary' | 'secondary' }) {
   const [open, setOpen] = useState(false)
   const { fullName } = usePeople()
+  const { state } = useDemo()
   const order = orderById(report.orderId)
   const file = originalFileName(report)
   const current = report.versions[report.versions.length - 1]
@@ -57,7 +59,8 @@ export function OriginalReportButton({ report, variant = 'secondary' }: { report
               ['Order', order ? `${order.orderRef} · ${order.orderedBy}` : 'Named on the original report'],
               ['Specimen', report.specimen],
               ['Assay', report.assay],
-              ['Collected', report.collectedOn],
+              // The demo episode's B12 sample was collected at the slot the family booked.
+              ['Collected', report.id === 'b12' ? labCollectionFor(state.labBooking).collectedOn : report.collectedOn],
               ['Released', report.releasedOn],
             ].map(([t, d]) => (
               <div key={t} className="min-w-0">

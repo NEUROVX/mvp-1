@@ -38,7 +38,7 @@ export function CarePlanTab() {
             Version 1 · Published by {CARE_PLAN_SUMMARY.author} · {CARE_PLAN_SUMMARY.updated}
           </p>
         </div>
-        <StatusBadge tone="info" size="sm" className="self-start">
+        <StatusBadge tone="info" className="self-start">
           Published to the family
         </StatusBadge>
       </div>
@@ -66,7 +66,7 @@ export function CarePlanTab() {
               </p>
             </div>
             <div className="md:text-right">
-              <StatusBadge tone="neutral" size="sm">
+              <StatusBadge tone="neutral">
                 {it.status}
               </StatusBadge>
             </div>

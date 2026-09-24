@@ -2,7 +2,7 @@ import { clsx } from 'clsx'
 import { ArrowRight, CalendarDays } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router'
-import { Button, PageHeader, StatusBadge } from '@/components/ui'
+import { PageHeader, StatusBadge } from '@/components/ui'
 import { STATE_LABEL, STATE_TONE, type LabOrder } from './model'
 
 export const orderPath = (ref: string) => `/pro/lab/orders/${ref}`
@@ -52,28 +52,34 @@ export function OrderStatus({ order, className }: { order: LabOrder; className?:
   )
 }
 
-/** Named "Open" action for a table row. */
-export function OpenOrderLink({ order }: { order: LabOrder }) {
+/**
+ * Named row action, styled like the clinician workspace's row actions
+ * ("Open record →"): underlined text and an arrow, never icon-only.
+ */
+function OrderLink({ order, label, className }: { order: LabOrder; label: string; className?: string }) {
   return (
     <Link
       to={orderPath(order.ref)}
-      className="-my-3 inline-flex min-h-12 items-center gap-1.5 text-label whitespace-nowrap text-primary hover:text-primary-hover"
+      className={clsx(
+        'group inline-flex min-h-12 items-center gap-1.5 text-label whitespace-nowrap text-primary hover:text-primary-hover',
+        className,
+      )}
     >
-      Open
-      <span className="sr-only"> order {order.ref}</span>
-      <ArrowRight aria-hidden="true" className="size-[18px]" strokeWidth={2} />
+      <span className="underline decoration-1 underline-offset-[5px] group-hover:decoration-2">{label}</span>
+      {label.includes(order.ref) ? null : <span className="sr-only"> {order.ref}</span>}
+      <ArrowRight aria-hidden="true" className="size-[18px] shrink-0" strokeWidth={2} />
     </Link>
   )
 }
 
-/** Full-width named action for a stacked record. */
+/** Named "Open order" action for a table row. */
+export function OpenOrderLink({ order }: { order: LabOrder }) {
+  return <OrderLink order={order} label="Open order" className="-my-3" />
+}
+
+/** The same named action at the foot of a stacked record. */
 export function OpenOrderButton({ order, label = 'Open order' }: { order: LabOrder; label?: string }) {
-  return (
-    <Button variant="secondary" to={orderPath(order.ref)} fullWidth>
-      {label}
-      <span className="sr-only"> {order.ref}</span>
-    </Button>
-  )
+  return <OrderLink order={order} label={label} />
 }
 
 /** Stacked-record header: reference, patient, test, then status. */

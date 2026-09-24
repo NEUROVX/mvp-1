@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight, FileQuestion } from 'lucide-react'
+import { ArrowRight, FileQuestion } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useParams } from 'react-router'
 import {
@@ -15,10 +15,11 @@ import {
   StatusBadge,
   type CarelineStep,
 } from '@/components/ui'
-import { hasReached } from '@/demo/episode'
+import { hasReached, labCollectionFor } from '@/demo/episode'
 import { CARE_PLAN_SUMMARY, EPISODE_DATES, orderById, ORG, PENDING_REPORT, reportById } from '@/demo/fixtures'
 import { useDemo, usePeople } from '@/demo/store'
 import type { InvestigationOrder, Report } from '@/demo/types'
+import { BackLink } from '@/features/booking/BackLink'
 import { AccessGate } from '@/features/records/AccessGate'
 import { OriginalReportButton } from '@/features/records/OriginalReportDialog'
 import { SaveQuestionButton } from '@/features/records/SaveQuestionDialog'
@@ -31,19 +32,19 @@ const FOLLOW_UP = '/app/care/clinicians/kavya-rao?visit=follow-up'
 export default function ReportDetailPage() {
   const { reportId } = useParams()
   const { state } = useDemo()
+  const { hasRecordAccess } = usePeople()
   const report = reportById(reportId)
   const order = orderById(reportId)
-  const title = report?.title ?? (order ? order.shortName : 'Report')
+  // Without record access, not even the report name is shown (PATIENT.md › Access incomplete).
+  const title = !hasRecordAccess ? 'Report' : (report?.title ?? (order ? order.shortName : 'Report'))
   usePageTitle(title)
 
-  const back = (
-    <Button to="/app/records" variant="quiet" iconLeft={<ArrowLeft className="size-5" />}>
-      Records
-    </Button>
-  )
+  const back = <BackLink to="/app/records">Back to records</BackLink>
 
   let body: ReactNode
-  if (!order) {
+  if (!hasRecordAccess) {
+    body = <PageHeader title="Report" />
+  } else if (!order) {
     body = (
       <>
         <PageHeader title="We could not find this report" />
@@ -76,9 +77,10 @@ export default function ReportDetailPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {back}
-      <AccessGate>{body}</AccessGate>
+      {body}
+      {hasRecordAccess ? null : <AccessGate>{null}</AccessGate>}
     </div>
   )
 }
@@ -280,7 +282,7 @@ function ReleasedReport({ report, order }: { report: Report; order: Investigatio
                 { term: 'Issued by', detail: report.issuerLabel },
                 { term: 'Specimen', detail: report.specimen },
                 { term: 'Assay', detail: report.assay },
-                { term: 'Collected', detail: <span className="tabular">{report.collectedOn}</span> },
+                { term: 'Collected', detail: <span className="tabular">{labCollectionFor(state.labBooking).collectedOn}</span> },
                 { term: 'Released', detail: <span className="tabular">{report.releasedOn}</span> },
                 { term: 'Quality flags', detail: report.qualityFlags },
               ]}

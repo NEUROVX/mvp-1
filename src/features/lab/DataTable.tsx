@@ -5,8 +5,8 @@ import type { ReactNode } from 'react'
  * Operational table (DESIGN.md › Tables, search and operational views).
  * Wide screens: a real table with ≥48px rows and named actions, inside a
  * labelled region that scrolls on its own if it ever runs out of room.
- * Narrow screens: the same rows stacked as short records, so the page itself
- * never scrolls sideways.
+ * Narrow screens: the same rows stacked as short records in one list, so the
+ * page itself never scrolls sideways.
  */
 export interface Column<T> {
   id: string
@@ -89,12 +89,19 @@ export function DataTable<T>({
         </table>
       </div>
 
-      <ul aria-label={label} className={clsx(from === 'xl' ? 'xl:hidden' : 'lg:hidden', 'grid gap-3 md:grid-cols-2')}>
+      {/* Same stacked pattern as the clinician workspace: one surface, rows divided by rules. */}
+      <ul
+        aria-label={label}
+        className={clsx(
+          from === 'xl' ? 'xl:hidden' : 'lg:hidden',
+          'divide-y divide-border rounded-lg border border-border bg-surface',
+        )}
+      >
         {rows.map((row) => (
-          <li key={rowKey(row)} className="flex min-w-0 flex-col rounded-lg border border-border bg-surface p-4 sm:p-5">
+          <li key={rowKey(row)} className="min-w-0 px-4 py-4 sm:px-5">
             {cardHeader(row)}
             {stacked.length ? (
-              <dl className="mt-4 grid gap-x-5 gap-y-3 border-t border-border pt-4 min-[360px]:grid-cols-2">
+              <dl className="mt-4 grid gap-x-5 gap-y-3 min-[360px]:grid-cols-2">
                 {stacked.map((c) => (
                   <div key={c.id} className="min-w-0">
                     <dt className={clsx('text-body-md text-muted', c.stackedLabel === false && 'sr-only')}>{c.header}</dt>
@@ -103,7 +110,7 @@ export function DataTable<T>({
                 ))}
               </dl>
             ) : null}
-            {cardFooter ? <div className="mt-auto pt-4">{cardFooter(row)}</div> : null}
+            {cardFooter ? <div className="mt-2">{cardFooter(row)}</div> : null}
           </li>
         ))}
       </ul>

@@ -1,5 +1,4 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router'
 import { Callout, DemoTag, PageHeader, TextField } from '@/components/ui'
 import { ORG } from '@/demo/fixtures'
 import { useDemo, usePeople } from '@/demo/store'
@@ -12,6 +11,7 @@ import {
   type PatientRow,
 } from '@/features/clinician/data'
 import { DataTable } from '@/features/clinician/DataTable'
+import { RowAction } from '@/features/clinician/parts'
 import { usePageTitle } from '@/lib/hooks'
 
 export default function PatientsPage() {
@@ -65,7 +65,8 @@ export default function PatientsPage() {
           <TextField
             type="search"
             label="Search your clinic’s patients"
-            className="max-w-sm"
+            hint="Name, last event, next step or owner. This clinic only."
+            className="max-w-lg"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             autoComplete="off"
@@ -85,15 +86,7 @@ export default function PatientsPage() {
               key: 'name',
               header: 'Patient',
               primary: true,
-              cell: (r) => (
-                <Link
-                  to={r.href}
-                  className="inline-flex min-h-11 items-center font-semibold text-primary underline decoration-1 underline-offset-[5px] hover:text-primary-hover hover:decoration-2"
-                >
-                  {r.name}
-                  <span className="sr-only">: open record</span>
-                </Link>
-              ),
+              cell: (r) => <span className={r.demoPatient ? 'font-semibold' : 'font-medium'}>{r.name}</span>,
             },
             { key: 'age', header: 'Age', cell: (r) => <span className="tabular">{r.age}</span>, className: 'w-24' },
             { key: 'last', header: 'Last event', cell: (r) => r.lastEvent },
@@ -103,6 +96,16 @@ export default function PatientsPage() {
               cell: (r) => <span className={r.demoPatient ? 'font-medium' : undefined}>{r.nextStep}</span>,
             },
             { key: 'owner', header: 'Owner', cell: (r) => r.owner },
+            {
+              key: 'action',
+              header: 'Action',
+              action: true,
+              cell: (r) => (
+                <RowAction to={r.href} context={r.name}>
+                  Open record
+                </RowAction>
+              ),
+            },
           ]}
         />
       </section>

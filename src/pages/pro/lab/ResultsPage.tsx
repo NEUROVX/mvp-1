@@ -10,13 +10,13 @@ function Delivery({ order }: { order: LabOrder }) {
   if (order.delivery?.status === 'failed')
     return (
       <span className="flex flex-col items-start gap-1.5">
-        <StatusBadge tone="warning">Delivery failed</StatusBadge>
+        <StatusBadge tone="warning" className="whitespace-nowrap">Delivery failed</StatusBadge>
         <span className="text-body-md text-muted">Owner: {ORG.support}</span>
       </span>
     )
   return (
     <span className="flex flex-col items-start gap-1.5">
-      <StatusBadge tone="info">Delivery confirmed</StatusBadge>
+      <StatusBadge tone="info" className="whitespace-nowrap">Delivery confirmed</StatusBadge>
       <span className="text-body-md text-muted tabular">{order.delivery?.on}</span>
     </span>
   )
@@ -25,7 +25,7 @@ function Delivery({ order }: { order: LabOrder }) {
 function Version({ order }: { order: LabOrder }) {
   return order.correctedVersion ? (
     <span className="flex flex-col items-start gap-1.5">
-      <StatusBadge tone="neutral">Corrected - version 2</StatusBadge>
+      <StatusBadge tone="neutral" className="whitespace-nowrap">Corrected - version 2</StatusBadge>
       <span className="text-body-md text-muted">Version 1 superseded, still traceable</span>
     </span>
   ) : (

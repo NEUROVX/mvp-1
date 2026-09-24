@@ -2,9 +2,10 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { Button, Callout, DemoTag, EmptyState, PageHeader, RadioGroup, TextLink } from '@/components/ui'
 import { clinicianById } from '@/demo/fixtures'
-import { useDemo } from '@/demo/store'
+import { useDemo, usePeople } from '@/demo/store'
 import type { Clinician, Slot, VisitMode } from '@/demo/types'
 import { BackLink } from '@/features/booking/BackLink'
+import { AccessGate } from '@/features/records/AccessGate'
 import {
   findSlot,
   hasActiveBooking,
@@ -23,8 +24,19 @@ import { usePageTitle } from '@/lib/hooks'
 export default function ChangeVisitModePage() {
   usePageTitle('Change your visit')
   const { state } = useDemo()
+  const { hasRecordAccess } = usePeople()
   const c = clinicianById(state.booking.clinicianId)
   const current = findSlot(c, state.booking.slotId)
+
+  if (!hasRecordAccess) {
+    return (
+      <div className="space-y-6">
+        <BackLink to="/app/care/visit">Back to your visit</BackLink>
+        <PageHeader title="Change your visit" />
+        <AccessGate>{null}</AccessGate>
+      </div>
+    )
+  }
 
   if (!hasActiveBooking(state.stage) || !c || !current) {
     return (
@@ -35,7 +47,7 @@ export default function ChangeVisitModePage() {
           title="There is no upcoming visit to change"
           action={
             <Button to="/app/care/visit" variant="secondary">
-              View your visit
+              View visit details
             </Button>
           }
         >
@@ -74,7 +86,13 @@ function ChangeVisit({ c, current }: { c: Clinician; current: Slot }) {
       ...s,
       // A change needs clinic confirmation again (SCOPE.md › stage transitions).
       stage: wasConfirmed ? 'booking-requested' : s.stage,
-      booking: { ...s.booking, slotId: chosen.id, mode: chosen.mode },
+      booking: {
+        ...s.booking,
+        slotId: chosen.id,
+        mode: chosen.mode,
+        // Kept in the store so the visit hub still shows the confirmed time after a reload.
+        previous: wasConfirmed ? { slotId: current.id, mode: currentMode } : s.booking.previous,
+      },
     }))
     navigate('/app/care/visit', {
       state: { changeFrom: `${slotLabel(current)} · ${MODE_LABEL[currentMode]}`, wasConfirmed },

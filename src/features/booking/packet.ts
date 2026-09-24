@@ -6,7 +6,17 @@
 import { CONCERN_LABELS, ONSET_LABELS } from '@/demo/fixtures'
 import type { BookingState, DemoState, SourceKind } from '@/demo/types'
 
-export type ShareKey = keyof BookingState['share']
+export type ShareKey = Exclude<keyof BookingState['share'], 'excludedUploadIds'>
+
+const UPLOAD_PREFIX = 'upload-'
+/** The upload id behind a packet item id. */
+export const uploadIdOf = (itemId: string) => itemId.slice(UPLOAD_PREFIX.length)
+
+/** Whether one packet item is shared, including single unticked reports. */
+export function isShared(share: BookingState['share'], item: PacketItem) {
+  if (item.shareKey !== 'uploads') return share[item.shareKey]
+  return share.uploads && !share.excludedUploadIds?.includes(uploadIdOf(item.id))
+}
 
 export interface PacketItem {
   id: string
@@ -69,7 +79,7 @@ export function packetItems(state: DemoState): PacketItem[] {
 
   for (const u of state.uploads) {
     items.push({
-      id: `upload-${u.id}`,
+      id: `${UPLOAD_PREFIX}${u.id}`,
       shareKey: 'uploads',
       title: u.name,
       detail: `Previous report · ${u.kind === 'pdf' ? 'PDF' : 'Image'}, ${u.sizeLabel}${u.status === 'unreadable' ? ' · some pages may be hard to read' : ''}`,

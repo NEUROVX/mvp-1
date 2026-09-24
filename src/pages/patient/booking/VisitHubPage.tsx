@@ -20,9 +20,9 @@ import {
 import { hasReached, STAGE_META } from '@/demo/episode'
 import { CLINICIANS, clinicianById, EPISODE_DATES } from '@/demo/fixtures'
 import { useDemo, usePeople } from '@/demo/store'
-import type { Clinician, Slot, Tone } from '@/demo/types'
+import type { BookingState, Clinician, Slot, Tone } from '@/demo/types'
 import { findSlot, isConfirmedStage, MODE_LABEL, placeText, slotLabel, weekday } from '@/features/booking/lib'
-import { packetItems, type PacketItem } from '@/features/booking/packet'
+import { isShared, packetItems, type PacketItem } from '@/features/booking/packet'
 import { QuestionsSection } from '@/features/booking/QuestionsSection'
 import { PacketList, SummaryList } from '@/features/booking/SummaryList'
 import { usePageTitle } from '@/lib/hooks'
@@ -48,12 +48,17 @@ export default function VisitHubPage() {
 
   const noBooking = !hasReached(stage, 'booking-requested')
   const requested = stage === 'booking-requested'
+  // The confirmed time a pending change would replace (from the store, so it survives a reload).
+  const previousSlot = requested ? findSlot(c, state.booking.previous?.slotId) : undefined
+  const changeFrom =
+    previousSlot && state.booking.previous
+      ? `${slotLabel(previousSlot)} · ${MODE_LABEL[state.booking.previous.mode]}`
+      : undefined
   const confirmed = isConfirmedStage(stage)
   const existing = stage === 'existing-care'
   const afterVisit = hasReached(stage, 'tests-requested') && !existing
 
   const [flash, setFlash] = useState<string>()
-  const [changeFrom, setChangeFrom] = useState<string>()
   const [cancelOpen, setCancelOpen] = useState(false)
   const [cancelFollowUpOpen, setCancelFollowUpOpen] = useState(false)
 
@@ -70,7 +75,6 @@ export default function VisitHubPage() {
             ? 'Change requested. Your current time stays until the clinic confirms the change.'
             : 'Change sent. The clinic confirms the new time.',
         )
-        if (st.wasConfirmed) setChangeFrom(st.changeFrom)
       }
     }, 60)
     navigate(`${location.pathname}${location.search}${location.hash}`, { replace: true, state: null })
@@ -96,7 +100,6 @@ export default function VisitHubPage() {
   const cancelRequest = () => {
     jumpTo('assessment-completed')
     setCancelOpen(false)
-    setChangeFrom(undefined)
     setFlash('Request cancelled. Your check-in, reports and questions are still saved.')
     requestAnimationFrame(() => document.getElementById('visit-title')?.focus())
   }
@@ -119,15 +122,17 @@ export default function VisitHubPage() {
             </span>
           }
           lede={
-            noBooking
+            noBooking || !hasRecordAccess
               ? 'When you request an appointment, its details, the visit packet and your questions stay together here.'
               : `Everything about ${your} visit with ${c.name} in one place.`
           }
           meta={
-            <div className="flex flex-wrap items-center gap-3">
-              <StatusBadge tone={badge.tone}>{badge.label}</StatusBadge>
-              <DemoTag />
-            </div>
+            hasRecordAccess ? (
+              <div className="flex flex-wrap items-center gap-3">
+                <StatusBadge tone={badge.tone}>{badge.label}</StatusBadge>
+                <DemoTag />
+              </div>
+            ) : undefined
           }
         />
         <div role="status" aria-live="polite">
@@ -145,7 +150,7 @@ export default function VisitHubPage() {
           tone="neutral"
           title="We need to arrange permission to view this record"
           action={
-            <Button to="/app/support#access" variant="secondary">
+            <Button to="/app/access" variant="secondary">
               Help arrange access
             </Button>
           }
@@ -267,7 +272,7 @@ export default function VisitHubPage() {
 
             {afterVisit ? (
               <StatusCard
-                elevated={!followUp && !hasReached(stage, 'reviewed')}
+                elevated={!followUp && stage !== 'follow-up-due'}
                 title={`Visit on ${EPISODE_DATES.visit} - completed`}
                 body={
                   hasReached(stage, 'reviewed')
@@ -331,7 +336,7 @@ export default function VisitHubPage() {
                 />
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5">
                   <Button to={followUpHref} size="lg">
-                    Book your next visit
+                    Book follow-up
                   </Button>
                   <Button to="/app/care/plan" variant="quiet">
                     View care plan
@@ -372,11 +377,12 @@ export default function VisitHubPage() {
               </StatusCard>
             ) : null}
 
-            {afterVisit && !followUp && hasReached(stage, 'reviewed') ? (
+            {/* The clinician adds the follow-up at 'follow-up-due'; a plan published at 'reviewed' has none, and 'no-task' has nothing due. */}
+            {stage === 'follow-up-due' && !followUp ? (
               <StatusCard
                 elevated
                 eyebrow="Follow-up visit"
-                title={stage === 'follow-up-due' ? 'Plan your next visit' : 'Book a follow-up when you are ready'}
+                title="Plan your next visit"
                 body={`${Your} care plan suggests a follow-up by ${EPISODE_DATES.followUp}, with the same clinician and care episode.`}
               >
                 <div className="mt-6">
@@ -610,13 +616,13 @@ function PacketSection({
   showObservationsLink,
 }: {
   items: PacketItem[]
-  share: Record<string, boolean>
+  share: BookingState['share']
   clinic: string
   mode: 'ready' | 'sent' | 'delivered'
   reply?: PacketItem
   showObservationsLink: boolean
 }) {
-  const shown = mode === 'ready' ? items : items.filter((i) => share[i.shareKey])
+  const shown = mode === 'ready' ? items : items.filter((i) => isShared(share, i))
   const list = reply ? [...shown, reply] : shown
   const statusLine =
     mode === 'ready'

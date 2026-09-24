@@ -29,7 +29,7 @@ import {
   slotLabel,
   weekday,
 } from '@/features/booking/lib'
-import { packetItems, type ShareKey } from '@/features/booking/packet'
+import { isShared, packetItems, uploadIdOf, type ShareKey } from '@/features/booking/packet'
 import { PacketList, SummaryList } from '@/features/booking/SummaryList'
 import { usePageTitle } from '@/lib/hooks'
 
@@ -38,9 +38,12 @@ export default function BookingReviewPage() {
   const followUp = params.get('visit') === 'follow-up'
   usePageTitle(followUp ? 'Check and request your follow-up' : 'Check and request your appointment')
   const { state } = useDemo()
+  const { hasRecordAccess } = usePeople()
+  // Without record access, only the time chosen on the previous page is shown, never an existing booking.
+  const saved = hasRecordAccess ? state.booking : undefined
 
-  const c = clinicianById(params.get('clinician') ?? state.booking.clinicianId)
-  const slotId = params.get('slot') ?? (followUp ? state.booking.followUp?.slotId : state.booking.slotId)
+  const c = clinicianById(params.get('clinician') ?? saved?.clinicianId)
+  const slotId = params.get('slot') ?? (followUp ? saved?.followUp?.slotId : saved?.slotId)
   const slot = findSlot(c, slotId)
 
   if (!c || !slot) {
@@ -70,10 +73,12 @@ function Review({ c, slot, followUp }: { c: Clinician; slot: Slot; followUp: boo
   const stage = state.stage
   const items = packetItems(state)
   const uploadItems = items.filter((i) => i.shareKey === 'uploads')
-  const sharedBefore = items.filter((i) => state.booking.share[i.shareKey])
+  const sharedBefore = items.filter((i) => isShared(state.booking.share, i))
 
   const [share, setShare] = useState<BookingState['share']>(state.booking.share)
-  const [uploadSel, setUploadSel] = useState<string[]>(state.booking.share.uploads ? uploadItems.map((i) => i.id) : [])
+  const [uploadSel, setUploadSel] = useState<string[]>(() =>
+    uploadItems.filter((i) => isShared(state.booking.share, i)).map((i) => i.id),
+  )
   const [unavailable, setUnavailable] = useState(() => !followUp && isSlotTaken(slot.id))
   const alertRef = useRef<HTMLDivElement>(null)
 
@@ -102,6 +107,9 @@ function Review({ c, slot, followUp }: { c: Clinician; slot: Slot; followUp: boo
       observations: has('observations') ? share.observations : state.booking.share.observations,
       assessment: has('assessment') ? share.assessment : state.booking.share.assessment,
       uploads: uploadItems.length ? uploadSel.length > 0 : state.booking.share.uploads,
+      excludedUploadIds: uploadItems.length
+        ? uploadItems.filter((i) => !uploadSel.includes(i.id)).map((i) => uploadIdOf(i.id))
+        : state.booking.share.excludedUploadIds,
     }
   }
 
@@ -138,6 +146,7 @@ function Review({ c, slot, followUp }: { c: Clinician; slot: Slot; followUp: boo
         share: packet,
         followUp: undefined,
         infoReply: undefined,
+        previous: undefined,
       },
     }))
     navigate('/app/care/visit', { state: { justRequested: 'appointment' } })
@@ -173,7 +182,7 @@ function Review({ c, slot, followUp }: { c: Clinician; slot: Slot; followUp: boo
           tone="info"
           title="Booking needs permission first"
           action={
-            <Button to="/app/support#access" variant="secondary">
+            <Button to="/app/access" variant="secondary">
               Help arrange access
             </Button>
           }
@@ -301,7 +310,9 @@ function Review({ c, slot, followUp }: { c: Clinician; slot: Slot; followUp: boo
             {followUp || !c.acceptsPacket || !hasRecordAccess ? 'Visit packet' : 'Visit packet to share'}
           </h2>
           <p className="text-body-lg text-muted">
-            {followUp
+            {!hasRecordAccess && c.acceptsPacket
+              ? `${c.clinic} can receive the visit packet once access is arranged.`
+              : followUp
               ? `${c.clinic} already has the packet from ${your} first visit.`
               : c.acceptsPacket
                 ? `Choose what ${c.clinic} receives with this request.`
@@ -396,7 +407,7 @@ function Review({ c, slot, followUp }: { c: Clinician; slot: Slot; followUp: boo
         <div className="space-y-4 border-t border-border pt-6">
           {!canBook ? null : sameAsCurrent ? (
             <Button to="/app/care/visit" size="lg" className="w-full sm:w-auto">
-              View your visit
+              View visit details
             </Button>
           ) : (
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">

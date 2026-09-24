@@ -27,7 +27,7 @@ const PERMISSION_ORDER: PermissionKey[] = ['bookings', 'observations', 'care-pla
  */
 export default function AccessPage() {
   usePageTitle('People and access')
-  const { patient, helper, persona, possessive, name, hasRecordAccess } = usePeople()
+  const { patient, helper, persona, possessive, your, name, hasRecordAccess } = usePeople()
   const helperName = `${helper.firstName} ${helper.lastName}`.trim()
   const signedIn =
     persona === 'patient'
@@ -42,7 +42,7 @@ export default function AccessPage() {
         title="People and access"
         lede={
           hasRecordAccess
-            ? `Who can see ${possessive} care record, what they can do, and why.`
+            ? `Who can see ${your} care record, what they can do, and why.`
             : `You are helping ${name}. Access to ${possessive} record has not been arranged yet.`
         }
         meta={
@@ -73,7 +73,7 @@ export default function AccessPage() {
         {hasRecordAccess ? (
         <Section id="research" title="Research permissions" summary="Separate from care.">
           <StatusBadge tone="neutral">Concept - not available in this preview</StatusBadge>
-          <p className="mt-3 max-w-reading text-body-md text-ink">
+          <p className="mt-3 max-w-reading text-body-lg text-ink">
             Not set. Research is separate from care and never turned on by default. Saying no, or not deciding, never
             changes anyone’s care.
           </p>
@@ -81,7 +81,7 @@ export default function AccessPage() {
         ) : null}
 
         <Section id="notifications" title="Notifications" summary="Discreet by default.">
-          <p className="max-w-reading text-body-md text-ink">
+          <p className="max-w-reading text-body-lg text-ink">
             Messages outside NeuroVX never show names, results or diagnoses. On a shared phone, a notification would only
             say:
           </p>
@@ -95,9 +95,9 @@ export default function AccessPage() {
         </Section>
 
         <Section id="switching" title="Switching person" summary="Always your choice.">
-          <p className="max-w-reading text-body-md text-ink">Switching between people is always deliberate.</p>
+          <p className="max-w-reading text-body-lg text-ink">Switching between people is always deliberate.</p>
           <p className="mt-2 max-w-reading text-body-md text-muted">
-            {hasRecordAccess ? `You are viewing ${possessive} care.` : `You are helping ${name}.`} This demo includes one person. If you helped more than one person, you would
+            {hasRecordAccess ? `You are viewing ${your} care.` : `You are helping ${name}.`} This demo includes one person. If you helped more than one person, you would
             choose whose care to open, and NeuroVX would never switch without asking.
           </p>
         </Section>
@@ -136,7 +136,7 @@ interface AccessRow {
 
 function WhoCanSee() {
   const { state } = useDemo()
-  const { patient, helper, possessive, name } = usePeople()
+  const { patient, helper, persona, your, name } = usePeople()
   const clin = clinicianById(state.booking.clinicianId) ?? CLINICIANS[0]
   const initials = (first: string, last: string) => `${first.charAt(0)}${last.charAt(0)}`.toUpperCase()
 
@@ -147,7 +147,7 @@ function WhoCanSee() {
       role: 'Patient',
       mark: <Initials>{initials(patient.firstName, patient.lastName)}</Initials>,
       what: 'Full access',
-      why: 'Their own care record',
+      why: persona === 'patient' ? 'Your own care record' : 'Their own care record',
       since: EPISODE_DATES.today,
     },
   ]
@@ -200,7 +200,7 @@ function WhoCanSee() {
     <section aria-labelledby="who-heading" className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 id="who-heading" className="text-heading-md text-ink">
-          Who can see {possessive} information
+          Who can see {your} information
         </h2>
         <DemoTag />
       </div>

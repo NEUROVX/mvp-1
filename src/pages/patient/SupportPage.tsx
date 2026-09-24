@@ -67,7 +67,7 @@ export default function SupportPage() {
 
       <div className="flex items-start gap-3 rounded-lg border border-border bg-surface px-5 py-4">
         <OctagonAlert aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-error" strokeWidth={2} />
-        <p className="text-body-md text-ink">
+        <p className="text-body-lg text-ink">
           <span className="font-semibold">Urgent concern?</span> If someone has sudden symptoms or may be in danger, call
           112. Support here is not for emergencies. <TextLink to="/urgent">Urgent help guidance</TextLink>
         </p>
@@ -104,7 +104,7 @@ export default function SupportPage() {
         </SupportSection>
 
         <SupportSection id="access" title="Access and permissions" summary="Who can see what, and why.">
-          <p className="max-w-reading text-body-md text-ink">
+          <p className="max-w-reading text-body-lg text-ink">
             See who can view this care record, what each person can do, and how to change it. Only the patient can change
             permissions.
           </p>
@@ -114,7 +114,7 @@ export default function SupportPage() {
         </SupportSection>
 
         <SupportSection id="caregiver" title="Caregiver support" summary="Practical help for families.">
-          <p className="max-w-reading text-body-md text-ink">
+          <p className="max-w-reading text-body-lg text-ink">
             Services such as caregiver education, support at home and help finding a provider.
           </p>
           <div className="mt-3 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-4">
@@ -124,7 +124,7 @@ export default function SupportPage() {
         </SupportSection>
 
         <SupportSection id="understand" title="Understanding terms and tests" summary="Education, not a diagnosis.">
-          <p className="max-w-reading text-body-md text-ink">
+          <p className="max-w-reading text-body-lg text-ink">
             NeuroLearn explains appointments, assessments and tests in plain language, with sources.
           </p>
           <ArrowLink to="/app/learn/neurolearn" className="mt-2">
@@ -173,7 +173,7 @@ function SharingCase() {
 
   if (state.stage !== 'delivery-problem' || !hasRecordAccess || !report) {
     return (
-      <p className="max-w-reading text-body-md text-ink">
+      <p className="max-w-reading text-body-lg text-ink">
         There are no open sharing issues. If a report does not reach your care team, NeuroVX support follows up with the
         provider and shows the case here.
       </p>
@@ -181,15 +181,15 @@ function SharingCase() {
   }
 
   return (
-    <div className="rounded-lg border border-border bg-canvas p-5 sm:p-6">
+    <div className="rounded-md bg-canvas p-5 sm:p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h3 className="text-heading-sm text-ink">Report sharing issue</h3>
+        <h3 className="text-label text-ink">Report sharing issue</h3>
         <div className="flex items-center gap-2">
           <StatusBadge tone="warning">Open</StatusBadge>
           <DemoTag />
         </div>
       </div>
-      <p className="mt-2 max-w-reading text-body-md text-ink">
+      <p className="mt-2 max-w-reading text-body-lg text-ink">
         Your {report.title} is available to you, but it has not reached {clin.name} yet. You do not need to do anything.
         This page updates when the report is shared.
       </p>
@@ -241,7 +241,7 @@ function AssistedHelp() {
 
   return (
     <div className="space-y-6">
-      <p className="max-w-reading text-body-md text-ink">
+      <p className="max-w-reading text-body-lg text-ink">
         Some steps work better with a person. The clinic can arrange an assisted assessment, or book the appointment for
         you.
       </p>

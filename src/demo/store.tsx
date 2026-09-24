@@ -130,7 +130,7 @@ export function useEpisode() {
   const { name } = usePeople()
   return {
     stage: state.stage,
-    next: nextStepFor(state.stage, name, state.booking),
+    next: nextStepFor(state.stage, name, state.booking, state.labBooking),
     careline: carelineFor(state.stage),
   }
 }

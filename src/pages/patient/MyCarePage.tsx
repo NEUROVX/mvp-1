@@ -4,6 +4,7 @@ import { hasReached } from '@/demo/episode'
 import { CARE_PLAN_SUMMARY, clinicianById, CLINICIANS, EPISODE_DATES, findSlot, ORDERS } from '@/demo/fixtures'
 import { useDemo, usePeople } from '@/demo/store'
 import type { DemoState, EpisodeStage, Tone } from '@/demo/types'
+import { bookingFor, COLLECTION_TEXT, labIndexFor, orderStatus as labOrderStatus } from '@/features/tests/progress'
 import { usePageTitle } from '@/lib/hooks'
 
 /**
@@ -51,7 +52,7 @@ function CareSections() {
         id="tests"
         title="Tests and scans"
         summary="Only what your clinician requests."
-        items={testItems(stage)}
+        items={testItems(state)}
         footer={
           hasReached(stage, 'collection-arranged') ? (
             <ArrowLink to="/app/care/tests/progress">View test progress</ArrowLink>
@@ -272,8 +273,8 @@ function appointmentItems(state: DemoState): Item[] {
       key: 'visit',
       name: `Visit with ${clin.name}`,
       status: { label: 'Completed', tone: 'neutral' },
-      detail: `${EPISODE_DATES.visit}, ${EPISODE_DATES.visitTime}`,
-      action: { label: 'View visit', to: '/app/care/visit' },
+      detail: when,
+      action: { label: 'View visit details', to: '/app/care/visit' },
     },
   ]
   if (stage === 'follow-up-due') {
@@ -304,7 +305,8 @@ function followUpLine(clin: ReturnType<typeof clinicianById>, slotId: string, mo
   return `Requested: ${slot.date}, ${slot.time} · ${mode === 'video' ? 'Video visit' : 'In clinic'}`
 }
 
-function testItems(stage: EpisodeStage): Item[] {
+function testItems(state: DemoState): Item[] {
+  const stage = state.stage
   if (!hasReached(stage, 'tests-requested')) {
     return [
       {
@@ -324,8 +326,16 @@ function testItems(stage: EpisodeStage): Item[] {
       status = { label: 'Requested by your clinician', tone: 'info' }
       detail = `Ordered by ${o.orderedBy} on ${o.orderedOn}`
     } else if (stage === 'collection-arranged') {
-      status = { label: 'Collection booked', tone: 'info' }
-      detail = `${EPISODE_DATES.collection}, ${EPISODE_DATES.collectionTime}`
+      // The booking the person actually made, and the lab's progress (same source as Tests and Test progress).
+      const booking = bookingFor(state)
+      const lab = labOrderStatus(o.id, state)
+      const collected = labIndexFor(o.id, state) >= 2
+      status = collected ? lab : { label: 'Collection booked', tone: 'info' }
+      detail = !booking
+        ? `${EPISODE_DATES.collection}, ${EPISODE_DATES.collectionTime}`
+        : collected
+          ? `Collected ${booking.collectedOn}`
+          : `${COLLECTION_TEXT[booking.collection]}, ${booking.date}, ${booking.time}`
     } else if (o.id !== 'b12') {
       status = { label: 'Processing', tone: 'neutral' }
       detail = 'The provider has not released this report yet'

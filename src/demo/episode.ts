@@ -3,8 +3,8 @@
  * where the Careline sits and which fixtures exist at each point in time.
  * Source: docs/design/PATIENT.md › "Home is a set of states, not a single mockup".
  */
-import { clinicianById, CLINICIANS, DEMO_UPLOADS, EPISODE_DATES, findSlot, ORG } from './fixtures'
-import type { BookingState, DemoState, EpisodeStage, Tone } from './types'
+import { clinicianById, CLINICIANS, DEMO_UPLOADS, EPISODE_DATES, findSlot, labById, LAB_PROVIDERS, ORG, REPORTS } from './fixtures'
+import type { BookingState, DemoState, EpisodeStage, LabBookingState, Tone } from './types'
 
 /** Golden-path order. Variants map onto a position on this path. */
 export const GOLDEN_PATH: EpisodeStage[] = [
@@ -111,7 +111,52 @@ export interface NextStep {
  * Home copy per stage. `name` is the patient's first name.
  * Copy follows PATIENT.md tables and DESIGN.md voice rules exactly where given.
  */
-export function nextStepFor(stage: EpisodeStage, name: string, booking?: BookingState): NextStep {
+/**
+ * The sample collection the family booked on /app/care/tests/book (fixtures are
+ * the fallback). The single source for Home, My care, Test progress, the report,
+ * the clinician record and the lab queue, so a non-default slot shows the same
+ * everywhere and nothing is "collected" before its booked time.
+ */
+export function labCollectionFor(labBooking?: LabBookingState) {
+  const provider = labById(labBooking?.providerId) ?? LAB_PROVIDERS[0]
+  const slot = provider.slots.find((s) => s.id === labBooking?.slotId) ?? provider.slots[0]
+  const b12 = REPORTS.find((r) => r.id === 'b12')!
+  return {
+    provider,
+    slotId: slot.id,
+    collection: labBooking?.collection ?? slot.collection,
+    date: slot.date,
+    time: slot.time,
+    /** Recorded collection time: the report fixture matches the default slot; other slots record their booked time. */
+    collectedOn: slot.id === LAB_PROVIDERS[0].slots[0].id ? b12.collectedOn : `${slot.date}, ${slot.time}`,
+  }
+}
+
+/** Previous reports actually shared in the visit packet (the person can untick single reports). */
+export function sharedUploads(state: DemoState) {
+  const { uploads, excludedUploadIds = [] } = state.booking.share
+  return uploads ? state.uploads.filter((u) => !excludedUploadIds.includes(u.id)) : []
+}
+
+/** The "Sample collected" timeline event as it happened for the booked slot. */
+export function collectedEventFor(labBooking?: LabBookingState) {
+  const c = labCollectionFor(labBooking)
+  const [date, time] = c.collectedOn.split(', ')
+  const how = c.collection === 'home' ? 'Home collection' : 'Centre visit'
+  return {
+    date,
+    time,
+    detail: `${how} by ${c.provider.name} - ${c.provider.label.toLowerCase()}.`,
+    sourceName: c.provider.name,
+  }
+}
+
+export function nextStepFor(
+  stage: EpisodeStage,
+  name: string,
+  booking?: BookingState,
+  labBooking?: LabBookingState,
+): NextStep {
   // Visit details come from the actual booking; fixtures are the fallback.
   const clinician = clinicianById(booking?.clinicianId) ?? CLINICIANS[0]
   const slot = findSlot(clinician, booking?.slotId) ?? clinician.slots[0]
@@ -200,14 +245,20 @@ export function nextStepFor(stage: EpisodeStage, name: string, booking?: Booking
         owner: 'Ordered by Dr. Kavya Rao',
         primary: { label: 'View requested tests', to: '/app/care/tests' },
       }
-    case 'collection-arranged':
+    case 'collection-arranged': {
+      // The collection the person actually booked, so Home agrees with My care and Test progress.
+      const { provider, date, time, collection } = labCollectionFor(labBooking)
+      const home = collection === 'home'
       return {
         status: { label: 'Booked', tone: 'info' },
         title: 'Your test visit is booked',
-        body: 'Home sample collection. The provider confirms any preparation.',
-        details: [`${EPISODE_DATES.collection}, ${EPISODE_DATES.collectionTime}`, ORG.lab],
+        body: home
+          ? 'Home sample collection. The provider confirms any preparation.'
+          : `Sample collection at ${provider.name}. The provider confirms any preparation.`,
+        details: [`${date}, ${time}`, `${provider.name} - ${provider.label.toLowerCase()}`],
         primary: { label: 'View preparation', to: '/app/care/tests/progress' },
       }
+    }
     case 'report-released':
       return {
         status: { label: 'Available - not yet reviewed', tone: 'neutral' },

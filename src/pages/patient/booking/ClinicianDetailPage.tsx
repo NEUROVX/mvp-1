@@ -15,7 +15,7 @@ import {
 } from '@/components/ui'
 import { hasReached } from '@/demo/episode'
 import { clinicianById } from '@/demo/fixtures'
-import { useDemo } from '@/demo/store'
+import { useDemo, usePeople } from '@/demo/store'
 import type { Clinician, Slot } from '@/demo/types'
 import { BackLink } from '@/features/booking/BackLink'
 import {
@@ -36,10 +36,12 @@ export default function ClinicianDetailPage() {
   const { clinicianId } = useParams()
   const [params] = useSearchParams()
   const { state } = useDemo()
+  const { hasRecordAccess } = usePeople()
   const c = clinicianById(clinicianId)
   const episodeClinicianId = state.booking.clinicianId ?? 'kavya-rao'
   // A follow-up reuses the same clinician and care episode (PATIENT.md › Care plan).
-  const followUp = params.get('visit') === 'follow-up' && c?.id === episodeClinicianId
+  // Without record access the episode stays private, so the page shows ordinary availability.
+  const followUp = hasRecordAccess && params.get('visit') === 'follow-up' && c?.id === episodeClinicianId
   usePageTitle(!c ? 'Clinician not available' : followUp ? 'Book a follow-up' : c.name)
 
   if (!c) {
@@ -66,20 +68,23 @@ export default function ClinicianDetailPage() {
 function ClinicianDetail({ c, followUp }: { c: Clinician; followUp: boolean }) {
   const navigate = useNavigate()
   const { state, set } = useDemo()
+  const { hasRecordAccess } = usePeople()
   const stage = state.stage
   const slots = followUp ? followUpSlots(c) : c.slots
 
-  const initial = followUp
-    ? state.booking.followUp?.slotId
-    : state.booking.clinicianId === c.id
-      ? state.booking.slotId
-      : undefined
+  const initial = !hasRecordAccess
+    ? undefined
+    : followUp
+      ? state.booking.followUp?.slotId
+      : state.booking.clinicianId === c.id
+        ? state.booking.slotId
+        : undefined
   const [slotId, setSlotId] = useState<string | undefined>(initial && !isSlotTaken(initial) ? initial : undefined)
   const [error, setError] = useState<string>()
 
   const existingFollowUp = followUp ? state.booking.followUp : undefined
   const existingFollowUpSlot = findSlot(c, existingFollowUp?.slotId)
-  const guard = !followUp && hasActiveBooking(stage)
+  const guard = hasRecordAccess && !followUp && hasActiveBooking(stage)
 
   const choose = () => {
     const slot = findSlot(c, slotId)
@@ -117,7 +122,7 @@ function ClinicianDetail({ c, followUp }: { c: Clinician; followUp: boolean }) {
         <Callout
           tone="info"
           title="You already have a visit request or booking"
-          action={<ArrowLink to="/app/care/visit">View your visit</ArrowLink>}
+          action={<ArrowLink to="/app/care/visit">View visit details</ArrowLink>}
         >
           <p>Check it before requesting another, so the clinic does not receive two requests.</p>
         </Callout>
@@ -127,7 +132,7 @@ function ClinicianDetail({ c, followUp }: { c: Clinician; followUp: boolean }) {
         <Callout
           tone="info"
           title="Follow-up requested - pending clinic confirmation"
-          action={<ArrowLink to="/app/care/visit">View your visit</ArrowLink>}
+          action={<ArrowLink to="/app/care/visit">View visit details</ArrowLink>}
         >
           <p>
             Requested:{' '}

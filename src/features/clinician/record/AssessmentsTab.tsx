@@ -37,7 +37,7 @@ export function AssessmentsTab() {
           </h2>
           <SourceLabel kind="system" name="Assessment preview" />
         </div>
-        <StatusBadge tone="neutral" size="sm" className="self-start">
+        <StatusBadge tone="neutral" className="self-start">
           Not interpretable - preview only
         </StatusBadge>
       </div>
@@ -52,7 +52,7 @@ export function AssessmentsTab() {
             { term: 'Respondent', detail: fullName },
             {
               term: 'Assistance',
-              detail: a.supportNeeds.length ? `Support needs noted: ${a.supportNeeds.join(', ')}` : 'None recorded',
+              detail: a.supportNeeds.length ? `Support needs noted: ${a.supportNeeds.join(', ')}` : 'Not recorded',
             },
             { term: 'Completion', detail: interrupted ? `Interrupted in section ${a.section} of 3` : completion },
             { term: 'Validity', detail: 'Not interpretable - preview only' },

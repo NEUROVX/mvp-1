@@ -44,14 +44,16 @@ export function IdentityBar() {
             }
           />
         </div>
-        <div className="flex shrink-0 items-start gap-2.5 border-t border-border pt-4 xl:max-w-sm xl:border-t-0 xl:border-l xl:pt-1 xl:pl-6">
+        <div className="flex shrink-0 items-start gap-2.5 border-t border-border pt-4 xl:max-w-md xl:border-t-0 xl:border-l xl:pt-1 xl:pl-6">
           <Eye aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-muted" strokeWidth={1.75} />
           <div className="space-y-0.5">
             <p className="text-body-md text-ink">
-              Viewing as <span className="font-semibold">{CLINICIAN.name}</span> · {ORG.clinic}
+              Viewing as <span className="font-semibold">{CLINICIAN.name}</span>
+              <span className="block">{ORG.clinic}</span>
             </p>
             <p className="text-metadata text-muted">
-              Access began when the family shared a visit packet on {EPISODE_DATES.bookingRequested}
+              Access began when the family shared a visit packet on{' '}
+              <span className="whitespace-nowrap">{EPISODE_DATES.bookingRequested}</span>
             </p>
           </div>
         </div>

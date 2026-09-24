@@ -4,8 +4,8 @@
  * not a trend.
  */
 import type { TimelineEntry } from '@/components/ui'
-import { hasReached } from '@/demo/episode'
-import { ORG, TIMELINE } from '@/demo/fixtures'
+import { collectedEventFor, hasReached } from '@/demo/episode'
+import { clinicianById, findSlot, ORG, TIMELINE } from '@/demo/fixtures'
 import type { DemoState, TimelineType } from '@/demo/types'
 
 export type RecordFilter = 'all' | 'visits' | 'assessments' | 'tests' | 'care' | 'family'
@@ -61,8 +61,22 @@ export function recordItems(state: DemoState): RecordItem[] {
   const reviewed = hasReached(state.stage, 'reviewed') && state.stage !== 'delivery-problem'
   const items: RecordItem[] = TIMELINE.filter((ev) => hasReached(state.stage, ev.from)).map((ev) => {
     let detail = ev.detail
+    let date = ev.date
+    let time = ev.time
+    let sourceName = ev.sourceName
     let review = ev.review
     let reviewTone = ev.reviewTone
+    if (ev.id === 'ev-booking' || ev.id === 'ev-visit') {
+      // The visit as it was actually booked, matching Home, My care and the visit hub.
+      const clin = clinicianById(state.booking.clinicianId)
+      const slot = findSlot(clin, state.booking.slotId)
+      if (clin && slot && ev.id === 'ev-booking') {
+        const mode = (state.booking.mode ?? slot.mode) === 'video' ? 'video visit' : 'in clinic'
+        detail = `${clin.name}, ${slot.date}, ${slot.time}, ${mode}.`
+      }
+      if (clin && slot && ev.id === 'ev-visit' && slot.date === ev.date) time = slot.time
+    }
+    if (ev.id === 'ev-collected') ({ date, time, detail, sourceName } = collectedEventFor(state.labBooking))
     if (ev.id === 'ev-released') {
       if (state.stage === 'delivery-problem') {
         detail = `Available to you. Not yet delivered to the care team - ${ORG.support} is following up.`
@@ -89,17 +103,17 @@ export function recordItems(state: DemoState): RecordItem[] {
     const actionLabel = ev.href ? ACTION_LABEL.find(([re]) => re.test(ev.href!))?.[1] : undefined
     return {
       filter,
-      key: sortKey(ev.date, ev.time),
-      text: `${ev.title} ${detail} ${ev.sourceName}`.toLowerCase(),
+      key: sortKey(date, time),
+      text: `${ev.title} ${detail} ${sourceName}`.toLowerCase(),
       entry: {
         id: ev.id,
-        date: ev.date,
-        time: ev.time,
+        date,
+        time,
         typeLabel: TYPE_LABEL[ev.type],
         title: ev.title,
         detail,
         source: ev.source,
-        sourceName: ev.sourceName,
+        sourceName,
         review,
         reviewTone,
         href: ev.href,

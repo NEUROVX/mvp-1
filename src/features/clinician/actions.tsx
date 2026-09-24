@@ -25,24 +25,26 @@ export function useClinicianActions() {
   const { possessive } = usePeople()
   const [feedback, setFeedback] = useState<string>()
   const [dialog, setDialog] = useState<ClinicianDialog>(null)
-  const updated = `${possessive} care team view is updated.`
+  // Says what changed for the family, e.g. "Asha’s Home now shows the confirmed visit."
+  const home = `${possessive} Home now shows`
 
   const acceptRequest = useCallback(() => {
+    set((s) => ({ ...s, booking: { ...s.booking, previous: undefined } }))
     setStage('booking-confirmed')
-    setFeedback(`Accepted. ${updated}`)
-  }, [setStage, updated])
+    setFeedback(`Accepted. ${home} the confirmed visit.`)
+  }, [setStage, home])
 
   const requestInfo = useCallback(() => {
     setStage('info-requested')
     setDialog(null)
-    setFeedback(`Request sent. ${updated}`)
-  }, [setStage, updated])
+    setFeedback(`Request sent. ${home} your request.`)
+  }, [setStage, home])
 
   const sendOrder = useCallback(() => {
     setStage('tests-requested')
     setDialog(null)
-    setFeedback(`Order sent. ${updated}`)
-  }, [setStage, updated])
+    setFeedback(`Order sent. ${home} the requested tests.`)
+  }, [setStage, home])
 
   const markReviewed = useCallback(
     (explanation: string, followUp: boolean) => {
@@ -52,9 +54,13 @@ export function useClinicianActions() {
         clinician: { ...s.clinician, explanation },
       }))
       setDialog(null)
-      setFeedback(followUp ? `Reviewed. Plan published with a follow-up. ${updated}` : `Reviewed. Care plan published. ${updated}`)
+      setFeedback(
+        followUp
+          ? `Reviewed. Plan published with a follow-up. ${home} the care update.`
+          : `Reviewed. Care plan published. ${home} the care update.`,
+      )
     },
-    [set, updated],
+    [set, home],
   )
 
   return { feedback, setFeedback, dialog, setDialog, acceptRequest, requestInfo, sendOrder, markReviewed }
@@ -282,7 +288,9 @@ function ReviewDialog({
 }
 
 function OriginalReportDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { state } = useDemo()
   const r = B12_REPORT
+  const corrected = Boolean(state.lab.correctedVersion)
   return (
     <Dialog
       open={open}
@@ -306,8 +314,13 @@ function OriginalReportDialog({ open, onClose }: { open: boolean; onClose: () =>
           items={[
             { term: 'Assay', detail: r.assay },
             { term: 'Specimen', detail: r.specimen },
-            { term: 'Version', detail: `${r.versions[0].version} - ${r.versions[0].note}` },
-            { term: 'Issued', detail: r.versions[0].issuedOn },
+            {
+              term: 'Version',
+              detail: corrected
+                ? '2 - Corrected report. Version 1 is superseded and still traceable.'
+                : `${r.versions[0].version} - ${r.versions[0].note}`,
+            },
+            { term: corrected ? 'Version 1 issued' : 'Issued', detail: r.versions[0].issuedOn },
           ]}
         />
         <SourceLabel kind="lab" name={r.issuer} />

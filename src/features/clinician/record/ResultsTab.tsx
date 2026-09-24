@@ -2,8 +2,18 @@ import { FileText, Hourglass } from 'lucide-react'
 import { Button, Callout, EmptyState, SourceLabel, StatusBadge } from '@/components/ui'
 import { EPISODE_DATES, ORG, PENDING_REPORT } from '@/demo/fixtures'
 import { useDemo } from '@/demo/store'
-import { ReviewButton, type ClinicianActions } from '../actions'
-import { B12_REPORT, CLINICIAN, DEMO_ORDERS, hasOrders, isReleased, isReviewed, orderStatus, plasmaProcessing } from '../data'
+import type { ClinicianActions } from '../actions'
+import {
+  B12_REPORT,
+  bookedCollection,
+  CLINICIAN,
+  DEMO_ORDERS,
+  hasOrders,
+  isReleased,
+  isReviewed,
+  orderStatus,
+  plasmaProcessing,
+} from '../data'
 import { DataTable } from '../DataTable'
 import { SectionHead } from '../parts'
 
@@ -23,6 +33,7 @@ export function ResultsTab({ actions }: { actions: ClinicianActions }) {
 
   const failed = st === 'delivery-problem'
   const reviewed = isReviewed(st)
+  const corrected = Boolean(state.lab.correctedVersion)
 
   return (
     <div className="space-y-10">
@@ -47,7 +58,7 @@ export function ResultsTab({ actions }: { actions: ClinicianActions }) {
               cell: (o) => {
                 const s = orderStatus(state, o.id)
                 return s ? (
-                  <StatusBadge tone={s.tone} size="sm">
+                  <StatusBadge tone={s.tone}>
                     {s.label}
                   </StatusBadge>
                 ) : null
@@ -70,7 +81,7 @@ export function ResultsTab({ actions }: { actions: ClinicianActions }) {
                   </h3>
                   <SourceLabel kind="lab" name={B12_REPORT.issuerLabel} />
                 </div>
-                <StatusBadge tone={failed ? 'warning' : 'info'} size="sm" className="self-start">
+                <StatusBadge tone={failed ? 'warning' : 'info'} className="self-start">
                   {failed ? 'Not received' : reviewed ? `Reviewed ${EPISODE_DATES.reviewed}` : 'Not yet reviewed'}
                 </StatusBadge>
               </div>
@@ -83,9 +94,14 @@ export function ResultsTab({ actions }: { actions: ClinicianActions }) {
                   ['Issuer', B12_REPORT.issuerLabel],
                   ['Assay', B12_REPORT.assay],
                   ['Specimen', B12_REPORT.specimen],
-                  ['Collected', B12_REPORT.collectedOn],
+                  ['Collected', bookedCollection(state).collectedOn],
                   ['Released', B12_REPORT.releasedOn],
-                  ['Version', `${B12_REPORT.versions[0].version} - ${B12_REPORT.versions[0].note}`],
+                  [
+                    'Version',
+                    corrected
+                      ? '2 - Corrected report (version 1 superseded, still traceable)'
+                      : `${B12_REPORT.versions[0].version} - ${B12_REPORT.versions[0].note}`,
+                  ],
                   ['Quality flags', B12_REPORT.qualityFlags],
                   [
                     'Delivery',
@@ -115,14 +131,10 @@ export function ResultsTab({ actions }: { actions: ClinicianActions }) {
                     </p>
                   </Callout>
                 ) : (
-                  <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                    {st === 'report-released' ? (
-                      <ReviewButton onClick={() => actions.setDialog('review')} />
-                    ) : null}
-                    <Button variant="secondary" iconLeft={<FileText className="size-5" />} onClick={() => actions.setDialog('report')}>
-                      Open original report
-                    </Button>
-                  </div>
+                  // "Mark reviewed and update care plan" stays in the next-step panel above, so it is not repeated here.
+                  <Button variant="secondary" iconLeft={<FileText className="size-5" />} onClick={() => actions.setDialog('report')}>
+                    Open original report
+                  </Button>
                 )}
               </div>
             </article>

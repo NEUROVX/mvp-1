@@ -6,8 +6,8 @@
  * Operational states stay distinct. Laboratory validation (release) and
  * clinician review are separate; clinician review is the clinic's state.
  */
-import { CLINICIANS, EPISODE_DATES, LAB_PROVIDERS, ORDERS, ORG, REPORTS, labById } from '@/demo/fixtures'
-import { STAGE_META, hasReached } from '@/demo/episode'
+import { CLINICIANS, EPISODE_DATES, ORDERS, ORG, REPORTS } from '@/demo/fixtures'
+import { STAGE_META, hasReached, labCollectionFor } from '@/demo/episode'
 import type { DemoState } from '@/demo/types'
 import type { Tone } from '@/demo/types'
 
@@ -31,12 +31,12 @@ export function shiftDate(s: string, days: number) {
 
 /**
  * The lab workspace's "today". Follows STAGE_META, except that once the lab
- * records the home collection the day moves to the collection date, so the
+ * records the booked collection the day moves to the collection date, so the
  * queue never shows a sample collected "tomorrow".
  */
 export function labToday(state: DemoState) {
   const p = state.lab.b12
-  if (state.stage === 'collection-arranged' && p && p !== 'received') return EPISODE_DATES.collection
+  if (state.stage === 'collection-arranged' && p && p !== 'received') return collectionFor(state).date
   return STAGE_META[state.stage].when
 }
 
@@ -63,12 +63,16 @@ export const STATE_LABEL: Record<LabState, string> = {
   released: 'Lab report released',
 }
 
+/**
+ * Same tone rule as the clinician workspace, so one state looks the same in
+ * both: in progress = neutral, released = info, needs attention = warning.
+ */
 export const STATE_TONE: Record<LabState, Tone> = {
   'order-received': 'neutral',
   'needs-clarification': 'warning',
-  'collection-arranged': 'info',
-  collected: 'info',
-  'specimen-received': 'info',
+  'collection-arranged': 'neutral',
+  collected: 'neutral',
+  'specimen-received': 'neutral',
   processing: 'neutral',
   released: 'info',
 }
@@ -121,7 +125,7 @@ function backgroundOrders(today: string): LabOrder[] {
     {
       ref: 'ORD-DEMO-0138',
       kind: 'background',
-      patientName: 'R. Iyer (demo)',
+      patientName: 'A. Verma (demo)',
       patientAge: '54',
       test: 'HbA1c - example',
       testExact: 'HbA1c - example order',
@@ -138,7 +142,7 @@ function backgroundOrders(today: string): LabOrder[] {
     {
       ref: 'ORD-DEMO-0139',
       kind: 'background',
-      patientName: 'P. Menon (demo)',
+      patientName: 'K. Nair (demo)',
       patientAge: '71',
       test: 'Lipid profile - example',
       testExact: 'Lipid profile - example order',
@@ -155,7 +159,7 @@ function backgroundOrders(today: string): LabOrder[] {
     {
       ref: 'ORD-DEMO-0140',
       kind: 'background',
-      patientName: 'S. Khan (demo)',
+      patientName: 'F. Qureshi (demo)',
       patientAge: '59',
       test: '“Thyroid panel?” - ambiguous request',
       testExact: 'Thyroid panel?',
@@ -171,7 +175,7 @@ function backgroundOrders(today: string): LabOrder[] {
     {
       ref: 'ORD-DEMO-0141',
       kind: 'background',
-      patientName: 'J. Das (demo)',
+      patientName: 'M. Joshi (demo)',
       patientAge: '62',
       test: 'Complete blood count - example',
       testExact: 'Complete blood count - example order',
@@ -195,15 +199,13 @@ function backgroundOrders(today: string): LabOrder[] {
 /* ------------------------------------------------------------------ */
 
 function collectionFor(state: DemoState): Collection {
-  const provider = labById(state.labBooking.providerId) ?? LAB_PROVIDERS[0]
-  const slot = provider.slots.find((s) => s.id === state.labBooking.slotId)
-  const recorded = !slot || slot.id === 'ed-1' ? REPORTS[0].collectedOn : slot.date
+  const c = labCollectionFor(state.labBooking)
   return {
-    type: state.labBooking.collection ?? slot?.collection ?? 'home',
-    date: slot?.date ?? EPISODE_DATES.collection,
-    time: slot?.time ?? EPISODE_DATES.collectionTime,
-    provider: `${provider.name} - ${provider.label.toLowerCase()}`,
-    collectedOn: recorded,
+    type: c.collection,
+    date: c.date,
+    time: c.time,
+    provider: `${c.provider.name} - ${c.provider.label.toLowerCase()}`,
+    collectedOn: c.collectedOn,
   }
 }
 
@@ -249,7 +251,7 @@ export function demoPatientOrders(state: DemoState, patient: { fullName: string;
       releasedOn: report.releasedOn,
       delivery: { status: failed ? 'failed' : 'confirmed', on: EPISODE_DATES.released },
       clinicianReviewedOn: reviewed ? EPISODE_DATES.reviewed : undefined,
-      owner: failed ? ORG.support : reviewed ? 'Complete' : 'Ordering clinic - clinician review',
+      owner: failed ? ORG.support : reviewed ? 'No owner needed - complete' : 'Ordering clinic - clinician review',
       due: failed ? today : 'No lab action due',
       processingLab: ORG.lab,
       collection,
