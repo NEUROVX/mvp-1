@@ -10,6 +10,8 @@ Early setup. No application code yet. Current contents:
 |------|---------|
 | `README.md` | Project overview (this file) |
 | `DESIGN.md` | Design system: color, type, components, layout, motion, banned patterns |
+| `.claude/skills/hallmark/` | [Hallmark](https://github.com/nutlope/hallmark) design skill for Claude Code (project-scoped) |
+| `skills-lock.json` | Pinned source + hash of installed skills |
 
 ## Design system
 
@@ -21,6 +23,17 @@ Use it two ways:
 
 1. **Google Stitch** — paste `DESIGN.md` as the design context when generating screens at [stitch.withgoogle.com](https://stitch.withgoogle.com).
 2. **Coding agents** — point Claude Code, Cursor, or similar at `DESIGN.md` before building UI so exported screens get implemented with the intended tokens and motion.
+
+## Design skills
+
+[Hallmark](https://github.com/nutlope/hallmark) is installed as a project skill, so any Claude Code session in this repo can use it. It is an anti-AI-slop design skill for building, auditing, and redesigning UI.
+
+- **Build:** ask Claude Code to design a page. Hallmark reads `DESIGN.md` first and treats it as the locked system, so output stays on NeuroVX tokens.
+- **Audit:** `hallmark audit <file>` returns a ranked punch list without editing.
+- **Redesign:** `hallmark redesign <file>` restyles within existing routes and components.
+- **Study:** `hallmark study <url | screenshot>` extracts a reference design's structure.
+
+Update with `npx skills update -p -y`. For other tools, copy `SKILL.md` + `references/` from `.claude/skills/hallmark/` into `.cursor/rules/hallmark.mdc` (Cursor, body only, no frontmatter) or `.codex/skills/hallmark/` (Codex).
 
 ## Getting started
 
