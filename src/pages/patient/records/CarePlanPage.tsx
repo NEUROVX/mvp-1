@@ -40,7 +40,8 @@ export default function CarePlanPage() {
   const existing = state.stage === 'existing-care'
   const noTask = state.stage === 'no-task'
   const followUpRequested = Boolean(state.booking.followUp)
-  const followUpPrimary = (state.stage === 'follow-up-due' || state.stage === 'reviewed') && !followUpRequested
+  // A plan published at 'reviewed' has no follow-up yet; the clinician adds one at 'follow-up-due'.
+  const followUpPrimary = state.stage === 'follow-up-due' && !followUpRequested
 
   if (!hasPlan) {
     return (
@@ -60,7 +61,7 @@ export default function CarePlanPage() {
   }
 
   const byCategory = (c: CarePlanItem['category']) => CARE_PLAN.filter((i) => i.category === c)
-  const followUp = byCategory('next-visit')[0]
+  const followUp = state.stage === 'reviewed' ? undefined : byCategory('next-visit')[0]
   const followUpItem: CarePlanItem | undefined = followUp
     ? followUpRequested
       ? { ...followUp, status: 'Requested', href: '/app/care/visit' }

@@ -164,7 +164,14 @@ export interface DemoState {
   /** True once the "Who is the care for?" setup has been completed. */
   onboarded: boolean
   /** Clinician workspace: draft summary accepted, impression text (demo only). */
-  clinician: { summaryAccepted?: string; impression?: string; explanation?: string }
+  clinician: {
+    summaryAccepted?: string
+    summaryText?: string
+    summaryEdited?: string
+    impression?: string
+    impressionSaved?: string
+    explanation?: string
+  }
   /** Lab workspace: demo-only operational progress for the B12 order. */
   lab: { b12?: 'received' | 'collected' | 'specimen-received' | 'processing'; correctedVersion?: boolean }
 }
