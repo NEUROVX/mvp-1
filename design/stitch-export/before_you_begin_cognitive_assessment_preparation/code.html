@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-container-highest": "#d5e3fd", "on-surface": "#0d1c2f", "primary-hover": "#1E40AF", "secondary-container": "#dde3ee", "surface-variant": "#d5e3fd", "on-tertiary": "#ffffff", "outline": "#747686", "secondary-fixed": "#dde3ee", "error-surface": "#FEF3F2", "surface-dim": "#ccdbf4", "primary-container": "#1d4ed8", "on-secondary-fixed-variant": "#414750", "on-primary-fixed-variant": "#0039b5", "on-secondary-container": "#5e656e", "on-primary-container": "#cad3ff", "body": "#334155", "surface-container-low": "#eff4ff", "surface": "#FFFFFF", "on-error": "#ffffff", "surface-bright": "#f8f9ff", "surface-tint": "#2151da", "on-primary": "#FFFFFF", "error-container": "#ffdad6", "soft-blue": "#EEF4FF", "on-secondary": "#ffffff", "surface-container-lowest": "#ffffff", "outline-variant": "#c4c5d7", "on-tertiary-fixed-variant": "#832700", "heading": "#0B1F3A", "border": "#DBE4F0", "on-error-container": "#93000a", "primary-fixed-dim": "#b7c4ff", "primary": "#0037b0", "muted": "#52647A", "on-surface-variant": "#434655", "tertiary-container": "#a73400", "background": "#F8FAFD", "tertiary": "#7f2500", "primary-fixed": "#dce1ff", "secondary": "#585f68", "tertiary-fixed-dim": "#ffb59c", "tertiary-fixed": "#ffdbcf", "on-background": "#0d1c2f", "focus": "#1D4ED8", "surface-container-high": "#dde9ff", "inverse-primary": "#b7c4ff", "error": "#B42318", "inverse-on-surface": "#ebf1ff", "on-tertiary-container": "#ffc9b7", "control-border": "#718096", "on-primary-fixed": "#001551", "surface-container": "#e6eeff", "on-tertiary-fixed": "#390c00", "secondary-fixed-dim": "#c1c7d1", "inverse-surface": "#233144", "on-secondary-fixed": "#161c24" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "main-width": "720px", "sm": "8px", "margin": "1.5rem", "xl": "32px", "modal-width": "560px", "gutter": "1rem", "page-top": "56px", "space-md": "1rem", "space-xxl": "3rem", "lg": "24px", "xxl": "48px", "md": "16px", "space-sm": "0.5rem", "xs": "4px", "space-xl": "2rem", "space-xs": "0.25rem", "space-lg": "1.5rem" }, fontFamily: { "button": ["Inter"], "headline-lg": ["Inter"], "label": ["Inter"], "task-title": ["Inter"], "body-lg": ["Inter"], "label-lg": ["Inter"], "headline-md-mobile": ["Inter"], "headline-md": ["Inter"], "body": ["Inter"], "headline-lg-mobile": ["Inter"], "page-title": ["Inter"], "label-md": ["Inter"], "body-md": ["Inter"], "label-sm": ["Inter"] }, fontSize: { "button": ["18px", { "lineHeight": "1.4", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }], "label": ["16px", { "lineHeight": "1.5", "fontWeight": "500" }], "task-title": ["28px", { "lineHeight": "1.3", "fontWeight": "600" }], "body-lg": ["18px", { "lineHeight": "28.8px", "fontWeight": "400" }], "label-lg": ["18px", { "lineHeight": "25.2px", "fontWeight": "600" }], "headline-md-mobile": ["22px", { "lineHeight": "30px", "fontWeight": "600" }], "headline-md": ["28px", { "lineHeight": "36.4px", "fontWeight": "600" }], "body": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "600" }], "page-title": ["32px", { "lineHeight": "1.25", "fontWeight": "600" }], "label-md": ["16px", { "lineHeight": "24px", "fontWeight": "500" }], "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "label-sm": ["14px", { "lineHeight": "20px", "fontWeight": "500" }] } } } };</script></head><body class="bg-background font-body text-body min-h-screen antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-[72px] max-w-[720px] mx-auto px-gutter flex items-center justify-between"><div class="flex items-center gap-space-sm"><span class="font-headline-md text-headline-md tracking-tight text-heading">NeuroVX</span><span class="px-space-xs py-0.5 rounded-full bg-soft-blue text-primary font-label-sm text-label-sm">Demo</span></div><nav class="hidden sm:flex items-center gap-space-xs" data-active-classes="bg-soft-blue text-primary font-label-md rounded-lg"><a aria-current="page" class="px-space-sm py-1.5 transition-colors bg-soft-blue text-primary font-label-md rounded-lg" data-path="assessment-home" href="#">Home</a><a class="px-space-sm py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="appointments" href="#">Appointments</a><a class="px-space-sm py-1.5 rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors" data-path="reports" href="#">Reports</a></nav><div class="flex items-center gap-space-md"><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors" data-path="help" href="#">Help</a><a aria-label="Profile" class="flex items-center" data-path="patient-profile" href="#"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></a></div></div></header><main class="w-full pt-[72px] bg-background min-h-screen"><div class="max-w-[720px] mx-auto px-gutter pt-page-top pb-space-xxl"><div class="flex flex-col w-full">
+<!-- Subtle ambient glow background decoration -->
+<div class="relative w-full">
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 w-96 h-96 bg-primary-fixed/30 rounded-full blur-3xl pointer-events-none -z-10"></div>
+<!-- Navigation Breadcrumb / Soft Action -->
+<div class="mb-space-md">
+<a class="inline-flex items-center gap-space-xs font-label-md text-label-md text-primary hover:text-primary-hover transition-colors group" data-path="care-overview" href="#">
+<span class="material-symbols-outlined text-[20px] transition-transform group-hover:-translate-x-0.5">arrow_back</span>
+<span>Back to Asha's care</span>
+</a>
+</div>
+<!-- Title & Care Context -->
+<div class="mb-space-lg">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-full bg-soft-blue text-primary font-label-sm text-label-sm mb-space-xs">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span>Caregiver Mode • Meera assisting Asha</span>
+</div>
+<h1 class="font-page-title text-page-title text-heading tracking-tight">Before you begin</h1>
+<p class="font-body-md text-body-md text-muted mt-1">Setting up Asha Rao's digital cognitive check-in</p>
+</div>
+<!-- Reassurance / Explanation Banner -->
+<div class="bg-surface-container-low p-space-md rounded-xl shadow-sm mb-space-lg flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-full bg-soft-blue flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-primary text-[22px]">info</span>
+</div>
+<div class="flex-1 min-w-0">
+<h2 class="font-label-lg text-label-lg text-heading">Purpose & clinical context</h2>
+<p class="font-body-md text-body-md text-body mt-1">
+          This assessment helps your clinician understand memory and thinking patterns in daily context. It does not diagnose dementia or Alzheimer's disease on its own. It takes approximately 10–12 minutes in a quiet room.
+        </p>
+<div class="flex items-center gap-space-md mt-space-sm text-muted font-label-sm text-label-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px] text-primary">schedule</span> 10–12 minutes
+          </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px] text-primary">volume_up</span> Audio prompts enabled
+          </span>
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px] text-primary">pause_circle</span> Self-paced
+          </span>
+</div>
+</div>
+</div>
+<!-- Main Interactive Form Section -->
+<form class="flex flex-col gap-space-lg" id="assessment-prep-form" onsubmit="event.preventDefault();">
+<!-- Section 1: Handoff & Respondent Status -->
+<section class="bg-surface p-space-xl rounded-2xl shadow-sm">
+<div class="flex items-center gap-space-sm mb-space-xs">
+<span class="w-7 h-7 rounded-full bg-soft-blue text-primary font-label-sm text-label-sm flex items-center justify-center font-semibold">1</span>
+<h2 class="font-task-title text-task-title text-heading">Who will be answering the activities?</h2>
+</div>
+<p class="font-body-md text-body-md text-muted mb-space-lg">
+          You can help set up the device and read instructions aloud if needed. However, the assessment activities require Asha's own answers to be meaningful for the clinician.
+        </p>
+<div aria-labelledby="respondent-heading" class="flex flex-col gap-space-sm" role="radiogroup">
+<!-- Option 1 (Selected) -->
+<label class="respondent-option relative flex items-start gap-space-md p-space-md rounded-xl cursor-pointer bg-soft-blue transition-all" data-value="ready">
+<input checked="" class="sr-only" name="respondent_status" type="radio" value="ready"/>
+<div class="radio-indicator w-6 h-6 rounded-full bg-primary flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-surface"></span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="block font-label-lg text-label-lg text-heading">Asha is here and ready to do the activities now</span>
+<span class="block font-body-md text-body-md text-body mt-0.5">Proceed together with device setup and calibration.</span>
+</div>
+</label>
+<!-- Option 2 -->
+<label class="respondent-option relative flex items-start gap-space-md p-space-md rounded-xl cursor-pointer bg-surface-bright hover:bg-surface-container-low transition-all" data-value="later">
+<input class="sr-only" name="respondent_status" type="radio" value="later"/>
+<div class="radio-indicator w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 mt-0.5">
+<span class="w-2.5 h-2.5 rounded-full bg-transparent"></span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="block font-label-lg text-label-lg text-heading">Asha is not available right now</span>
+<span class="block font-body-md text-body-md text-muted mt-0.5">Save your setup preferences and return when she feels refreshed.</span>
+</div>
+</label>
+<!-- Option 3 -->
+<label class="respondent-option relative flex items-start gap-space-md p-space-md rounded-xl cursor-pointer bg-surface-bright hover:bg-surface-container-low transition-all" data-value="clinic">
+<input class="sr-only" name="respondent_status" type="radio" value="clinic"/>
+<div class="radio-indicator w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0 mt-0.5">
+<span class="w-2.5 h-2.5 rounded-full bg-transparent"></span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="block font-label-lg text-label-lg text-heading">We need an assisted or in-clinic assessment instead</span>
+<span class="block font-body-md text-body-md text-muted mt-0.5">Connect with your care coordinator to schedule in-person support.</span>
+</div>
+</label>
+</div>
+</section>
+<!-- Section 2: Clinical Baseline Adjustments -->
+<section class="bg-surface p-space-xl rounded-2xl shadow-sm flex flex-col gap-space-lg">
+<div class="flex items-center gap-space-sm mb-0">
+<span class="w-7 h-7 rounded-full bg-soft-blue text-primary font-label-sm text-label-sm flex items-center justify-center font-semibold">2</span>
+<div>
+<h2 class="font-task-title text-task-title text-heading">Focused context checklist</h2>
+<p class="font-body-md text-body-md text-muted">Three brief baseline factors ensuring standard, unbiased interpretation</p>
+</div>
+</div>
+<!-- 2A: Education Context -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-lg text-label-lg text-heading" for="education-select">Completed education</label>
+<p class="font-body-md text-body-md text-muted">Helps interpret cognitive patterns accurately across different backgrounds.</p>
+<div class="relative mt-space-xs">
+<select class="w-full h-[52px] px-space-md bg-surface-container-lowest text-body font-body-lg text-body-lg rounded-xl shadow-sm appearance-none cursor-pointer focus:outline-none focus:bg-surface-container-low transition-colors" id="education-select" name="education">
+<option disabled="" value="">Select highest completed schooling / degree</option>
+<option value="primary">Primary / Middle School</option>
+<option value="secondary">High school / Secondary</option>
+<option selected="" value="undergraduate">Undergraduate / College</option>
+<option value="postgraduate">Postgraduate or higher</option>
+<option value="none">No formal schooling</option>
+<option value="prefer_not">Prefer not to say</option>
+</select>
+<span class="material-symbols-outlined pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted">expand_more</span>
+</div>
+</div>
+<!-- 2B: Language Comfort -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-lg text-label-lg text-heading">Assessment language comfort</span>
+<p class="font-body-md text-body-md text-muted">Are you comfortable reading and interacting in English?</p>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-sm mt-space-xs">
+<!-- English -->
+<label class="lang-option flex flex-col justify-between p-space-md rounded-xl cursor-pointer bg-soft-blue transition-all" data-lang="en">
+<input checked="" class="sr-only" name="language_preference" type="radio" value="english"/>
+<div class="flex items-center justify-between w-full mb-space-sm">
+<span class="material-symbols-outlined text-primary text-[24px]">translate</span>
+<span class="lang-radio w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-surface"></span>
+</span>
+</div>
+<div>
+<span class="block font-label-md text-label-md text-heading font-semibold">English</span>
+<span class="block font-label-sm text-label-sm text-body">Screen & audio</span>
+</div>
+</label>
+<!-- Spoken Audio -->
+<label class="lang-option flex flex-col justify-between p-space-md rounded-xl cursor-pointer bg-surface-bright hover:bg-surface-container-low transition-all" data-lang="audio">
+<input class="sr-only" name="language_preference" type="radio" value="spoken_audio"/>
+<div class="flex items-center justify-between w-full mb-space-sm">
+<span class="material-symbols-outlined text-muted text-[24px]">record_voice_over</span>
+<span class="lang-radio w-5 h-5 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-transparent"></span>
+</span>
+</div>
+<div>
+<span class="block font-label-md text-label-md text-heading font-semibold">Spoken instructions</span>
+<span class="block font-label-sm text-label-sm text-muted">Audio narration</span>
+</div>
+</label>
+<!-- Other Language -->
+<label class="lang-option flex flex-col justify-between p-space-md rounded-xl cursor-pointer bg-surface-bright hover:bg-surface-container-low transition-all" data-lang="regional">
+<input class="sr-only" name="language_preference" type="radio" value="other"/>
+<div class="flex items-center justify-between w-full mb-space-sm">
+<span class="material-symbols-outlined text-muted text-[24px]">language</span>
+<span class="lang-radio w-5 h-5 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-transparent"></span>
+</span>
+</div>
+<div>
+<span class="block font-label-md text-label-md text-heading font-semibold">Another language</span>
+<span class="block font-label-sm text-label-sm text-muted">Hindi, Kannada, etc.</span>
+</div>
+</label></div>
+</div>
+</section></form></div>
+<!-- 2C: Sensory or Device Needs -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-lg text-label-lg text-heading">Sensory or device needs</span>
+<p class="font-body-md text-body-md text-muted">Sensory or physical differences are not cognitive errors. Select any accommodations needed:</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm mt-space-xs">
+<!-- Checkbox 1 (Checked) -->
+<label class="flex items-center gap-space-md p-space-md rounded-xl bg-soft-blue cursor-pointer transition-all sensory-item">
+<input checked="" class="sr-only" id="chk-glasses" name="sensory_glasses" type="checkbox"/>
+<div class="chk-box w-6 h-6 rounded-md bg-primary flex items-center justify-center shrink-0 text-on-primary">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-label-md text-label-md text-heading block">Uses reading glasses / bifocals</span>
+<span class="font-label-sm text-label-sm text-body block">Adjusts text contrast & scale</span>
+</div>
+</label>
+<!-- Checkbox 2 -->
+<label class="flex items-center gap-space-md p-space-md rounded-xl bg-surface-bright hover:bg-surface-container-low cursor-pointer transition-all sensory-item">
+<input class="sr-only" id="chk-hearing" name="sensory_hearing" type="checkbox"/>
+<div class="chk-box w-6 h-6 rounded-md bg-surface-container-highest flex items-center justify-center shrink-0 text-transparent">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-label-md text-label-md text-heading block">Uses hearing aid(s)</span>
+<span class="font-label-sm text-label-sm text-muted block">Enables frequency boost</span>
+</div>
+</label>
+<!-- Checkbox 3 -->
+<label class="flex items-center gap-space-md p-space-md rounded-xl bg-surface-bright hover:bg-surface-container-low cursor-pointer transition-all sensory-item">
+<input class="sr-only" id="chk-motor" name="sensory_motor" type="checkbox"/>
+<div class="chk-box w-6 h-6 rounded-md bg-surface-container-highest flex items-center justify-center shrink-0 text-transparent">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-label-md text-label-md text-heading block">Screen taps / hand support</span>
+<span class="font-label-sm text-label-sm text-muted block">Expands touch target radius</span>
+</div>
+</label>
+<!-- Checkbox 4 -->
+<label class="flex items-center gap-space-md p-space-md rounded-xl bg-surface-bright hover:bg-surface-container-low cursor-pointer transition-all sensory-item">
+<input class="sr-only" id="chk-none" name="sensory_none" type="checkbox"/>
+<div class="chk-box w-6 h-6 rounded-md bg-surface-container-highest flex items-center justify-center shrink-0 text-transparent">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-label-md text-label-md text-heading block">None / Standard setup</span>
+<span class="font-label-sm text-label-sm text-muted block">Default testing profile</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Section 3: Environment Quick Readiness -->
+<section class="bg-surface p-space-xl rounded-2xl shadow-sm">
+<div class="flex items-center justify-between mb-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="w-7 h-7 rounded-full bg-soft-blue text-primary font-label-sm text-label-sm flex items-center justify-center font-semibold">3</span>
+<h2 class="font-task-title text-task-title text-heading">Calm environment checklist</h2>
+</div>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-primary">
+<span class="material-symbols-outlined text-[16px]">verified</span> Recommended
+          </span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<div class="w-9 h-9 rounded-lg bg-surface flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[20px]">door_front</span>
+</div>
+<h3 class="font-label-md text-label-md text-heading font-semibold">Quiet space</h3>
+<p class="font-label-sm text-label-sm text-body">Choose a comfortable room with minimal foot traffic or interruptions.</p>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<div class="w-9 h-9 rounded-lg bg-surface flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[20px]">volume_up</span>
+</div>
+<h3 class="font-label-md text-label-md text-heading font-semibold">Clear device sound</h3>
+<p class="font-label-sm text-label-sm text-body">Turn up audio prompts to a comfortable, easily audible volume.</p>
+</div>
+<div class="p-space-md rounded-xl bg-surface-container-low flex flex-col gap-space-xs">
+<div class="w-9 h-9 rounded-lg bg-surface flex items-center justify-center text-primary shadow-sm">
+<span class="material-symbols-outlined text-[20px]">spa</span>
+</div>
+<h3 class="font-label-md text-label-md text-heading font-semibold">Self-paced flow</h3>
+<p class="font-label-sm text-label-sm text-body">Take your time. You can safely pause or step away at any moment.</p>
+</div>
+</div>
+</section>
+<!-- Action Area -->
+<div class="flex flex-col items-center gap-space-md mt-space-xs pt-space-xs">
+<button class="w-full h-[52px] bg-primary hover:bg-primary-hover text-on-primary font-button text-button rounded-xl shadow-md flex items-center justify-center gap-space-sm transition-colors group" id="start-btn" type="submit">
+<span>Continue to assessment</span>
+<span class="material-symbols-outlined text-[22px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+<a class="font-label-md text-label-md text-muted hover:text-heading transition-colors inline-flex items-center gap-1.5 py-1" data-path="clinical-booking" href="#">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+<span>Prefer not to take this online? Book a clinician appointment instead</span>
+</a>
+</div>
+<!-- Discreet Regulatory / Patient Scenario Context -->
+<div class="mt-space-xxl pt-space-md text-center">
+<div class="inline-flex items-center justify-center gap-space-xs text-muted font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">shield</span>
+<span>NeuroVX Clinical Prototype • Fictional patient scenario (Asha Rao, 68) • Not a medical diagnostic claim</span>
+</div>
+</div>
+</div>
+<script>
+    (function() {
+      // Dynamic Respondent Selection Style Handling
+      const respondentOptions = document.querySelectorAll('.respondent-option');
+      const startBtn = document.getElementById('start-btn');
+
+      respondentOptions.forEach(opt => {
+        opt.addEventListener('click', () => {
+          respondentOptions.forEach(o => {
+            o.classList.remove('bg-soft-blue');
+            o.classList.add('bg-surface-bright');
+            const ind = o.querySelector('.radio-indicator');
+            if (ind) {
+              ind.classList.remove('bg-primary');
+              ind.classList.add('bg-surface-container-highest');
+              ind.children[0].classList.remove('bg-surface');
+              ind.children[0].classList.add('bg-transparent');
+            }
+          });
+          opt.classList.remove('bg-surface-bright');
+          opt.classList.add('bg-soft-blue');
+          const indicator = opt.querySelector('.radio-indicator');
+          if (indicator) {
+            indicator.classList.remove('bg-surface-container-highest');
+            indicator.classList.add('bg-primary');
+            indicator.children[0].classList.remove('bg-transparent');
+            indicator.children[0].classList.add('bg-surface');
+          }
+          
+          const radio = opt.querySelector('input[type="radio"]');
+          if (radio) {
+            radio.checked = true;
+            if (radio.value === 'later') {
+              startBtn.innerHTML = '<span>Save preparation & return later</span><span class="material-symbols-outlined text-[22px]">bookmark</span>';
+            } else if (radio.value === 'clinic') {
+              startBtn.innerHTML = '<span>Request clinical consultation</span><span class="material-symbols-outlined text-[22px]">support_agent</span>';
+            } else {
+              startBtn.innerHTML = '<span>Continue to assessment</span><span class="material-symbols-outlined text-[22px]">arrow_forward</span>';
+            }
+          }
+        });
+      });
+
+      // Language Option Selection
+      const langOptions = document.querySelectorAll('.lang-option');
+      langOptions.forEach(opt => {
+        opt.addEventListener('click', () => {
+          langOptions.forEach(l => {
+            l.classList.remove('bg-soft-blue');
+            l.classList.add('bg-surface-bright');
+            const radio = l.querySelector('.lang-radio');
+            if (radio) {
+              radio.classList.remove('bg-primary');
+              radio.classList.add('bg-surface-container-highest');
+              radio.children[0].classList.remove('bg-surface');
+              radio.children[0].classList.add('bg-transparent');
+            }
+            const icon = l.querySelector('.material-symbols-outlined');
+            if (icon) {
+              icon.classList.remove('text-primary');
+              icon.classList.add('text-muted');
+            }
+          });
+          opt.classList.remove('bg-surface-bright');
+          opt.classList.add('bg-soft-blue');
+          const radio = opt.querySelector('.lang-radio');
+          if (radio) {
+            radio.classList.remove('bg-surface-container-highest');
+            radio.classList.add('bg-primary');
+            radio.children[0].classList.remove('bg-transparent');
+            radio.children[0].classList.add('bg-surface');
+          }
+          const icon = opt.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.classList.remove('text-muted');
+            icon.classList.add('text-primary');
+          }
+          const input = opt.querySelector('input[type="radio"]');
+          if (input) input.checked = true;
+        });
+      });
+
+      // Sensory Checkbox Styling
+      const sensoryItems = document.querySelectorAll('.sensory-item');
+      sensoryItems.forEach(item => {
+        const input = item.querySelector('input[type="checkbox"]');
+        const box = item.querySelector('.chk-box');
+        
+        item.addEventListener('click', (e) => {
+          if (e.target.tagName !== 'INPUT') {
+            input.checked = !input.checked;
+          }
+
+          // Handle 'None' mutual exclusivity
+          if (input.id === 'chk-none' && input.checked) {
+            sensoryItems.forEach(other => {
+              const otherInput = other.querySelector('input[type="checkbox"]');
+              if (otherInput.id !== 'chk-none') {
+                otherInput.checked = false;
+                other.classList.remove('bg-soft-blue');
+                other.classList.add('bg-surface-bright');
+                const otherBox = other.querySelector('.chk-box');
+                otherBox.classList.remove('bg-primary', 'text-on-primary');
+                otherBox.classList.add('bg-surface-container-highest', 'text-transparent');
+              }
+            });
+          } else if (input.id !== 'chk-none' && input.checked) {
+            const noneCheckbox = document.getElementById('chk-none');
+            if (noneCheckbox && noneCheckbox.checked) {
+              noneCheckbox.checked = false;
+              const noneParent = noneCheckbox.closest('.sensory-item');
+              noneParent.classList.remove('bg-soft-blue');
+              noneParent.classList.add('bg-surface-bright');
+              const noneBox = noneParent.querySelector('.chk-box');
+              noneBox.classList.remove('bg-primary', 'text-on-primary');
+              noneBox.classList.add('bg-surface-container-highest', 'text-transparent');
+            }
+          }
+
+          if (input.checked) {
+            item.classList.remove('bg-surface-bright');
+            item.classList.add('bg-soft-blue');
+            box.classList.remove('bg-surface-container-highest', 'text-transparent');
+            box.classList.add('bg-primary', 'text-on-primary');
+          } else {
+            item.classList.remove('bg-soft-blue');
+            item.classList.add('bg-surface-bright');
+            box.classList.remove('bg-primary', 'text-on-primary');
+            box.classList.add('bg-surface-container-highest', 'text-transparent');
+          }
+        });
+      });
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface shadow-[0_1px_8px_rgba(0,0,0,0.04)] py-space-lg"><div class="max-w-[720px] mx-auto px-gutter flex flex-col sm:flex-row items-center justify-between gap-space-sm font-label-sm text-label-sm text-muted"><p>© NeuroVX Clinical Systems. Confidential Patient Portal.</p><div class="flex items-center gap-space-md"><a class="hover:text-on-surface transition-colors" data-path="privacy-practices" href="#">Privacy Practices</a><a class="hover:text-on-surface transition-colors" data-path="help" href="#">Clinical Support</a></div></div></footer></body></html>

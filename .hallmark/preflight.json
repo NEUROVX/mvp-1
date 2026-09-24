@@ -1,0 +1,9 @@
+{
+  "date": "2026-09-24",
+  "design_md": "DESIGN.md (NeuroVX - Connected Care v1.0) — locked system, overrides catalog",
+  "fonts": "Inter via @fontsource-variable/inter (src/main.tsx)",
+  "palette": "Exact hex tokens from DESIGN.md in Tailwind v4 @theme (src/styles/index.css); default palette cleared",
+  "motion": "motion-cut (no motion library); 120–180ms colour/opacity only",
+  "spacing": "Tailwind 4px base, 8px rhythm",
+  "framework": "Vite 7 + React 19 + React Router 7"
+}

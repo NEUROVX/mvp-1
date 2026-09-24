@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NeuroVX — Connected Brain Care</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-surface": "#171c20",
+            "on-secondary": "#ffffff",
+            "inverse-surface": "#2b3135",
+            "surface": "#FFFFFF",
+            "primary-fixed-dim": "#b7c4ff",
+            "on-tertiary-container": "#bed7f5",
+            "tertiary-fixed-dim": "#b0c9e6",
+            "secondary-fixed-dim": "#b5c7ea",
+            "surface-tint": "#2151da",
+            "primary-fixed": "#dce1ff",
+            "on-error-container": "#93000a",
+            "tertiary-fixed": "#cfe5ff",
+            "on-primary-fixed-variant": "#0039b5",
+            "primary-container": "#1d4ed8",
+            "secondary-container": "#c8dbfe",
+            "on-primary": "#ffffff",
+            "outline-variant": "#c4c5d7",
+            "secondary": "#4d5f7d",
+            "secondary-fixed": "#d6e3ff",
+            "error-surface": "#FEF3F2",
+            "surface-dim": "#d5dbdf",
+            "surface-container": "#e9eef3",
+            "on-surface-variant": "#434655",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed": "#001551",
+            "primary": "#0037b0",
+            "on-background": "#171c20",
+            "tertiary-container": "#465e77",
+            "inverse-primary": "#b7c4ff",
+            "error-container": "#ffdad6",
+            "surface-bright": "#f5faff",
+            "surface-container-high": "#e4e9ee",
+            "on-tertiary-fixed-variant": "#314961",
+            "surface-container-highest": "#dee3e8",
+            "inverse-on-surface": "#ecf1f6",
+            "border-subtle": "#D9E5F2",
+            "outline": "#747686",
+            "surface-container-lowest": "#ffffff",
+            "control-border": "#7184A0",
+            "surface-container-low": "#eff4f9",
+            "on-secondary-container": "#4e607e",
+            "surface-variant": "#dee3e8",
+            "on-secondary-fixed": "#071c36",
+            "error": "#B42318",
+            "on-tertiary-fixed": "#011d33",
+            "background": "#f5faff",
+            "tertiary": "#2e465e",
+            "warning": "#92400E",
+            "primary-hover": "#1E40AF",
+            "warning-surface": "#FFFBEB",
+            "on-error": "#ffffff",
+            "accent-soft": "#EAF2FF",
+            "on-secondary-fixed-variant": "#364764",
+            "on-primary-container": "#cad3ff"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          spacing: {
+            "gutter-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "margin": "2rem",
+            "space-xl": "2rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1.25rem",
+            "space-xs": "0.25rem",
+            "gutter": "1.5rem",
+            "space-md": "1rem"
+          },
+          fontFamily: {
+            data: ["Inter", "sans-serif"],
+            "heading-lg-mobile": ["Inter", "sans-serif"],
+            label: ["Inter", "sans-serif"],
+            "body-lg": ["Inter", "sans-serif"],
+            "body-md": ["Inter", "sans-serif"],
+            "heading-md": ["Inter", "sans-serif"],
+            "heading-lg": ["Inter", "sans-serif"],
+            "heading-sm": ["Inter", "sans-serif"],
+            display: ["Inter", "sans-serif"],
+            "display-mobile": ["Inter", "sans-serif"],
+            metadata: ["Inter", "sans-serif"]
+          },
+          fontSize: {
+            data: ["1rem", { lineHeight: "1.5", letterSpacing: "0em", fontWeight: "500" }],
+            "heading-lg-mobile": ["1.75rem", { lineHeight: "1.25", letterSpacing: "-0.015em", fontWeight: "600" }],
+            label: ["1rem", { lineHeight: "1.4", letterSpacing: "0em", fontWeight: "600" }],
+            "body-lg": ["1.125rem", { lineHeight: "1.6", letterSpacing: "0em", fontWeight: "400" }],
+            "body-md": ["1rem", { lineHeight: "1.6", letterSpacing: "0em", fontWeight: "400" }],
+            "heading-md": ["1.5rem", { lineHeight: "1.3", letterSpacing: "-0.01em", fontWeight: "600" }],
+            "heading-lg": ["2.25rem", { lineHeight: "1.2", letterSpacing: "-0.015em", fontWeight: "600" }],
+            "heading-sm": ["1.25rem", { lineHeight: "1.4", letterSpacing: "0em", fontWeight: "600" }],
+            display: ["3.75rem", { lineHeight: "1.08", letterSpacing: "-0.025em", fontWeight: "700" }],
+            "display-mobile": ["2.5rem", { lineHeight: "1.12", letterSpacing: "-0.02em", fontWeight: "700" }],
+            metadata: ["0.875rem", { lineHeight: "1.5", letterSpacing: "0em", fontWeight: "400" }]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-background font-body-md text-body-md text-on-surface min-h-screen flex flex-col selection:bg-secondary-container selection:text-on-secondary-container antialiased">
+<!-- HEADER -->
+<header class="fixed top-0 inset-x-0 z-50 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+<div class="h-20 max-w-[1200px] mx-auto px-margin flex items-center justify-between gap-gutter">
+<div class="flex items-center gap-space-xl">
+<a class="flex items-center gap-space-sm group" data-path="home" href="#">
+<img alt="NeuroVX logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNnzLZMT3SPgtHfKSJYDVXEv2jajPoWFN4mL5-GgmDCKba1BBwvtxubaeVc5DjN44dbiyp0dAXnc1hM43lcjDQjeM2X2eCZF78k2Ocfgg8UT5TS-viHK7Kn3yC54AEmsV0MIH6tQaLAvqEB_kHpQ-g4XJehI47RG4ngjsNzdaiF4GDvRmnXyWh9iwJVc1eRP_cxleyD-bDhrX6wNiPnaqky430sy_EqWpJIjfVzUpmciFCYeWtDAK9ZtXyJSIx5pd6f1M"/>
+<span class="font-heading-sm text-heading-sm text-on-surface tracking-tight group-hover:text-primary transition-colors">NeuroVX</span>
+</a>
+<nav class="hidden lg:flex items-center gap-space-lg">
+<a class="text-on-surface-variant hover:text-on-surface font-label text-metadata transition-colors" data-path="patients-and-families" href="#">Patients &amp; families</a>
+<a class="text-on-surface-variant hover:text-on-surface font-label text-metadata transition-colors" data-path="healthcare-partners" href="#">Healthcare partners</a>
+<a class="text-on-surface-variant hover:text-on-surface font-label text-metadata transition-colors" data-path="research" href="#">Research</a>
+<a class="text-on-surface-variant hover:text-on-surface font-label text-metadata transition-colors" data-path="learn" href="#">Learn</a>
+<a class="text-on-surface-variant hover:text-on-surface font-label text-metadata transition-colors" data-path="care-and-support" href="#">Care &amp; support</a>
+</nav>
+</div>
+<div class="flex items-center gap-space-md">
+<a class="font-label text-metadata text-secondary hover:text-on-surface px-space-sm py-space-xs transition-colors" data-path="sign-in" href="#">Sign in</a>
+<a class="hidden sm:inline-flex items-center justify-center font-label text-metadata text-primary bg-surface hover:bg-surface-container-low px-space-md py-space-sm rounded-lg shadow-[0_0_0_1.5px_#D9E5F2] hover:shadow-[0_0_0_1.5px_#7184A0] transition-all" data-path="pilot" href="#">Discuss a pilot</a>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-on-primary">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN CONTENT -->
+<main class="w-full pt-20 flex-grow bg-background">
+<div class="flex flex-col w-full">
+<!-- SECTION 1: HERO (7/5 Editorial Split) -->
+<section class="w-full py-12 md:py-20 lg:py-24 bg-background">
+<div class="max-w-[1200px] mx-auto px-margin">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<!-- 7-col Editorial Left -->
+<div class="lg:col-span-7 flex flex-col items-start pr-0 lg:pr-6">
+<div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-soft text-primary font-label text-metadata mb-6">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                Starting with memory and cognitive care
+              </div>
+<h1 class="font-display text-display text-on-surface tracking-tight mb-6">
+                Brain care. <br class="hidden sm:inline"/>Connected.
+              </h1>
+<div class="space-y-3 mb-8 max-w-[680px]">
+<p class="font-body-lg text-body-lg text-secondary">
+                  NeuroVX brings patients, clinicians and diagnostic labs together.
+                </p>
+<p class="font-body-lg text-body-lg text-secondary">
+                  Keep assessments, reports and next steps in one place.
+                </p>
+</div>
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto mb-8">
+<a class="inline-flex items-center justify-center h-12 px-6 rounded-lg bg-primary-container hover:bg-primary-hover text-on-primary font-label text-label shadow-sm transition-all duration-150" data-path="patients-and-families" href="#">
+                  Explore your care journey
+                </a>
+<a class="inline-flex items-center justify-center h-12 px-4 text-on-surface font-label text-label hover:underline group" data-path="healthcare-partners" href="#">
+<span>For healthcare partners</span>
+<svg class="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</a>
+</div>
+<!-- Product Preview Pill -->
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-surface-container rounded-full text-secondary font-metadata text-metadata">
+<svg class="w-4 h-4 text-secondary" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                Product preview — not for clinical use.
+              </div>
+</div>
+<!-- 5-col Product Preview Card Right -->
+<div class="lg:col-span-5 w-full mt-8 lg:mt-0">
+<div class="relative w-full bg-surface rounded-xl p-6 sm:p-8 shadow-[0_4px_20px_rgba(11,31,58,0.06)] border border-border-subtle/50">
+<!-- Informational header -->
+<div class="flex items-center justify-between mb-4">
+<span class="text-primary font-label text-metadata tracking-wide uppercase">Your next step</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-accent-soft text-primary font-metadata text-xs font-semibold">Active task</span>
+</div>
+<!-- Main Task Headline -->
+<h2 class="font-heading-sm text-heading-sm text-on-surface mb-2">
+                  Prepare for your clinician visit
+                </h2>
+<p class="font-body-md text-metadata text-secondary mb-6">
+                  Review your concerns and bring any previous reports.
+                </p>
+<!-- Three checkable / structured rows -->
+<div class="space-y-3 mb-6">
+<div class="flex items-center justify-between p-3.5 rounded-lg bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg>
+</div>
+<span class="font-label text-metadata text-on-surface">Your concerns and history</span>
+</div>
+<span class="font-metadata text-xs text-primary font-semibold">Completed</span>
+</div>
+<div class="flex items-center justify-between p-3.5 rounded-lg bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-surface text-secondary flex items-center justify-center shrink-0 border border-border-subtle">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path></svg>
+</div>
+<span class="font-label text-metadata text-on-surface">Previous reports</span>
+</div>
+<span class="font-metadata text-xs text-secondary">2 files attached</span>
+</div>
+<div class="flex items-center justify-between p-3.5 rounded-lg bg-surface-container-low transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-accent-soft text-primary flex items-center justify-center shrink-0">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+</div>
+<span class="font-label text-metadata text-on-surface">Questions to discuss</span>
+</div>
+<span class="font-metadata text-xs text-primary font-semibold">Ready to review</span>
+</div>
+</div>
+<!-- Primary Card Action -->
+<button class="w-full h-12 rounded-lg bg-primary-container hover:bg-primary-hover text-on-primary font-label text-label transition-colors mb-6 flex items-center justify-center gap-2" type="button">
+<span>Review visit details</span>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</button>
+<!-- Signature Careline Mini Track -->
+<div class="pt-4 mt-2">
+<div class="flex items-center justify-between relative mb-2">
+<div class="absolute left-3 right-3 top-1/2 -translate-y-1/2 h-[2px] bg-border-subtle -z-0"></div>
+<div class="absolute left-3 w-1/3 top-1/2 -translate-y-1/2 h-[2px] bg-primary-container -z-0"></div>
+<!-- Node 1: Completed -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-primary-container text-on-primary flex items-center justify-center">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" viewbox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg>
+</div>
+</div>
+<!-- Node 2: Active -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-surface ring-4 ring-accent-soft text-primary font-label text-xs flex items-center justify-center font-bold">
+                        2
+                      </div>
+</div>
+<!-- Node 3: Pending -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-surface-container text-secondary font-label text-xs flex items-center justify-center">
+                        3
+                      </div>
+</div>
+<!-- Node 4: Pending -->
+<div class="relative z-10 flex flex-col items-center">
+<div class="w-6 h-6 rounded-full bg-surface-container text-secondary font-label text-xs flex items-center justify-center">
+                        4
+                      </div>
+</div>
+</div>
+<!-- Node Labels -->
+<div class="flex items-center justify-between text-center text-xs font-metadata text-secondary px-0.5">
+<span class="font-medium text-primary">Concerns</span>
+<span class="font-semibold text-on-surface">Visit</span>
+<span>Results</span>
+<span>Follow-up</span>
+</div>
+</div>
+<!-- Card Caption -->
+<p class="text-center font-metadata text-xs text-outline mt-5">
+                  Illustrative product preview
+                </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: AUDIENCE ROUTES -->
+<section class="w-full py-16 lg:py-24 bg-surface">
+<div class="max-w-[1200px] mx-auto px-margin">
+<div class="max-w-[680px] mb-12">
+<h2 class="font-heading-lg text-heading-lg text-on-surface tracking-tight mb-3">
+              Connected care, built around people.
+            </h2>
+<p class="font-body-lg text-body-lg text-secondary">
+              A coherent infrastructure linking daily observations to diagnostic findings and continuous specialist management.
+            </p>
+</div>
+<!-- 3 Columns with Soft Surface Separation -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<!-- Route 1: Patients & Families -->
+<div class="bg-surface-container-low rounded-xl p-8 flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="w-12 h-12 rounded-lg bg-accent-soft text-primary flex items-center justify-center mb-6">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+</div>
+<p class="font-label text-metadata text-primary uppercase tracking-wider mb-2">Patients &amp; families</p>
+<h3 class="font-heading-md text-heading-md text-on-surface mb-3">
+                  Know what comes next.
+                </h3>
+<p class="font-body-md text-body-md text-secondary mb-6">
+                  Organize concerns, prepare for visits and keep your care information together.
+                </p>
+</div>
+<div>
+<a class="inline-flex items-center font-label text-label text-primary hover:underline group" data-path="patients-and-families" href="#">
+<span>Explore patient care</span>
+<svg class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</a>
+</div>
+</div>
+<!-- Route 2: Clinicians & Hospitals -->
+<div class="bg-surface-container-low rounded-xl p-8 flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="w-12 h-12 rounded-lg bg-accent-soft text-primary flex items-center justify-center mb-6">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"></path><path d="M8 15v1a6 6 0 0 0 6 6v0a6 6 0 0 0 6-6v-4"></path><circle cx="20" cy="10" r="2"></circle></svg>
+</div>
+<p class="font-label text-metadata text-primary uppercase tracking-wider mb-2">Clinicians &amp; hospitals</p>
+<h3 class="font-heading-md text-heading-md text-on-surface mb-3">
+                  See the patient’s story together.
+                </h3>
+<p class="font-body-md text-body-md text-secondary mb-6">
+                  Review history, assessments and reports in one organized patient view.
+                </p>
+</div>
+<div>
+<a class="inline-flex items-center font-label text-label text-primary hover:underline group" data-path="healthcare-partners" href="#">
+<span>Explore clinical workflows</span>
+<svg class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</a>
+</div>
+</div>
+<!-- Route 3: Diagnostic Labs -->
+<div class="bg-surface-container-low rounded-xl p-8 flex flex-col justify-between hover:shadow-md transition-shadow">
+<div>
+<div class="w-12 h-12 rounded-lg bg-accent-soft text-primary flex items-center justify-center mb-6">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"></path><path d="M8.5 2h7"></path><path d="M7 16h10"></path></svg>
+</div>
+<p class="font-label text-metadata text-primary uppercase tracking-wider mb-2">Diagnostic labs</p>
+<h3 class="font-heading-md text-heading-md text-on-surface mb-3">
+                  Keep orders and results connected.
+                </h3>
+<p class="font-body-md text-body-md text-secondary mb-6">
+                  Coordinate clinician-requested tests and return reports for review.
+                </p>
+</div>
+<div>
+<a class="inline-flex items-center font-label text-label text-primary hover:underline group" data-path="healthcare-partners" href="#">
+<span>Explore lab workflows</span>
+<svg class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</a>
+</div>
+</div>
+</div>
+<!-- Subtle Research Banner -->
+<div class="w-full p-6 rounded-xl bg-surface-container-high flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<svg class="w-6 h-6 text-secondary shrink-0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M10 2v7.31"></path><path d="M14 9.3V1.99"></path><path d="M8.5 2h7"></path><path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path></svg>
+<p class="font-body-md text-on-surface">
+<strong class="font-label">For research teams:</strong> explore a future, separately governed research workspace.
+              </p>
+</div>
+<a class="font-label text-metadata text-primary hover:underline whitespace-nowrap inline-flex items-center gap-1" data-path="research" href="#">
+<span>Explore research</span>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</a>
+</div>
+</div>
+</section>
+<!-- SECTION 3: THE CARE JOURNEY (Signature Careline Section) -->
+<section class="w-full py-16 lg:py-24 bg-background">
+<div class="max-w-[1200px] mx-auto px-margin">
+<div class="max-w-[680px] mb-16">
+<div class="inline-flex items-center px-3 py-1 rounded bg-accent-soft text-primary font-label text-metadata mb-4">
+              Structured Progression
+            </div>
+<h2 class="font-heading-lg text-heading-lg text-on-surface tracking-tight mb-3">
+              A clear next step at every stage.
+            </h2>
+<p class="font-body-lg text-body-lg text-secondary">
+              No vague timelines. Patients and care teams progress through a sequential, transparent care pathway designed to reduce anxiety and prevent delayed care.
+            </p>
+</div>
+<!-- Linear Careline Track (Desktop Horizontal, Mobile Vertical) -->
+<div class="relative">
+<!-- Connecting Bar desktop -->
+<div class="hidden md:block absolute top-7 left-12 right-12 h-1 bg-border-subtle z-0">
+<div class="h-full bg-primary w-2/5"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+<!-- Step 1 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm flex flex-col items-start relative border border-border-subtle/50">
+<div class="w-14 h-14 rounded-full bg-primary-container text-on-primary font-heading-sm text-heading-sm flex items-center justify-center mb-6 shadow-sm">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+</div>
+<span class="font-label text-xs text-primary font-bold uppercase tracking-wider mb-1">Stage 01</span>
+<h3 class="font-heading-sm text-heading-sm text-on-surface mb-2">
+                  Share your concerns
+                </h3>
+<p class="font-body-md text-metadata text-secondary">
+                  Record changes you or your family have noticed with structured, validated symptom capture tools.
+                </p>
+</div>
+<!-- Step 2 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm flex flex-col items-start relative border border-border-subtle/50">
+<div class="w-14 h-14 rounded-full bg-surface ring-4 ring-accent-soft text-primary font-heading-sm text-heading-sm flex items-center justify-center mb-6 shadow-sm">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+</div>
+<span class="font-label text-xs text-primary font-bold uppercase tracking-wider mb-1">Stage 02</span>
+<h3 class="font-heading-sm text-heading-sm text-on-surface mb-2">
+                  Meet a clinician
+                </h3>
+<p class="font-body-md text-metadata text-secondary">
+                  Bring your history and assessments to the conversation, giving your physician immediate longitudinal context.
+                </p>
+</div>
+<!-- Step 3 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm flex flex-col items-start relative border border-border-subtle/50">
+<div class="w-14 h-14 rounded-full bg-surface-container text-secondary font-heading-sm text-heading-sm flex items-center justify-center mb-6">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"></path><path d="M8.5 2h7"></path></svg>
+</div>
+<span class="font-label text-xs text-secondary font-bold uppercase tracking-wider mb-1">Stage 03 (Conditional)</span>
+<h3 class="font-heading-sm text-heading-sm text-on-surface mb-2">
+                  Complete recommended tests
+                </h3>
+<p class="font-body-md text-metadata text-secondary">
+                  Coordinate investigations requested by your clinician, tracking collection and lab report status seamlessly.
+                </p>
+</div>
+<!-- Step 4 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm flex flex-col items-start relative border border-border-subtle/50">
+<div class="w-14 h-14 rounded-full bg-surface-container text-secondary font-heading-sm text-heading-sm flex items-center justify-center mb-6">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+</div>
+<span class="font-label text-xs text-secondary font-bold uppercase tracking-wider mb-1">Stage 04</span>
+<h3 class="font-heading-sm text-heading-sm text-on-surface mb-2">
+                  Continue your care
+                </h3>
+<p class="font-body-md text-metadata text-secondary">
+                  Keep reports, support plans, lifestyle interventions and follow-up reviews together in an evolving timeline.
+                </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: CONTINUITY PREVIEW -->
+<section class="w-full py-16 lg:py-24 bg-surface">
+<div class="max-w-[1200px] mx-auto px-margin">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+<!-- Left Editorial Description -->
+<div class="lg:col-span-6 pr-0 lg:pr-8">
+<div class="inline-flex items-center px-3 py-1 rounded bg-surface-container text-secondary font-label text-metadata mb-4">
+                Unified Health Record
+              </div>
+<h2 class="font-heading-lg text-heading-lg text-on-surface tracking-tight mb-4">
+                Your care should not start from scratch at every visit.
+              </h2>
+<p class="font-body-lg text-body-lg text-secondary mb-8">
+                Bring patient observations, clinical reports and follow-up steps into one continuing record. Avoid repeated disclosures and fragmented documentation.
+              </p>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3">
+<svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+<div>
+<p class="font-label text-label text-on-surface">Verified Clinical Attributions</p>
+<p class="font-body-md text-metadata text-secondary">Every assessment, note, and lab panel is signed by authorized participants with full audit provenance.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="m17 2 4 4-4 4"></path><path d="M3 11v-1a4 4 0 0 1 4-4h14"></path><path d="m7 22-4-4 4-4"></path><path d="M21 13v1a4 4 0 0 1-4 4H3"></path></svg>
+<div>
+<p class="font-label text-label text-on-surface">Cross-Institutional Continuity</p>
+<p class="font-body-md text-metadata text-secondary">Port your diagnostic workup smoothly between community clinics, imaging centers, and quaternary memory clinics.</p>
+</div>
+</div>
+</div>
+<a class="inline-flex items-center font-label text-label text-primary hover:underline group" data-path="patients-and-families" href="#">
+<span>See an example journey</span>
+<svg class="w-4 h-4 ml-1.5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</a>
+</div>
+<!-- Right Timeline Card -->
+<div class="lg:col-span-6 w-full mt-8 lg:mt-0">
+<div class="bg-surface-container-low rounded-2xl p-6 sm:p-8 shadow-sm border border-border-subtle/60">
+<div class="flex items-center justify-between pb-6 mb-6 border-b border-border-subtle">
+<div class="flex items-center gap-3">
+<img alt="NeuroVX icon" class="h-6 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZQwThZ9rxGLaCBFMfFFNMoxOjzDMVWd6cH1_yRR3OrIFn1e9bK302p33ecF5h9rCYJJoZeroZ44YxhlkdEqnAoPjGmd8lC7IL62iUCs-4x4-MTwKySUPZ-aUzfOLItM-rSe96APAbuts-eVDPiHTWkh-c-HFPJcoqoASDS1NKatj90G_as_shPHUOuYoPmXu-AwktwNyAVQ2JNsj1pqDDwoaLO94ra7x105m5K-8EtacryAQMLRzkr37xd_VT3LRud6A"/>
+<span class="font-label text-metadata text-on-surface font-semibold">Patient Continuity Record</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-accent-soft text-primary font-metadata text-xs font-semibold">Secure Ledger</span>
+</div>
+<!-- Synthetic Timeline Entries -->
+<div class="space-y-6 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-border-subtle">
+<!-- Item 1 -->
+<div class="relative flex items-start gap-4">
+<div class="w-7 h-7 rounded-full bg-surface ring-2 ring-primary text-primary flex items-center justify-center shrink-0 z-10">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+</div>
+<div class="flex-grow bg-surface p-4 rounded-xl shadow-sm border border-border-subtle/50">
+<div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+<span class="font-metadata text-xs font-semibold text-secondary">14 Aug 2026</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-accent-soft text-primary">
+                          Clinician reviewed
+                        </span>
+</div>
+<h4 class="font-heading-sm text-base text-on-surface font-semibold mb-1">Cognitive Assessment Summary</h4>
+<p class="font-metadata text-xs text-secondary">
+                        Source: <span class="text-on-surface font-medium">Authorized Self-Assessment</span>
+</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="relative flex items-start gap-4">
+<div class="w-7 h-7 rounded-full bg-surface ring-2 ring-primary text-primary flex items-center justify-center shrink-0 z-10">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><path d="M14 2v6h6"></path></svg>
+</div>
+<div class="flex-grow bg-surface p-4 rounded-xl shadow-sm border border-border-subtle/50">
+<div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+<span class="font-metadata text-xs font-semibold text-secondary">28 Aug 2026</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-surface-container text-on-surface">
+                          Verified
+                        </span>
+</div>
+<h4 class="font-heading-sm text-base text-on-surface font-semibold mb-1">Consultation Note</h4>
+<p class="font-metadata text-xs text-secondary">
+                        Source: <span class="text-on-surface font-medium">Dr. A. Sharma, Neurologist</span>
+</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="relative flex items-start gap-4">
+<div class="w-7 h-7 rounded-full bg-surface ring-2 ring-primary text-primary flex items-center justify-center shrink-0 z-10">
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"></path><path d="M8.5 2h7"></path></svg>
+</div>
+<div class="flex-grow bg-surface p-4 rounded-xl shadow-sm border border-border-subtle/50">
+<div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+<span class="font-metadata text-xs font-semibold text-secondary">12 Sep 2026</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-accent-soft text-primary">
+                          Report released
+                        </span>
+</div>
+<h4 class="font-heading-sm text-base text-on-surface font-semibold mb-1">Plasma Biomarker Panel</h4>
+<p class="font-metadata text-xs text-secondary">
+                        Source: <span class="text-on-surface font-medium">Central Diagnostic Lab</span>
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 5: LEARNING (Editorial Hub & NeuroLearn) -->
+<section class="w-full py-16 lg:py-24 bg-background">
+<div class="max-w-[1200px] mx-auto px-margin">
+<div class="max-w-[680px] mb-12">
+<div class="inline-flex items-center px-3 py-1 rounded bg-accent-soft text-primary font-label text-metadata mb-4">
+              Neuroscience Education
+            </div>
+<h2 class="font-heading-lg text-heading-lg text-on-surface tracking-tight mb-3">
+              Understand more. Feel less lost.
+            </h2>
+<p class="font-body-lg text-body-lg text-secondary">
+              Explore clear explanations of memory concerns, assessments and everyday care.
+            </p>
+</div>
+<!-- 3 Editorial Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<!-- Guide 1 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-border-subtle/50">
+<div>
+<div class="flex items-center justify-between gap-2 mb-4">
+<span class="text-xs font-semibold text-secondary uppercase tracking-wider">Draft preview</span>
+<span class="text-xs font-metadata text-outline">5 min guide</span>
+</div>
+<h3 class="font-heading-sm text-heading-sm text-on-surface mb-3">
+                  Preparing for a memory appointment
+                </h3>
+<p class="font-body-md text-metadata text-secondary mb-6">
+                  Practical strategies for documenting changes, bringing family observations, and framing key questions for your visit.
+                </p>
+</div>
+<a class="font-label text-metadata text-primary hover:underline inline-flex items-center gap-1 group" data-path="learn" href="#">
+<span>Read guide</span>
+<svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</a>
+</div>
+<!-- Guide 2 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-border-subtle/50">
+<div>
+<div class="flex items-center justify-between gap-2 mb-4">
+<span class="text-xs font-semibold text-secondary uppercase tracking-wider">Draft preview</span>
+<span class="text-xs font-metadata text-outline">7 min guide</span>
+</div>
+<h3 class="font-heading-sm text-heading-sm text-on-surface mb-3">
+                  Understanding cognitive assessments
+                </h3>
+<p class="font-body-md text-metadata text-secondary mb-6">
+                  What neuropsychological and digital cognitive tools actually measure, how scoring works, and what results signify.
+                </p>
+</div>
+<a class="font-label text-metadata text-primary hover:underline inline-flex items-center gap-1 group" data-path="learn" href="#">
+<span>Read guide</span>
+<svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</a>
+</div>
+<!-- Guide 3 -->
+<div class="bg-surface rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-border-subtle/50">
+<div>
+<div class="flex items-center justify-between gap-2 mb-4">
+<span class="text-xs font-semibold text-secondary uppercase tracking-wider">Draft preview</span>
+<span class="text-xs font-metadata text-outline">6 min guide</span>
+</div>
+<h3 class="font-heading-sm text-heading-sm text-on-surface mb-3">
+                  Supporting someone at home
+                </h3>
+<p class="font-body-md text-metadata text-secondary mb-6">
+                  Compassionate, sustainable routines for families navigating subtle behavioral shifts, safety, and everyday autonomy.
+                </p>
+</div>
+<a class="font-label text-metadata text-primary hover:underline inline-flex items-center gap-1 group" data-path="learn" href="#">
+<span>Read guide</span>
+<svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+</a>
+</div>
+</div>
+<!-- NeuroLearn Box -->
+<div class="w-full bg-accent-soft rounded-2xl p-8 lg:p-10 shadow-sm border border-border-subtle/40">
+<div class="max-w-[720px]">
+<div class="flex items-center gap-2 mb-3">
+<svg class="w-5 h-5 text-primary shrink-0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+<h3 class="font-heading-md text-heading-md text-on-surface">
+                  Have a question? Ask NeuroLearn.
+                </h3>
+</div>
+<p class="font-body-md text-body-md text-secondary mb-6">
+                An educational guide, not a clinician. Explore neutral, evidence-grounded answers to common neurological questions.
+              </p>
+<!-- Interactive chips -->
+<div class="flex flex-wrap gap-2.5 mb-8">
+<button class="px-4 py-2 bg-surface hover:bg-surface-container rounded-full text-on-surface font-label text-metadata transition-colors shadow-sm text-left border border-border-subtle/60" type="button">
+                  “What happens at a memory appointment?”
+                </button>
+<button class="px-4 py-2 bg-surface hover:bg-surface-container rounded-full text-on-surface font-label text-metadata transition-colors shadow-sm text-left border border-border-subtle/60" type="button">
+                  “What does a cognitive assessment measure?”
+                </button>
+<button class="px-4 py-2 bg-surface hover:bg-surface-container rounded-full text-on-surface font-label text-metadata transition-colors shadow-sm text-left border border-border-subtle/60" type="button">
+                  “How can I prepare questions for a clinician?”
+                </button>
+</div>
+<a class="inline-flex items-center justify-center h-12 px-6 rounded-lg bg-primary-container hover:bg-primary-hover text-on-primary font-label text-label transition-colors" data-path="learn" href="#">
+                Start reading with NeuroLearn
+              </a>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 6: TRUST AND PILOT CONTACT -->
+<section class="w-full py-20 lg:py-28 bg-surface">
+<div class="max-w-[1200px] mx-auto px-margin">
+<div class="max-w-[680px] mx-auto text-center flex flex-col items-center">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-6 text-primary">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+</div>
+<h2 class="font-heading-lg text-heading-lg text-on-surface tracking-tight mb-4">
+              Built to support clinical care.
+            </h2>
+<p class="font-body-lg text-body-lg text-secondary mb-8">
+              NeuroVX is being developed to organize information and care steps. Clinical decisions remain with qualified healthcare professionals.
+            </p>
+<a class="inline-flex items-center justify-center h-12 px-8 rounded-lg bg-primary-container hover:bg-primary-hover text-on-primary font-label text-label transition-colors mb-4 shadow-sm" data-path="pilot" href="#">
+              Discuss a pilot
+            </a>
+<p class="font-metadata text-metadata text-secondary mb-6">
+              For patients, families and healthcare partners helping shape NeuroVX.
+            </p>
+<a class="font-label text-metadata text-primary hover:underline" data-path="research" href="#">
+              Learn about the separation of care and research
+            </a>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- FOOTER -->
+<footer class="w-full bg-surface-container-low border-t border-border-subtle">
+<div class="max-w-[1200px] mx-auto px-margin py-space-xl">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-space-xl">
+<div class="lg:col-span-2 space-y-space-md pr-space-lg">
+<div class="flex items-center gap-space-sm">
+<img alt="NeuroVX logo" class="h-7 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJR55ndjsrcB2MCDmeWaiSbRk4cZ72K3L4_DZEneZQtvbjjbiPP7_RbaXk_Axd6lRD9B7JHgFgw9WAfWWBhUTXHQcxhenmO84pkLGR2NU3tfUACt_yamhVEI0qLChQhm0G2rnSeifFEWpfIAY6tv0KmxWXZmVIsXCZiDI8WyKp8WcCWLpL03XSfP7xl3PnhLBU54IpVtGpAGQrwkNL7VsPMsPd4pJb-Rs2usWf3lQNYC9tD12qRp3f8N6aMORZek9r94g"/>
+<span class="font-heading-sm text-heading-sm text-on-surface tracking-tight">NeuroVX</span>
+</div>
+<p class="font-body-md text-metadata text-on-surface-variant max-w-sm">
+            India-first neuroscience care infrastructure.
+          </p>
+<div class="inline-flex items-center px-space-sm py-space-xs bg-accent-soft rounded-lg text-primary text-metadata font-label">
+            Connected Care Architecture
+          </div>
+</div>
+<div>
+<p class="font-label text-metadata text-on-surface mb-space-md uppercase tracking-wider">Public destinations</p>
+<ul class="space-y-space-sm">
+<li class="leading-none"><a class="font-body-md text-metadata text-on-surface-variant hover:text-primary transition-colors" data-path="patients-and-families" href="#">Patients &amp; families</a></li>
+<li class="leading-none"><a class="font-body-md text-metadata text-on-surface-variant hover:text-primary transition-colors" data-path="healthcare-partners" href="#">Healthcare partners</a></li>
+<li class="leading-none"><a class="font-body-md text-metadata text-on-surface-variant hover:text-primary transition-colors" data-path="research" href="#">Research</a></li>
+<li class="leading-none"><a class="font-body-md text-metadata text-on-surface-variant hover:text-primary transition-colors" data-path="learn" href="#">Learn</a></li>
+<li class="leading-none"><a class="font-body-md text-metadata text-on-surface-variant hover:text-primary transition-colors" data-path="care-and-support" href="#">Care &amp; support</a></li>
+</ul>
+</div>
+<div>
+<p class="font-label text-metadata text-on-surface mb-space-md uppercase tracking-wider">Platform</p>
+<ul class="space-y-space-sm">
+<li class="leading-none"><a class="font-body-md text-metadata text-on-surface-variant hover:text-primary transition-colors" data-path="contact" href="#">Contact</a></li>
+<li class="leading-none"><a class="font-body-md text-metadata text-on-surface-variant hover:text-primary transition-colors" data-path="about" href="#">About</a></li>
+<li class="leading-none"><a class="font-body-md text-metadata text-on-surface-variant hover:text-primary transition-colors" data-path="pilot" href="#">Pilot</a></li>
+</ul>
+</div>
+<div>
+<p class="font-label text-metadata text-on-surface mb-space-md uppercase tracking-wider">Legal &amp; Governance</p>
+<ul class="space-y-space-sm">
+<li class="leading-none"><a class="font-body-md text-metadata text-on-surface-variant hover:text-primary transition-colors" data-path="privacy-policy" href="#">Privacy policy</a></li>
+<li class="leading-none"><a class="font-body-md text-metadata text-on-surface-variant hover:text-primary transition-colors" data-path="terms-of-service" href="#">Terms of service</a></li>
+<li class="leading-none"><a class="font-body-md text-metadata text-on-surface-variant hover:text-primary transition-colors" data-path="accessibility-statement" href="#">Accessibility statement</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-space-xl pt-space-lg border-t border-border-subtle flex flex-col md:flex-row md:items-center md:justify-between gap-space-md">
+<p class="font-metadata text-metadata text-secondary max-w-xl">
+          Product preview — not for clinical use. Clinical decisions remain with qualified healthcare professionals.
+        </p>
+<p class="font-metadata text-metadata text-secondary">
+          © 2025 NeuroVX Health Technologies. All rights reserved.
+        </p>
+</div>
+</div>
+</footer>
+</body></html>
