@@ -20,8 +20,14 @@ export function latestUpdate(stage: EpisodeStage): TimelineEvent | undefined {
 /**
  * The one learning suggestion on Home ("Understand your next step"),
  * matched to where the person is. Always one guide and one NeuroLearn question.
+ * The caregiver guide is offered to helpers only, never to the patient about themselves.
  */
-export function learnSuggestionFor(stage: EpisodeStage): { slug: string; question: string } {
+export function learnSuggestionFor(stage: EpisodeStage, isPatient = false): { slug: string; question: string } {
+  const s = learnSuggestionForStage(stage)
+  return isPatient && s.slug === 'supporting-someone-at-home' ? { ...s, slug: 'preparing-for-a-memory-appointment' } : s
+}
+
+function learnSuggestionForStage(stage: EpisodeStage): { slug: string; question: string } {
   switch (stage) {
     case 'assessment-ready':
       return { slug: 'understanding-cognitive-assessments', question: 'What does a cognitive assessment measure?' }

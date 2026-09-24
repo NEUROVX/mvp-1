@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router'
 import {
@@ -15,6 +15,7 @@ import { hasReached } from '@/demo/episode'
 import { labById, ORDERS } from '@/demo/fixtures'
 import { useDemo, usePeople } from '@/demo/store'
 import type { LabProvider } from '@/demo/types'
+import { BackLink } from '@/features/booking/BackLink'
 import { AccessGate } from '@/features/records/AccessGate'
 import { capabilityOf, COLLECTION_OPTION_TEXT, collectionOptionsFor } from '@/features/tests/components'
 import { bookingFor } from '@/features/tests/progress'
@@ -81,15 +82,11 @@ export default function LabBookingPage() {
 
   return (
     <div className="space-y-8">
-      <div className="space-y-4">
-        <Button to="/app/care/tests/providers" variant="quiet" iconLeft={<ArrowLeft className="size-5" />}>
-          Back to providers
-        </Button>
-        <PageHeader
-          title="Book sample collection"
-          lede="Check the details, then choose how and when the sample is collected."
-        />
-      </div>
+      <BackLink to="/app/care/tests/providers">Back to providers</BackLink>
+      <PageHeader
+        title="Book sample collection"
+        lede="Check the details, then choose how and when the sample is collected."
+      />
       <AccessGate>{body}</AccessGate>
     </div>
   )

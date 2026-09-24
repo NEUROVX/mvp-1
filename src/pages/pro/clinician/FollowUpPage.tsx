@@ -121,7 +121,7 @@ export default function FollowUpPage() {
                 <span className="inline-flex flex-col items-start gap-1">
                   <span>{r.owner}</span>
                   {r.waitingOn === 'you' ? (
-                    <StatusBadge tone="info" size="sm">
+                    <StatusBadge tone="info">
                       Waiting on you
                     </StatusBadge>
                   ) : null}

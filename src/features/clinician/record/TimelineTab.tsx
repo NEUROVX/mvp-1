@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { SelectField, Timeline, type TimelineEntry } from '@/components/ui'
-import { hasReached, STAGE_META } from '@/demo/episode'
+import { collectedEventFor, hasReached, STAGE_META } from '@/demo/episode'
 import { TIMELINE } from '@/demo/fixtures'
 import { useDemo, usePeople } from '@/demo/store'
 import type { TimelineType } from '@/demo/types'
@@ -12,6 +12,15 @@ const TYPE_LABELS: Record<TimelineType, string> = {
   test: 'Test',
   care: 'Care',
   note: 'Note',
+}
+
+/** Filter labels exactly as DESIGN.md › Longitudinal record: Visits, Assessments, Tests, Care and Notes. */
+const FILTER_LABELS: Record<TimelineType, string> = {
+  visit: 'Visits',
+  assessment: 'Assessments',
+  test: 'Tests',
+  care: 'Care',
+  note: 'Notes',
 }
 
 /** Record tab each event opens in this workspace (fixture links point to the patient app). */
@@ -39,12 +48,17 @@ export function TimelineTab() {
   for (const ev of TIMELINE) {
     if (!hasReached(st, ev.from)) continue
     let detail = ev.detail
+    let date = ev.date
+    let time = ev.time
+    let sourceName = ev.sourceName
     let review = ev.review
     let reviewTone = ev.reviewTone
     if ((ev.id === 'ev-checkin' || ev.id === 'ev-observations') && accepted) {
       review = 'Reviewed in summary'
       reviewTone = 'info'
     }
+    // The collection as it happened for the slot the family booked.
+    if (ev.id === 'ev-collected') ({ date, time, detail, sourceName } = collectedEventFor(state.labBooking))
     if (ev.id === 'ev-released') {
       if (st === 'delivery-problem') {
         detail = 'Released by the laboratory. Delivery to this clinic failed.'
@@ -61,13 +75,13 @@ export function TimelineTab() {
     const link = CLINICIAN_LINKS[ev.id]
     entries.push({
       id: ev.id,
-      date: ev.date,
-      time: ev.time,
+      date,
+      time,
       typeLabel: TYPE_LABELS[ev.type],
       title: CLINICIAN_TITLES[ev.id] ?? ev.title,
       detail,
       source: ev.source,
-      sourceName: ev.sourceName,
+      sourceName,
       review,
       reviewTone,
       href: link?.href,
@@ -112,7 +126,7 @@ export function TimelineTab() {
             { value: 'all', label: 'All events' },
             ...(Object.keys(TYPE_LABELS) as TimelineType[])
               .filter((t) => types.includes(TYPE_LABELS[t]))
-              .map((t) => ({ value: t, label: `${TYPE_LABELS[t]}s` })),
+              .map((t) => ({ value: t, label: FILTER_LABELS[t] })),
           ]}
         />
       </div>

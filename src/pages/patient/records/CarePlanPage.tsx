@@ -13,7 +13,7 @@ import {
 } from '@/components/ui'
 import { hasReached } from '@/demo/episode'
 import { CARE_PLAN, CARE_PLAN_SUMMARY } from '@/demo/fixtures'
-import { useDemo } from '@/demo/store'
+import { useDemo, usePeople } from '@/demo/store'
 import type { CarePlanItem, Tone } from '@/demo/types'
 import { AccessGate } from '@/features/records/AccessGate'
 import { SaveQuestionButton } from '@/features/records/SaveQuestionDialog'
@@ -36,6 +36,7 @@ const STATUS_TONE: Record<string, Tone> = {
 export default function CarePlanPage() {
   usePageTitle('Your care plan')
   const { state } = useDemo()
+  const { hasRecordAccess } = usePeople()
   const hasPlan = hasReached(state.stage, 'reviewed') && state.stage !== 'delivery-problem'
   const existing = state.stage === 'existing-care'
   const noTask = state.stage === 'no-task'
@@ -43,7 +44,8 @@ export default function CarePlanPage() {
   // A plan published at 'reviewed' has no follow-up yet; the clinician adds one at 'follow-up-due'.
   const followUpPrimary = state.stage === 'follow-up-due' && !followUpRequested
 
-  if (!hasPlan) {
+  // Without record access, not even the plan's author or date is shown.
+  if (!hasPlan || !hasRecordAccess) {
     return (
       <div className="space-y-10">
         <PageHeader title="Your care plan" />
@@ -66,7 +68,8 @@ export default function CarePlanPage() {
     ? followUpRequested
       ? { ...followUp, status: 'Requested', href: '/app/care/visit' }
       : noTask
-        ? { ...followUp, status: 'No action due now', due: undefined }
+        ? // Nothing is due, so there is nothing to book yet (Home: "Your care plan is up to date").
+          { ...followUp, status: 'No action due now', due: undefined, href: undefined }
         : followUp
     : undefined
 

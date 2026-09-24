@@ -87,7 +87,7 @@ export default function TodayPage() {
               Needs your response
             </h2>
             {st === 'booking-requested' ? (
-              <StatusBadge tone="warning" size="sm">
+              <StatusBadge tone="warning">
                 1 appointment request
               </StatusBadge>
             ) : null}
@@ -162,7 +162,7 @@ export default function TodayPage() {
                   <p className="text-body-md text-muted">
                     Released {EPISODE_DATES.released} by {B12_REPORT.issuer}
                   </p>
-                  <StatusBadge tone="info" size="sm">
+                  <StatusBadge tone="info">
                     Not yet reviewed
                   </StatusBadge>
                 </div>
@@ -211,8 +211,9 @@ export default function TodayPage() {
           </div>
           <TextField
             type="search"
-            label="Search your clinic’s patients"
-            className="max-w-sm"
+            label="Search this clinic’s visits"
+            hint="Today and upcoming. Patient name, reason or packet status."
+            className="max-w-lg"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             autoComplete="off"
@@ -224,7 +225,7 @@ export default function TodayPage() {
           groups={groups}
           empty={
             <p className="rounded-lg border border-border bg-surface px-5 py-4 text-body-md text-muted sm:px-6">
-              No visits match “{query.trim()}”. Search looks at patient names and reasons in this clinic only.
+              No visits match “{query.trim()}”. Search covers today’s and upcoming visits in this clinic only.
             </p>
           }
           columns={[
@@ -240,7 +241,7 @@ export default function TodayPage() {
               key: 'packet',
               header: 'Packet status',
               cell: (r) => (
-                <StatusBadge tone={r.packetTone} size="sm">
+                <StatusBadge tone={r.packetTone}>
                   {r.packet}
                 </StatusBadge>
               ),

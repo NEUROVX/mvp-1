@@ -5,7 +5,7 @@ import { EPISODE_DATES, ORG } from '@/demo/fixtures'
 import { useDemo, usePeople } from '@/demo/store'
 import type { Tone } from '@/demo/types'
 import { ReviewButton, type ClinicianActions } from '../actions'
-import { B12_REPORT, LAB_SHORT, packetParts, requestedSlot, type RecordTab } from '../data'
+import { B12_REPORT, bookedCollection, LAB_SHORT, orderStatus, packetParts, requestedSlot, type RecordTab } from '../data'
 import { ActionFeedback, LiveSlot } from '../parts'
 
 interface PanelContent {
@@ -93,18 +93,25 @@ export const ActionPanel = forwardRef<HTMLHeadingElement, { actions: ClinicianAc
               </Button>
             ),
           }
-        case 'collection-arranged':
+        case 'collection-arranged': {
+          // Status follows the lab's own progress, so this panel agrees with the orders table below.
+          const col = bookedCollection(state)
+          const b12 = orderStatus(state, 'b12')
+          const collected = Boolean(state.lab.b12) && state.lab.b12 !== 'received'
           return {
-            status: { label: 'Collection arranged', tone: 'neutral' },
-            title: 'Sample collection booked',
-            body: `Home collection on ${EPISODE_DATES.collection}, ${EPISODE_DATES.collectionTime}, by ${ORG.lab}.`,
-            owner: `Waiting on: ${LAB_SHORT}`,
+            status: b12 ? { label: b12.label, tone: b12.tone } : { label: 'Collection arranged', tone: 'neutral' },
+            title: collected ? 'Sample collected - at the laboratory' : 'Sample collection booked',
+            body: collected
+              ? `Collected ${col.collectedOn} by ${col.provider}. No report released yet.`
+              : `${col.typeLabel} on ${col.when}, by ${col.provider}.`,
+            owner: `Waiting on: ${col.providerShort}`,
             buttons: (
               <Button variant="secondary" onClick={() => onTab('results')}>
                 View orders
               </Button>
             ),
           }
+        }
         case 'report-released':
           return {
             status: { label: 'Not yet reviewed', tone: 'info' },
@@ -183,7 +190,7 @@ export const ActionPanel = forwardRef<HTMLHeadingElement, { actions: ClinicianAc
       <section aria-labelledby="record-next" className="rounded-lg border border-border bg-surface p-5 shadow-1 sm:p-6">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
           <div className="min-w-0 max-w-reading space-y-2">
-            <StatusBadge tone={c.status.tone} size="sm">
+            <StatusBadge tone={c.status.tone}>
               {c.status.label}
             </StatusBadge>
             <h2 id="record-next" ref={headingRef} tabIndex={-1} className="text-heading-sm text-ink">

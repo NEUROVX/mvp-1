@@ -60,8 +60,8 @@ export default function ResearchOverviewPage() {
 
   return (
     <div className="space-y-10">
-      <Callout tone="info" title="Concept preview.">
-        No patient data is used or shown. Research on NeuroVX would be separately governed and is not available.
+      <Callout tone="info" title="Concept - not available in this preview">
+        No patient data is used or shown. Research on NeuroVX would be separately governed.
       </Callout>
 
       <PageHeader
@@ -282,7 +282,7 @@ export default function ResearchOverviewPage() {
             its own, and neither is ever pre-selected.
           </Callout>
           <EmptyState icon={<Inbox strokeWidth={1.75} />} title="No requests in this concept preview">
-            Research on NeuroVX is not available. Concept - not available in this preview.
+            Site-review requests would appear here only for an authorized study.
           </EmptyState>
         </div>
       </ResearchSection>

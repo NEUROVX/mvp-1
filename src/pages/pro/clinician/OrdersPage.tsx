@@ -44,9 +44,9 @@ export default function OrdersPage() {
       id: 'b12',
       report: B12_REPORT.title,
       from: B12_REPORT.issuer,
-      received: failed ? 'Not received - delivery failed' : `Delivered ${EPISODE_DATES.released}`,
+      received: failed ? `Delivery failed - owner: ${ORG.support}` : `Delivered ${EPISODE_DATES.released}`,
       review: failed
-        ? { label: `Owner: ${ORG.support}`, tone: 'warning' }
+        ? { label: 'Waiting for delivery', tone: 'warning' }
         : reviewed
           ? { label: `Reviewed ${EPISODE_DATES.reviewed}`, tone: 'info' }
           : { label: 'Not yet reviewed', tone: 'info' },
@@ -104,7 +104,7 @@ export default function OrdersPage() {
                 cell: (o) => {
                   const s = orderStatus(state, o.id)
                   return s ? (
-                    <StatusBadge tone={s.tone} size="sm">
+                    <StatusBadge tone={s.tone}>
                       {s.label}
                     </StatusBadge>
                   ) : null
@@ -163,7 +163,7 @@ export default function OrdersPage() {
               key: 'review',
               header: 'Review state',
               cell: (r) => (
-                <StatusBadge tone={r.review.tone} size="sm">
+                <StatusBadge tone={r.review.tone}>
                   {r.review.label}
                 </StatusBadge>
               ),

@@ -59,7 +59,7 @@ function pinLabel(c: Clinician) {
 export default function FindClinicianPage() {
   usePageTitle('Find care near you')
   const { state } = useDemo()
-  const { your } = usePeople()
+  const { your, hasRecordAccess } = usePeople()
   const [params, setParams] = useSearchParams()
   const [area, setArea] = useState(DEMO_AREA)
   const [locationNote, setLocationNote] = useState(false)
@@ -122,8 +122,10 @@ export default function FindClinicianPage() {
   // Duplicate-booking guard (PATIENT.md › avoid duplicate bookings when two care partners act).
   const stage = state.stage
   const booked = clinicianById(state.booking.clinicianId)
-  const guard =
-    hasActiveBooking(stage)
+  // Only shown with record access: a helper without access must not learn about existing visits.
+  const guard = !hasRecordAccess
+    ? null
+    : hasActiveBooking(stage)
       ? {
           title: 'You already have a visit request or booking',
           body: 'Check it before requesting another, so the clinic does not receive two requests.',
@@ -143,7 +145,7 @@ export default function FindClinicianPage() {
         <Callout
           tone="info"
           title={guard.title}
-          action={<ArrowLink to="/app/care/visit">View your visit</ArrowLink>}
+          action={<ArrowLink to="/app/care/visit">View visit details</ArrowLink>}
         >
           <p>{guard.body}</p>
         </Callout>

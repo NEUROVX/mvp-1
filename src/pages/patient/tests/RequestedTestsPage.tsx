@@ -13,7 +13,7 @@ import {
 } from '@/components/ui'
 import { hasReached } from '@/demo/episode'
 import { EPISODE_DATES, ORDERS } from '@/demo/fixtures'
-import { useDemo } from '@/demo/store'
+import { useDemo, usePeople } from '@/demo/store'
 import type { InvestigationOrder } from '@/demo/types'
 import { AccessGate } from '@/features/records/AccessGate'
 import { QuietRoutes } from '@/features/tests/components'
@@ -36,11 +36,13 @@ const OTHER_ROUTES = [
 export default function RequestedTestsPage() {
   usePageTitle('Tests requested by your clinician')
   const { state } = useDemo()
+  const { hasRecordAccess } = usePeople()
   const requested = hasReached(state.stage, 'tests-requested')
   const booking = bookingFor(state)
   const first = ORDERS[0]
 
-  if (!requested) {
+  // A helper without record access sees only the access route (PATIENT.md › Access incomplete).
+  if (!requested || !hasRecordAccess) {
     return (
       <div className="space-y-10">
         <PageHeader title="Tests requested by your clinician" />
@@ -126,6 +128,7 @@ function OrderSection({ order }: { order: InvestigationOrder }) {
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           <StatusBadge tone={status.tone}>{status.label}</StatusBadge>
           {badge ? <StatusBadge tone={badge.tone}>{badge.label}</StatusBadge> : null}
+          {review.deliveryFailed ? <StatusBadge tone="warning">Not yet shared with the care team</StatusBadge> : null}
           <span className="text-body-md text-muted tabular">{order.orderRef}</span>
         </div>
         <h2 id={titleId} className="text-heading-md text-ink">

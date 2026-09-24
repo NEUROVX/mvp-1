@@ -7,8 +7,8 @@
  * demo-only progress, so the patient view matches the other workspaces.
  */
 import type { CarelineStep } from '@/components/ui'
-import { hasReached, STAGE_META } from '@/demo/episode'
-import { EPISODE_DATES, labById, ORG, PENDING_REPORT, REPORTS } from '@/demo/fixtures'
+import { hasReached, labCollectionFor, STAGE_META } from '@/demo/episode'
+import { EPISODE_DATES, ORG, PENDING_REPORT, REPORTS } from '@/demo/fixtures'
 import type { DemoState, InvestigationOrder, LabProvider, Tone } from '@/demo/types'
 
 export const LAB_STEPS = [
@@ -30,20 +30,15 @@ export interface BookingSummary {
   collection: 'home' | 'visit'
   date: string
   time: string
+  /** Recorded collection time, once the provider collects. */
+  collectedOn: string
 }
 
 /** The booked collection, if one exists at this point in the episode. */
 export function bookingFor(state: DemoState): BookingSummary | undefined {
   if (!hasReached(state.stage, 'collection-arranged')) return undefined
-  const provider = labById(state.labBooking.providerId) ?? labById('example-diagnostics')
-  if (!provider) return undefined
-  const slot = provider.slots.find((s) => s.id === state.labBooking.slotId) ?? provider.slots[0]
-  return {
-    provider,
-    collection: state.labBooking.collection ?? slot.collection,
-    date: slot.date,
-    time: slot.time,
-  }
+  const { provider, collection, date, time, collectedOn } = labCollectionFor(state.labBooking)
+  return { provider, collection, date, time, collectedOn }
 }
 
 /** Index into LAB_STEPS for the shared blood collection, before any release. */
@@ -142,7 +137,7 @@ export function progressFor(order: InvestigationOrder, state: DemoState): OrderP
       ? `Accepted by ${providerName}`
       : `Sent by ${order.orderedBy} on ${order.orderedOn}. Choose a provider to book collection.`,
     booking ? `${COLLECTION_TEXT[booking.collection]}, ${booking.date}, ${booking.time}` : 'Not booked yet',
-    index >= 2 ? B12_REPORT.collectedOn : `By ${providerName}`,
+    index >= 2 && booking ? booking.collectedOn : `By ${providerName}`,
     referenceLab ? `Sent to ${referenceLab} for processing` : `At ${providerName}`,
     `At ${processor}`,
     isB12 && review.released ? B12_REPORT.releasedOn : 'By the laboratory',
@@ -207,6 +202,7 @@ export function progressFor(order: InvestigationOrder, state: DemoState): OrderP
     ]
   }
 
+  const collectedDay = booking?.date ?? EPISODE_DATES.collection
   let last: LastUpdate
   if (review.reviewed) {
     last = { when: EPISODE_DATES.reviewed, what: `Reviewed by ${order.orderedBy}`, who: order.orderedBy }
@@ -215,13 +211,13 @@ export function progressFor(order: InvestigationOrder, state: DemoState): OrderP
   } else if (review.released) {
     last = { when: B12_REPORT.releasedOn, what: 'Report released and delivered to the care team', who: providerName }
   } else if (index >= 2 && referenceLab) {
-    last = { when: EPISODE_DATES.collection, what: 'Sample sent for processing', who: referenceLab }
+    last = { when: collectedDay, what: 'Sample sent for processing', who: referenceLab }
   } else if (index === 4) {
-    last = { when: EPISODE_DATES.collection, what: 'Processing', who: providerName }
+    last = { when: collectedDay, what: 'Processing', who: providerName }
   } else if (index === 3) {
-    last = { when: EPISODE_DATES.collection, what: 'Sample received', who: providerName }
+    last = { when: collectedDay, what: 'Sample received', who: providerName }
   } else if (index === 2) {
-    last = { when: B12_REPORT.collectedOn, what: 'Sample collected', who: providerName }
+    last = { when: booking?.collectedOn ?? EPISODE_DATES.collection, what: 'Sample collected', who: providerName }
   } else if (index === 1) {
     last = { when: STAGE_META['collection-arranged'].when, what: 'Collection booked', who: providerName }
   } else {

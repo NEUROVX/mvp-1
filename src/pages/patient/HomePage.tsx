@@ -225,8 +225,8 @@ function LatestUpdate() {
 
 function UnderstandNextStep() {
   const { stage } = useEpisode()
-  const { hasRecordAccess } = usePeople()
-  const suggestion = hasRecordAccess ? learnSuggestionFor(stage) : learnSuggestionFor('new')
+  const { hasRecordAccess, persona } = usePeople()
+  const suggestion = hasRecordAccess ? learnSuggestionFor(stage, persona === 'patient') : learnSuggestionFor('new')
   const article = articleBySlug(suggestion.slug)
   return (
     <section aria-labelledby="understand-heading" className="rounded-lg border border-border bg-surface p-5 sm:p-6">

@@ -129,6 +129,8 @@ export interface BookingState {
   mode?: VisitMode
   /** Follow-up visit requested from the care plan (same clinician and episode). */
   followUp?: { slotId: string; mode: VisitMode; status: 'requested' }
+  /** The confirmed time a pending change would replace. It stays until the clinic confirms the change. */
+  previous?: { slotId: string; mode: VisitMode }
   /** Reply to a clinician's information request (info-requested stage). */
   infoReply?: string
   share: {
@@ -136,6 +138,8 @@ export interface BookingState {
     observations: boolean
     assessment: boolean
     uploads: boolean
+    /** Previous reports the person unticked. Reports added later join the packet. */
+    excludedUploadIds?: string[]
   }
 }
 

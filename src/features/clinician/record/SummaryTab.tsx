@@ -1,6 +1,7 @@
 import { GitCompareArrows, PencilLine } from 'lucide-react'
 import { useState, type ReactNode } from 'react'
 import { Button, Dialog, InlineStatus, SourceLabel, StatusBadge, TextArea } from '@/components/ui'
+import { sharedUploads } from '@/demo/episode'
 import { EPISODE_DATES } from '@/demo/fixtures'
 import { useDemo, usePeople } from '@/demo/store'
 import type { DemoState } from '@/demo/types'
@@ -84,6 +85,7 @@ export function SummaryTab() {
   const cl = clinicianOf(state)
   const today = workspaceToday(state.stage)
   const share = state.booking.share
+  const shared = sharedUploads(state)
   const c = state.checkIn
   const o = state.observations
   const helperName = `${helper.firstName} ${helper.lastName}`
@@ -137,7 +139,7 @@ export function SummaryTab() {
               <h2 id="summary-h" className="text-heading-sm text-ink">
                 {accepted ? 'Reviewed summary' : 'Draft summary - review required'}
               </h2>
-              <StatusBadge tone={accepted ? 'info' : 'warning'} size="sm">
+              <StatusBadge tone={accepted ? 'info' : 'warning'}>
                 {accepted ? 'Accepted' : 'Review required'}
               </StatusBadge>
             </div>
@@ -291,16 +293,16 @@ export function SummaryTab() {
           <Row
             term="Uploaded reports"
             source={
-              state.uploads.length && share.uploads ? (
+              shared.length ? (
                 <span className="text-body-md text-muted">Provided by the family, not yet verified</span>
               ) : undefined
             }
           >
             {!share.uploads ? (
               NOT_SHARED
-            ) : state.uploads.length ? (
+            ) : shared.length ? (
               <ul className="space-y-1">
-                {state.uploads.map((u) => (
+                {shared.map((u) => (
                   <li key={u.id} className="break-words">
                     {u.name}
                     <span className="text-muted"> · added {u.addedAt}</span>
@@ -504,9 +506,9 @@ function CompareSourceDialog({ open, onClose }: { open: boolean; onClose: () => 
         </SourceBlock>
 
         <SourceBlock title="Reports added by the family" source={<p className="text-body-md text-muted">Not yet verified by the clinic</p>}>
-          {state.uploads.length && state.booking.share.uploads ? (
+          {sharedUploads(state).length ? (
             <ul className="space-y-1 text-body-md text-ink">
-              {state.uploads.map((u) => (
+              {sharedUploads(state).map((u) => (
                 <li key={u.id} className="break-words">
                   {u.name} <span className="text-muted">· added {u.addedAt}</span>
                 </li>

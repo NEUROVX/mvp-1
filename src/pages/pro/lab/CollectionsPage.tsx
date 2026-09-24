@@ -2,7 +2,7 @@ import { Link } from 'react-router'
 import { DemoTag, EmptyState, StatusBadge, TextLink } from '@/components/ui'
 import { LAB_PROVIDERS, ORG } from '@/demo/fixtures'
 import { DataTable, type Column } from '@/features/lab/DataTable'
-import { shiftDate, type LabOrder } from '@/features/lab/model'
+import { shiftDate, STATE_LABEL, STATE_TONE, type LabOrder } from '@/features/lab/model'
 import { LabHeader, OpenOrderButton, OpenOrderLink, orderPath } from '@/features/lab/parts'
 import { useLab } from '@/features/lab/useLab'
 import { usePageTitle } from '@/lib/hooks'
@@ -16,28 +16,47 @@ interface CollectionRow {
   sortKey: string
 }
 
+/** Orders that still belong on the collections list (booked, or collected and at reception). */
+const ON_COLLECTIONS_LIST = new Set<LabOrder['state']>(['collection-arranged', 'collected', 'specimen-received'])
+
 function dayLabel(date: string, today: string) {
   return date === today ? 'Today' : date === shiftDate(today, 1) ? `Tomorrow, ${date}` : date
 }
 
 function When({ row }: { row: CollectionRow }) {
+  // "Tomorrow, 08 Oct 2026" breaks after the comma, never inside the date.
+  const [first, date] = row.day.includes(', ') ? row.day.split(', ') : [row.day, undefined]
   return (
     <span className="tabular">
-      <span className="block font-semibold">{row.day}</span>
+      <span className="block font-semibold">
+        {date ? (
+          <>
+            {first}, <span className="whitespace-nowrap">{date}</span>
+          </>
+        ) : (
+          first
+        )}
+      </span>
       <span className="block whitespace-nowrap">{row.time}</span>
     </span>
   )
 }
 
+/** The order's exact operational state, plus the recorded collection time once collected. */
 function CollectionStatus({ order, today }: { order: LabOrder; today: string }) {
-  if (order.state === 'collection-arranged') return <StatusBadge tone="info">Collection arranged</StatusBadge>
+  const badge = (
+    <StatusBadge tone={STATE_TONE[order.state]} className="whitespace-nowrap">
+      {STATE_LABEL[order.state]}
+    </StatusBadge>
+  )
   const at = order.collection?.collectedOn
+  if (order.state === 'collection-arranged' || !at) return badge
   return (
     <span className="flex flex-col items-start gap-1.5">
-      <StatusBadge tone="info">Collected</StatusBadge>
-      {at ? (
-        <span className="text-body-md text-muted tabular">{at.startsWith(`${today}, `) ? at.slice(today.length + 2) : at}</span>
-      ) : null}
+      {badge}
+      <span className="text-body-md text-muted tabular">
+        Collected {at.startsWith(`${today}, `) ? at.slice(today.length + 2) : at}
+      </span>
     </span>
   )
 }
@@ -84,7 +103,7 @@ const columns = (today: string): Column<CollectionRow>[] => [
   {
     id: 'owner',
     header: 'Owner',
-    cell: (r) => (r.primary.state === 'collection-arranged' ? r.primary.owner : 'Done - specimen is with the lab'),
+    cell: (r) => r.primary.owner,
   },
   { id: 'status', header: 'Status', stacked: false, className: 'w-[13rem]', cell: (r) => <CollectionStatus order={r.primary} today={today} /> },
   { id: 'action', header: 'Action', stacked: false, cell: (r) => <OpenOrderLink order={r.primary} /> },
@@ -99,7 +118,7 @@ export default function CollectionsPage() {
   if (state.stage === 'collection-arranged') {
     const episode = orders.filter((o) => o.kind !== 'background')
     const [b12] = episode
-    if (b12?.collection) {
+    if (b12?.collection && ON_COLLECTIONS_LIST.has(b12.state)) {
       rows.push({
         key: 'episode',
         primary: b12,
@@ -112,7 +131,7 @@ export default function CollectionsPage() {
   }
   for (const o of orders) {
     if (o.kind !== 'background' || !o.collection) continue
-    if (o.state !== 'collection-arranged' && o.state !== 'collected' && o.state !== 'specimen-received') continue
+    if (!ON_COLLECTIONS_LIST.has(o.state)) continue
     rows.push({
       key: o.ref,
       primary: o,

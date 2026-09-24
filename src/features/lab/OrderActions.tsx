@@ -227,7 +227,8 @@ export function OrderActions({
       {actions ? <div className="mt-6 flex flex-col gap-3 [&>*]:w-full">{actions}</div> : null}
       {clarifyForm ? <div className="mt-6">{clarifyForm}</div> : null}
 
-      <div className="mt-3">
+      {/* Always mounted so messages are announced; takes no space while empty. */}
+      <div className="mt-3 [&:has(>p:empty)]:m-0 [&:has(>p:empty)]:h-0 [&:has(>p:empty)]:overflow-hidden">
         <InlineStatus>{shownStatus}</InlineStatus>
       </div>
 
@@ -344,7 +345,7 @@ export function OrderActions({
 function ViewLink({ to, children }: { to: string; children: ReactNode }) {
   return (
     <Link to={to} className="group inline-flex min-h-12 items-center gap-1.5 text-label text-primary hover:text-primary-hover">
-      <span className="underline decoration-transparent underline-offset-[5px] group-hover:decoration-current">{children}</span>
+      <span className="underline decoration-1 underline-offset-[5px] group-hover:decoration-2">{children}</span>
       <ArrowRight aria-hidden="true" className="size-[18px]" strokeWidth={2} />
     </Link>
   )

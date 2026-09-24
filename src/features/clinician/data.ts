@@ -3,7 +3,7 @@
  * demo episode (src/demo/store.tsx), so what the family did is exactly what the
  * clinic sees, with its source. Background rows are clearly fictional.
  */
-import { hasReached, STAGE_META } from '@/demo/episode'
+import { hasReached, labCollectionFor, sharedUploads, STAGE_META } from '@/demo/episode'
 import {
   CLINICIANS,
   CONCERN_LABELS,
@@ -58,6 +58,20 @@ export function requestedSlot(state: DemoState) {
   }
 }
 
+/** The sample collection the family actually booked (provider, slot and type). */
+export function bookedCollection(state: DemoState) {
+  const c = labCollectionFor(state.labBooking)
+  return {
+    date: c.date,
+    time: c.time,
+    when: `${c.date}, ${c.time}`,
+    typeLabel: c.collection === 'home' ? 'Home collection' : 'Centre visit',
+    provider: `${c.provider.name} - ${c.provider.label.toLowerCase()}`,
+    providerShort: c.provider.name,
+    collectedOn: c.collectedOn,
+  }
+}
+
 /** What the family chose to share in the visit packet. */
 export function packetParts(state: DemoState) {
   const share = state.booking.share
@@ -66,8 +80,8 @@ export function packetParts(state: DemoState) {
   if (share.observations && state.observations.status === 'saved') parts.push('family observations')
   if (share.assessment && (state.assessment.status === 'completed' || state.assessment.status === 'interrupted'))
     parts.push('assessment preview')
-  if (share.uploads && state.uploads.length)
-    parts.push(`${state.uploads.length} ${state.uploads.length === 1 ? 'report' : 'reports'}`)
+  const uploads = sharedUploads(state)
+  if (uploads.length) parts.push(`${uploads.length} ${uploads.length === 1 ? 'report' : 'reports'}`)
   return parts
 }
 
@@ -128,30 +142,37 @@ export interface OrderStatus {
   owner: string
 }
 
-/** Operational state of one order (DESIGN.md › Orders: keep states distinct). */
+/**
+ * Operational state of one order, using the exact state names from DESIGN.md
+ * › Orders (Collection arranged … Lab report released, Delivery confirmed,
+ * Clinician reviewed). Release, delivery and review stay separate states.
+ */
 export function orderStatus(state: DemoState, orderId: 'b12' | 'plasma'): OrderStatus | null {
   const st = state.stage
   if (!hasOrders(st)) return null
   if (st === 'tests-requested') return { label: 'Ordered', tone: 'neutral', owner: 'Family chooses a provider' }
+  const atReferenceLab = { label: 'Processing', tone: 'neutral' as Tone, owner: ORG.referenceLab }
   if (st === 'collection-arranged') {
     const b = state.lab.b12
     if (!b || b === 'received')
-      return { label: 'Collection arranged', tone: 'neutral', owner: `${LAB_SHORT} · ${EPISODE_DATES.collection}` }
+      return { label: 'Collection arranged', tone: 'neutral', owner: `${LAB_SHORT} · ${bookedCollection(state).date}` }
     if (b === 'collected') return { label: 'Collected', tone: 'neutral', owner: LAB_SHORT }
-    if (orderId === 'plasma') return { label: 'Processing at reference lab', tone: 'neutral', owner: ORG.referenceLab }
-    return b === 'specimen-received'
-      ? { label: 'Specimen received', tone: 'neutral', owner: LAB_SHORT }
-      : { label: 'Processing', tone: 'neutral', owner: LAB_SHORT }
+    // Both specimens are received together; the plasma specimen then goes to the reference lab.
+    if (b === 'specimen-received') return { label: 'Specimen received', tone: 'neutral', owner: LAB_SHORT }
+    return orderId === 'plasma' ? atReferenceLab : { label: 'Processing', tone: 'neutral', owner: LAB_SHORT }
   }
-  if (orderId === 'plasma') return { label: 'Processing at reference lab', tone: 'neutral', owner: ORG.referenceLab }
-  if (st === 'report-released') return { label: 'Released - not yet reviewed', tone: 'info', owner: CLINICIAN.name }
-  if (st === 'delivery-problem') return { label: 'Released - not received', tone: 'warning', owner: ORG.support }
-  return { label: 'Reviewed', tone: 'info', owner: 'No action due' }
+  if (orderId === 'plasma') return atReferenceLab
+  if (st === 'report-released')
+    return { label: 'Lab report released', tone: 'info', owner: `${CLINICIAN.name} - review due` }
+  if (st === 'delivery-problem') return { label: 'Delivery failed', tone: 'warning', owner: ORG.support }
+  return { label: 'Clinician reviewed', tone: 'info', owner: 'No action due' }
 }
 
 /** The plasma assay is processing at the reference lab once the sample is collected. */
-export const plasmaProcessing = (state: DemoState) =>
-  orderStatus(state, 'plasma')?.label.startsWith('Processing') ?? false
+export const plasmaProcessing = (state: DemoState) => {
+  const s = orderStatus(state, 'plasma')
+  return s?.label === 'Processing' && s.owner === ORG.referenceLab
+}
 
 export const DEMO_ORDERS = ORDERS.map((o) => ({ ...o, id: o.id as 'b12' | 'plasma' }))
 
@@ -197,13 +218,15 @@ export function episodeRow(state: DemoState, helperName: string): EpisodeRow {
         nextStep: 'Choose where to complete tests',
         owner: 'Family',
       }
-    case 'collection-arranged':
+    case 'collection-arranged': {
+      const c = bookedCollection(state)
       return {
         lastEvent: 'Sample collection booked',
         lastDate: STAGE_META['collection-arranged'].when,
-        nextStep: `Home collection ${EPISODE_DATES.collection}, ${EPISODE_DATES.collectionTime}`,
+        nextStep: `${c.typeLabel} ${c.when}`,
         owner: LAB_SHORT,
       }
+    }
     case 'report-released':
       return {
         lastEvent: 'Vitamin B12 report received',
@@ -263,7 +286,7 @@ export function waitingOnOthers(state: DemoState, fullName: string, helperName: 
     items.push({
       id: 'collect',
       who: LAB_SHORT,
-      what: `Home collection for ${fullName}, ${EPISODE_DATES.collection}, ${EPISODE_DATES.collectionTime}`,
+      what: `${bookedCollection(state).typeLabel} for ${fullName}, ${bookedCollection(state).when}`,
     })
   if (st === 'delivery-problem')
     items.push({ id: 'resend', who: ORG.support, what: `Resend ${fullName}’s Vitamin B12 report to the clinic`, tone: 'warning' })

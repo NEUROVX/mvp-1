@@ -196,7 +196,7 @@ export function ReportSection({ order, today, correctionReason }: { order: LabOr
                     { term: 'Issued by', detail: report.issuerLabel },
                     { term: 'Specimen', detail: report.specimen },
                     { term: 'Assay and platform', detail: report.assay },
-                    { term: 'Collected', detail: <span className="tabular">{report.collectedOn}</span> },
+                    { term: 'Collected', detail: <span className="tabular">{order.collection?.collectedOn ?? report.collectedOn}</span> },
                     { term: 'Released', detail: <span className="tabular">{report.releasedOn}</span> },
                     { term: 'Quality flags', detail: report.qualityFlags },
                     { term: 'Laboratory interpretation', detail: report.labInterpretation },

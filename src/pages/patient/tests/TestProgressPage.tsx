@@ -158,6 +158,7 @@ function OrderProgress({ order }: { order: InvestigationOrder }) {
         <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
           <StatusBadge tone={status.tone}>{status.label}</StatusBadge>
           {review ? <StatusBadge tone={review.tone}>{review.label}</StatusBadge> : null}
+          {p.review.deliveryFailed ? <StatusBadge tone="warning">Not yet shared with the care team</StatusBadge> : null}
           <span className="text-body-md text-muted tabular">{order.orderRef}</span>
           <DemoTag className="ml-auto" />
         </div>
