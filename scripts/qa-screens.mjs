@@ -1,8 +1,8 @@
 // Screenshot + accessibility sweep.
-// Usage: node scripts/qa-screens.mjs --base http://localhost:5173 --routes "/,/patients" \
+// Usage: node scripts/qa-screens.mjs --base http://localhost:5173 --routes "/,/patients" | --routes-file scripts/qa-routes.txt \
 //          [--widths 1440,390] [--out qa/shots] [--axe] [--full]
 // A route may carry demo state: "/app?demo=booking-confirmed&as=patient".
-import { mkdirSync, writeFileSync } from 'node:fs'
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { chromium } from 'playwright'
 
 const args = Object.fromEntries(
@@ -12,7 +12,9 @@ const args = Object.fromEntries(
   }, []),
 )
 const base = args.base || 'http://localhost:5173'
-const routes = String(args.routes || '/').split(',').map((r) => r.trim()).filter(Boolean)
+const routes = (args['routes-file'] ? readFileSync(args['routes-file'], 'utf8').split('\n') : String(args.routes || '/').split(','))
+  .map((r) => r.trim())
+  .filter((r) => r && !r.startsWith('#'))
 const widths = String(args.widths || '1440,390').split(',').map(Number)
 const out = args.out || 'qa/shots'
 const full = args.full !== 'false'
