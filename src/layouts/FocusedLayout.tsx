@@ -21,10 +21,12 @@ export function FocusedLayout() {
     <div className="min-h-dvh bg-canvas">
       <SkipLink />
       <header className="border-b border-border bg-surface">
-        <div className="page-gutter mx-auto flex min-h-[72px] max-w-page items-center justify-between gap-4 py-3">
-          <div className="flex min-w-0 items-center gap-2">
-            <Wordmark to={inApp ? '/app' : '/'} size="sm" />
-            <DemoTag>Demo</DemoTag>
+        <div className="page-gutter mx-auto flex min-h-[72px] max-w-page items-center justify-between gap-3 py-3">
+          <div className="flex shrink-0 items-center gap-2">
+            <Wordmark to={inApp ? '/app' : '/'} size="sm" compact />
+            <span className="hidden sm:inline-flex">
+              <DemoTag>Demo</DemoTag>
+            </span>
           </div>
           <div className="flex shrink-0 items-center gap-1">
             {!inSession ? (
@@ -33,7 +35,7 @@ export function FocusedLayout() {
                 className="inline-flex min-h-11 items-center gap-2 rounded-md px-3 text-body-md font-medium text-muted hover:text-ink"
               >
                 <CircleHelp aria-hidden="true" className="size-5" strokeWidth={1.75} />
-                <span>Get help</span>
+                <span className="sr-only sm:not-sr-only">Get help</span>
               </Link>
             ) : null}
             <Link

@@ -5,13 +5,26 @@ import { Link } from 'react-router'
  * NeuroVX wordmark: text, plus a small Careline glyph (two nodes on a line).
  * Rendered as text, not a logo file (PATIENT-ONE-STEP › Shapes).
  */
-export function Wordmark({ to = '/', onNavy, size = 'md', className }: { to?: string; onNavy?: boolean; size?: 'sm' | 'md'; className?: string }) {
+export function Wordmark({
+  to = '/',
+  onNavy,
+  size = 'md',
+  compact,
+  className,
+}: {
+  to?: string
+  onNavy?: boolean
+  size?: 'sm' | 'md'
+  /** Hide the glyph below 400px so tight headers fit at 320px. */
+  compact?: boolean
+  className?: string
+}) {
   return (
     <Link
       to={to}
       className={clsx('inline-flex min-h-11 items-center gap-2 rounded-sm', onNavy ? 'text-white' : 'text-navy', className)}
     >
-      <CarelineGlyph className={size === 'sm' ? 'h-4 w-7' : 'h-5 w-8'} onNavy={onNavy} />
+      <CarelineGlyph className={clsx(size === 'sm' ? 'h-4 w-7' : 'h-5 w-8', compact && 'hidden min-[400px]:block')} onNavy={onNavy} />
       <span className={clsx('font-bold tracking-[-0.02em]', size === 'sm' ? 'text-heading-sm' : 'text-[1.375rem] leading-none')}>
         NeuroVX
       </span>
