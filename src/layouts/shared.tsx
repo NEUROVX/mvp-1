@@ -23,7 +23,7 @@ export function SkipLink() {
  * Moves the single fictional care episode to a point in time, switches who is
  * signed in, and links the three workspaces that share the episode.
  */
-export function DemoControls({ className }: { className?: string }) {
+export function DemoControls({ className, variant = 'floating' }: { className?: string; variant?: 'floating' | 'inline' }) {
   const [open, setOpen] = useState(false)
   const { state, jumpTo, setPersona, reset } = useDemo()
   const { name, helper } = usePeople()
@@ -42,8 +42,10 @@ export function DemoControls({ className }: { className?: string }) {
         type="button"
         onClick={() => setOpen(true)}
         className={clsx(
-          'fixed z-40 inline-flex min-h-11 items-center gap-2 rounded-md border border-navy bg-navy px-3.5 text-label text-white shadow-2 hover:bg-primary-hover',
-          className ?? 'bottom-4 left-4',
+          variant === 'floating'
+            ? 'fixed z-40 hidden min-h-11 items-center gap-2 rounded-md border border-navy bg-navy px-3.5 text-label text-white shadow-2 hover:bg-primary-hover lg:inline-flex'
+            : 'inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-md border border-control bg-surface px-3 text-label text-ink hover:border-primary hover:text-primary lg:hidden',
+          className ?? (variant === 'floating' ? 'bottom-4 left-4' : undefined),
         )}
       >
         <MonitorSmartphone aria-hidden="true" className="size-5" />

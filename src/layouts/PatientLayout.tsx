@@ -35,7 +35,7 @@ export function PatientLayout() {
         </main>
       </div>
       <BottomNav />
-      <DemoControls className="bottom-[88px] left-4 lg:bottom-4 lg:left-[256px]" />
+      <DemoControls className="bottom-4 left-[256px]" />
     </div>
   )
 }
@@ -120,12 +120,13 @@ function ContextHeader() {
           </Link>
         </div>
       </div>
-      <div className="page-gutter border-t border-border bg-canvas py-2 lg:hidden">
-        <p className="text-body-md text-ink">
+      <div className="page-gutter flex items-center justify-between gap-3 border-t border-border bg-canvas py-2 lg:hidden">
+        <p className="min-w-0 text-body-md text-ink">
           <span className="font-semibold">{careTitle}</span>
           <span aria-hidden="true" className="mx-1.5 text-muted">·</span>
           <span className={clsx(persona === 'limited-helper' ? 'text-warning' : 'text-muted')}>{signedInAs}</span>
         </p>
+        <DemoControls variant="inline" />
       </div>
     </header>
   )

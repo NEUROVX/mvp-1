@@ -48,11 +48,14 @@ export function FocusedLayout() {
         </div>
         {inApp ? (
           <div className="page-gutter border-t border-border bg-canvas py-2">
-            <p className="mx-auto max-w-task text-body-md text-ink">
-              <span className="font-semibold">{careTitle}</span>
-              <span aria-hidden="true" className="mx-1.5 text-muted">·</span>
-              <span className="text-muted">{signedInAs}</span>
-            </p>
+            <div className="mx-auto flex max-w-task items-center justify-between gap-3">
+              <p className="min-w-0 text-body-md text-ink">
+                <span className="font-semibold">{careTitle}</span>
+                <span aria-hidden="true" className="mx-1.5 text-muted">·</span>
+                <span className="text-muted">{signedInAs}</span>
+              </p>
+              {!inSession ? <DemoControls variant="inline" /> : null}
+            </div>
           </div>
         ) : null}
       </header>

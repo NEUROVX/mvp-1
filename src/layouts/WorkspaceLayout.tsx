@@ -82,7 +82,10 @@ export function WorkspaceLayout({ workspace }: { workspace: WorkspaceId }) {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <DemoTag>Demo</DemoTag>
+            <span className="hidden lg:inline-flex">
+              <DemoTag>Demo</DemoTag>
+            </span>
+            <DemoControls variant="inline" />
             <p className="hidden text-body-md text-muted md:block">{ws.user}</p>
             <Link to="/sign-in" className="inline-flex min-h-11 items-center rounded-md px-3 text-body-md font-medium text-primary hover:text-primary-hover">
               Switch workspace
