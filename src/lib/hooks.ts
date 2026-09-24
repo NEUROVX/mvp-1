@@ -21,13 +21,22 @@ export function useRouteFocus() {
       if (!hash) return
     }
     if (hash) {
-      const el = document.getElementById(decodeURIComponent(hash.slice(1)))
-      if (el) {
-        el.scrollIntoView()
-        if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1')
-        el.focus({ preventScroll: true })
-        return
+      // Pages are lazy-loaded, so the target may not exist yet: retry briefly.
+      const id = decodeURIComponent(hash.slice(1))
+      let frame = 0
+      let tries = 0
+      const seek = () => {
+        const el = document.getElementById(id)
+        if (el) {
+          el.scrollIntoView()
+          if (!el.hasAttribute('tabindex')) el.setAttribute('tabindex', '-1')
+          el.focus({ preventScroll: true })
+        } else if (tries++ < 60) {
+          frame = requestAnimationFrame(seek)
+        }
       }
+      seek()
+      return () => cancelAnimationFrame(frame)
     }
     window.scrollTo(0, 0)
     const main = document.getElementById('main')

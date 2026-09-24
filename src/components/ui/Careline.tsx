@@ -30,12 +30,12 @@ function Node({ state, index, size }: { state: CarelineState; index: number; siz
     <span
       aria-hidden="true"
       className={clsx(
-        'relative z-10 inline-flex shrink-0 items-center justify-center rounded-full bg-surface',
+        'relative z-10 inline-flex shrink-0 items-center justify-center rounded-full',
         dim,
-        state === 'completed' && 'border-2 border-primary text-primary',
+        state === 'completed' && 'border-2 border-primary bg-surface text-primary',
         state === 'current' && 'border-2 border-primary bg-primary text-white ring-4 ring-accent-soft',
-        state === 'upcoming' && 'border-[1.5px] border-control text-muted',
-        state === 'not-needed' && 'border-[1.5px] border-dashed border-control text-muted',
+        state === 'upcoming' && 'border-[1.5px] border-control bg-surface text-muted',
+        state === 'not-needed' && 'border-[1.5px] border-dashed border-control bg-surface text-muted',
       )}
     >
       {state === 'completed' ? (
@@ -86,8 +86,10 @@ export function Careline({
                 </p>
                 <p className="text-body-md text-muted">
                   <span className="sr-only">{STATE_TEXT[step.state]}. </span>
-                  {step.state === 'current' ? <span className="font-medium text-primary-hover">Now · </span> : null}
-                  {step.state === 'not-needed' ? 'Not needed · ' : null}
+                  {step.state === 'current' ? (
+                    <span className="font-medium text-primary-hover">Now{showSublabels && step.sublabel ? ' · ' : ''}</span>
+                  ) : null}
+                  {step.state === 'not-needed' ? `Not needed${showSublabels && step.sublabel ? ' · ' : ''}` : null}
                   {showSublabels ? step.sublabel : null}
                 </p>
               </div>
