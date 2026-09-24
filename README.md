@@ -10,7 +10,8 @@ Early setup. No application code yet. Current contents:
 |------|---------|
 | `README.md` | Project overview (this file) |
 | `DESIGN.md` | Design system: color, type, components, layout, motion, banned patterns |
-| `.claude/skills/hallmark/` | [Hallmark](https://github.com/nutlope/hallmark) design skill for Claude Code (project-scoped) |
+| `CLAUDE.md` | Agent instructions: `DESIGN.md` precedence and which skill to use when |
+| `.claude/skills/` | Project-scoped design skills: [Hallmark](https://github.com/nutlope/hallmark) + all 13 [taste-skill](https://github.com/Leonxlnx/taste-skill) skills |
 | `skills-lock.json` | Pinned source + hash of installed skills |
 
 ## Design system
@@ -32,6 +33,8 @@ Use it two ways:
 - **Audit:** `hallmark audit <file>` returns a ranked punch list without editing.
 - **Redesign:** `hallmark redesign <file>` restyles within existing routes and components.
 - **Study:** `hallmark study <url | screenshot>` extracts a reference design's structure.
+
+The full [taste-skill](https://github.com/Leonxlnx/taste-skill) set is also installed (13 skills). `CLAUDE.md` defines which to use for which task; `DESIGN.md` always wins on conflicts.
 
 Update with `npx skills update -p -y`. For other tools, copy `SKILL.md` + `references/` from `.claude/skills/hallmark/` into `.cursor/rules/hallmark.mdc` (Cursor, body only, no frontmatter) or `.codex/skills/hallmark/` (Codex).
 
