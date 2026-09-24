@@ -206,6 +206,8 @@ export interface Clinician {
   acceptsPacket: boolean
   confirmation: 'manual' | 'instant'
   slots: Slot[]
+  /** Times offered for a follow-up in the same care episode. */
+  followUpSlots?: Slot[]
   mapPosition: { x: number; y: number }
 }
 

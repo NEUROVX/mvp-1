@@ -69,6 +69,11 @@ export const CLINICIANS: Clinician[] = [
       { id: 'kr-3', date: '07 Oct 2026', time: '11:00 AM IST', mode: 'in-clinic' },
       { id: 'kr-4', date: '09 Oct 2026', time: '3:00 PM IST', mode: 'video' },
     ],
+    followUpSlots: [
+      { id: 'kr-f1', date: '15 Oct 2026', time: '4:30 PM IST', mode: 'in-clinic' },
+      { id: 'kr-f2', date: '16 Oct 2026', time: '11:00 AM IST', mode: 'video' },
+      { id: 'kr-f3', date: '20 Oct 2026', time: '4:30 PM IST', mode: 'in-clinic' },
+    ],
     mapPosition: { x: 38, y: 42 },
   },
   {
@@ -465,6 +470,11 @@ export const PERMISSION_LABELS: Record<string, { label: string; detail: string }
 
 export function clinicianById(id?: string) {
   return CLINICIANS.find((c) => c.id === id)
+}
+/** Resolves first-visit and follow-up slot ids for a clinician. */
+export function findSlot(c: Clinician | undefined, id?: string) {
+  if (!c || !id) return undefined
+  return [...c.slots, ...(c.followUpSlots ?? [])].find((s) => s.id === id)
 }
 export function orderById(id?: string) {
   return ORDERS.find((o) => o.id === id)

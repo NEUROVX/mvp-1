@@ -3,8 +3,8 @@
  * where the Careline sits and which fixtures exist at each point in time.
  * Source: docs/design/PATIENT.md › "Home is a set of states, not a single mockup".
  */
-import { CLINICIANS, DEMO_UPLOADS, EPISODE_DATES, ORG } from './fixtures'
-import type { DemoState, EpisodeStage, Tone } from './types'
+import { clinicianById, CLINICIANS, DEMO_UPLOADS, EPISODE_DATES, findSlot, ORG } from './fixtures'
+import type { BookingState, DemoState, EpisodeStage, Tone } from './types'
 
 /** Golden-path order. Variants map onto a position on this path. */
 export const GOLDEN_PATH: EpisodeStage[] = [
@@ -111,8 +111,13 @@ export interface NextStep {
  * Home copy per stage. `name` is the patient's first name.
  * Copy follows PATIENT.md tables and DESIGN.md voice rules exactly where given.
  */
-export function nextStepFor(stage: EpisodeStage, name: string): NextStep {
-  const visitLine = `${EPISODE_DATES.visit}, ${EPISODE_DATES.visitTime} · In clinic`
+export function nextStepFor(stage: EpisodeStage, name: string, booking?: BookingState): NextStep {
+  // Visit details come from the actual booking; fixtures are the fallback.
+  const clinician = clinicianById(booking?.clinicianId) ?? CLINICIANS[0]
+  const slot = findSlot(clinician, booking?.slotId) ?? clinician.slots[0]
+  const mode = booking?.mode ?? slot.mode
+  const visitLine = `${slot.date}, ${slot.time} · ${mode === 'video' ? 'Video visit' : 'In clinic'}`
+  const doctor = clinician.name
   switch (stage) {
     case 'new':
       return {
@@ -165,8 +170,8 @@ export function nextStepFor(stage: EpisodeStage, name: string): NextStep {
         status: { label: 'Request sent - confirmation pending', tone: 'warning' },
         title: 'Your appointment request is pending',
         body: 'The clinic has your request. It is not confirmed yet.',
-        details: [`Requested: ${visitLine}`, 'Dr. Kavya Rao - illustrative clinician'],
-        owner: `Waiting on: ${ORG.clinic}`,
+        details: [`Requested: ${visitLine}`, `${doctor} - ${clinician.label.toLowerCase()}`],
+        owner: `Waiting on: ${clinician.clinic}`,
         primary: { label: 'View request', to: '/app/care/visit' },
         alternative: { label: 'Contact support', to: '/app/support' },
       }
@@ -175,16 +180,16 @@ export function nextStepFor(stage: EpisodeStage, name: string): NextStep {
         status: { label: 'Confirmed', tone: 'info' },
         title: 'Prepare for your clinician visit',
         body: 'Review your concerns and bring any previous reports.',
-        details: [visitLine, `Dr. Kavya Rao · ${ORG.clinic}`],
+        details: [visitLine, `${doctor} · ${clinician.clinic}`],
         primary: { label: 'Review visit details', to: '/app/care/visit' },
       }
     case 'info-requested':
       return {
         status: { label: 'Action needed', tone: 'warning' },
         title: 'Your clinician requested more information',
-        body: 'Dr. Kavya Rao asked for a list of current medicines before the visit.',
+        body: `${doctor} asked for a list of current medicines before the visit.`,
         details: [visitLine],
-        owner: 'Requested by Dr. Kavya Rao',
+        owner: `Requested by ${doctor}`,
         primary: { label: 'View request', to: '/app/care/visit#requests' },
       }
     case 'tests-requested':
