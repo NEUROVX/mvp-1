@@ -1,0 +1,13 @@
+[
+  {
+    "date": "2026-09-24",
+    "scope": "app",
+    "genre": "editorial",
+    "macrostructure": "Split Diptych (marketing) · Workbench (app) · Long Document (content)",
+    "theme": "design.md — NeuroVX Connected Care (navy #0B1F3A · blue #1D4ED8 · white · Inter)",
+    "nav": "N1b three-section (public) · N3 side-rail (patient app) · tab-rail (workspaces)",
+    "footer": "Ft1 mast-headed on navy",
+    "enrichment": "none — typography + Careline motif (Tier-B hand-built SVG glyph)",
+    "brief": "Port Stitch NeuroVX export into a React demo MVP; redesign strictly within DESIGN.md"
+  }
+]
