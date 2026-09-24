@@ -76,7 +76,7 @@ export function observationRows(o: ObservationsState): AnswerRow[] {
   return [
     {
       key: 'items',
-      term: 'What you have noticed',
+      term: 'Changes noticed',
       detail: o.items.length ? (
         <ul className="list-disc space-y-1 pl-5">
           {o.items.map((i) => (

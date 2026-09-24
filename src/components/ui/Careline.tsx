@@ -125,8 +125,8 @@ export function Careline({
               {step.label}
             </p>
             <p className={clsx('text-muted', size === 'sm' ? 'text-metadata' : 'text-body-md')}>
-              <span className="sr-only">{STATE_TEXT[step.state]}. </span>
-              {step.state === 'current' ? <span className="font-medium text-primary-hover">Now</span> : null}
+              {step.state === 'completed' || step.state === 'upcoming' ? <span className="sr-only">{STATE_TEXT[step.state]}. </span> : null}
+              {step.state === 'current' ? <span className="font-medium text-primary-hover">Current step</span> : null}
               {step.state === 'not-needed' ? 'Not needed' : null}
               {showSublabels && step.sublabel ? (
                 <span className="block">{step.sublabel}</span>

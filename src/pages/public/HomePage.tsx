@@ -1,3 +1,4 @@
+import { clsx } from 'clsx'
 import { BookOpenText, FlaskConical, Info, Stethoscope, UsersRound } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { ArrowLink, Button, DemoTag, Eyebrow, SectionHeading, TextLink, Timeline, type TimelineEntry } from '@/components/ui'
@@ -122,12 +123,13 @@ export default function HomePage() {
 function Hero() {
   return (
     <section aria-labelledby="home-title" className="bg-canvas">
-      <div className="page-gutter mx-auto max-w-page pt-12 pb-12 md:pt-20 md:pb-20 lg:pt-24 lg:pb-24">
+      {/* Bottom-heavy padding seats the hero on the page instead of floating it (Hallmark gate 44). */}
+      <div className="page-gutter mx-auto max-w-page pt-12 pb-16 md:pt-16 md:pb-24 lg:pt-20 lg:pb-28">
         <div className="grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-6">
           <div className="min-w-0 lg:col-span-7 lg:pr-12">
             <Eyebrow>Starting with memory and cognitive care</Eyebrow>
             <h1 id="home-title" className="mt-4 text-display-mobile text-ink md:text-display">
-              <span className="block">Brain care.</span>
+              <span className="block">Brain care.</span>{' '}
               <span className="block">Connected.</span>
             </h1>
             <div className="mt-6 max-w-[36rem] space-y-2">
@@ -163,15 +165,18 @@ function AudienceRoutes() {
         Connected care, built around people.
       </SectionHeading>
 
+      {/* From md each column is a 4-row subgrid, so label, message, description and
+          link line up across all three columns however the messages wrap. */}
       <ul className="mt-10 grid border-t border-border md:mt-12 md:grid-cols-3">
         {AUDIENCES.map((a, i) => (
           <li
             key={a.audience}
-            className={
+            className={clsx(
+              'flex flex-col md:row-span-4 md:grid md:grid-rows-subgrid',
               i === 0
-                ? 'flex flex-col py-8 md:pr-8 md:pb-0 lg:pr-10'
-                : 'flex flex-col border-t border-border py-8 last:pb-0 md:border-t-0 md:border-l md:px-8 md:pb-0 lg:px-10 md:last:pr-0'
-            }
+                ? 'py-8 md:pr-8 md:pb-0 lg:pr-10'
+                : 'border-t border-border py-8 last:pb-0 md:border-t-0 md:border-l md:px-8 md:pb-0 lg:px-10 md:last:pr-0',
+            )}
           >
             <p className="flex items-center gap-2 text-label text-primary">
               <span aria-hidden="true" className="[&>svg]:size-5">
@@ -181,7 +186,7 @@ function AudienceRoutes() {
             </p>
             <h3 className="mt-4 text-heading-md text-ink">{a.message}</h3>
             <p className="mt-3 flex-1 text-body-md text-muted">{a.description}</p>
-            <ArrowLink to={a.to} className="mt-6 self-start">
+            <ArrowLink to={a.to} className="mt-6 self-start justify-self-start">
               {a.link}
             </ArrowLink>
           </li>
@@ -222,7 +227,8 @@ function CareJourney() {
           <Button to="/start" size="lg">
             Get started
           </Button>
-          <Button to="/start?next=find-clinician" variant="quiet" className="self-start sm:self-auto">
+          {/* -ml-1 cancels the quiet button's 4px inset so the stacked text aligns on mobile. */}
+          <Button to="/start?next=find-clinician" variant="quiet" className="-ml-1 self-start sm:ml-0 sm:self-auto">
             Find a clinician
           </Button>
         </div>
@@ -284,13 +290,13 @@ function Learning() {
         </p>
       </div>
 
-      <ul className="mt-10 grid gap-10 md:mt-12 md:grid-cols-3 md:gap-8">
+      <ul className="mt-10 grid gap-10 md:mt-12 md:grid-cols-3 md:gap-x-8 md:gap-y-0">
         {LEARNING.map((item) => (
-          <li key={item.slug} className="flex flex-col border-t border-navy pt-5">
+          <li key={item.slug} className="flex flex-col border-t border-navy pt-5 md:row-span-4 md:grid md:grid-rows-subgrid">
             <p className="text-body-md text-muted">Draft preview</p>
             <h3 className="mt-2 text-heading-sm text-ink">{item.title}</h3>
             <p className="mt-2 flex-1 text-body-md text-muted">{item.summary}</p>
-            <ArrowLink to={`/learn/articles/${item.slug}`} className="mt-4 self-start">
+            <ArrowLink to={`/learn/articles/${item.slug}`} className="mt-4 self-start justify-self-start">
               Read guide<span className="sr-only">: {item.title}</span>
             </ArrowLink>
           </li>

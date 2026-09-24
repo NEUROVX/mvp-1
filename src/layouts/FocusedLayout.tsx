@@ -1,6 +1,6 @@
 import { CircleHelp } from 'lucide-react'
 import { Link, Outlet, useLocation } from 'react-router'
-import { DemoTag, Wordmark } from '@/components/ui'
+import { CarelineGlyph, DemoTag, Wordmark } from '@/components/ui'
 import { usePeople } from '@/demo/store'
 import { useRouteFocus } from '@/lib/hooks'
 import { DemoControls, PrototypeFooter, SkipLink } from './shared'
@@ -23,7 +23,14 @@ export function FocusedLayout() {
       <header className="border-b border-border bg-surface">
         <div className="page-gutter mx-auto flex min-h-[72px] max-w-page items-center justify-between gap-3 py-3">
           <div className="flex shrink-0 items-center gap-2">
-            <Wordmark to={inApp ? '/app' : '/'} size="sm" compact />
+            {inSession ? (
+              <span className="inline-flex min-h-11 items-center gap-2 text-navy">
+                <CarelineGlyph className="hidden h-4 w-7 min-[400px]:block" />
+                <span className="text-heading-sm font-bold tracking-[-0.02em]">NeuroVX</span>
+              </span>
+            ) : (
+              <Wordmark to={inApp ? '/app' : '/'} size="sm" compact />
+            )}
             <span className="hidden sm:inline-flex">
               <DemoTag>Demo</DemoTag>
             </span>
@@ -38,17 +45,19 @@ export function FocusedLayout() {
                 <span className="sr-only sm:not-sr-only">Get help</span>
               </Link>
             ) : null}
-            <Link
-              to={inApp ? '/app' : '/'}
-              className="inline-flex min-h-11 items-center rounded-md border border-control px-3.5 text-label text-ink hover:border-primary hover:text-primary"
-            >
-              {inApp ? 'Save and exit' : 'Exit'}
-            </Link>
+            {!inSession ? (
+              <Link
+                to={inApp ? '/app' : '/'}
+                className="inline-flex min-h-11 items-center rounded-md border border-control px-3.5 text-label text-ink hover:border-primary hover:text-primary"
+              >
+                {inApp ? 'Save and exit' : 'Exit'}
+              </Link>
+            ) : null}
           </div>
         </div>
         {inApp ? (
-          <div className="page-gutter border-t border-border bg-canvas py-2">
-            <div className="mx-auto flex max-w-task items-center justify-between gap-3">
+          <div className="border-t border-border bg-canvas py-2">
+            <div className="page-gutter mx-auto flex max-w-task items-center justify-between gap-3">
               <p className="min-w-0 text-body-md text-ink">
                 <span className="font-semibold">{careTitle}</span>
                 <span aria-hidden="true" className="mx-1.5 text-muted">·</span>

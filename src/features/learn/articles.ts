@@ -195,7 +195,7 @@ export const ARTICLES: Article[] = [
           },
           {
             kind: 'p',
-            text: 'Each assessment has fixed instructions, timing and scoring. That lets results be compared fairly. It is also why it matters to follow the instructions as written, without practising beforehand or getting help with answers.',
+            text: 'Each assessment has fixed instructions, timing and scoring. That lets results be compared fairly. It is also why it matters to follow the instructions as written, without practicing beforehand or getting help with answers.',
           },
         ],
       },
@@ -250,14 +250,14 @@ export const ARTICLES: Article[] = [
         blocks: [
           {
             kind: 'p',
-            text: 'NeuroVX shows a placeholder where an authorised assessment would appear. No questions are reproduced and no score is produced.',
+            text: 'NeuroVX shows a placeholder where an authorized assessment would appear. No questions are reproduced and no score is produced.',
           },
         ],
       },
     ],
     glossary: [
-      { term: 'Standardised', definition: 'Given and scored the same way every time, so results can be compared.' },
-      { term: 'Executive function', definition: 'Skills for planning, organising and solving problems.' },
+      { term: 'Standardized', definition: 'Given and scored the same way every time, so results can be compared.' },
+      { term: 'Executive function', definition: 'Skills for planning, organizing and solving problems.' },
       {
         term: 'Assisted assessment',
         definition: 'An assessment given with a trained person present, when doing it alone is not suitable.',
@@ -291,7 +291,7 @@ export const ARTICLES: Article[] = [
               'Keep regular times for meals, activity and sleep.',
               'Keep everyday items, such as keys and glasses, in the same place.',
               'Use a calendar or whiteboard for the day’s plan.',
-              'Ask a pharmacist or clinician whether a weekly pill organiser would help.',
+              'Ask a pharmacist or clinician whether a weekly pill organizer would help.',
             ],
           },
         ],
@@ -409,7 +409,7 @@ export const ARTICLES: Article[] = [
             kind: 'ul',
             items: [
               'A care partner shares what has changed.',
-              'An assessment preview shows where authorised content would appear.',
+              'An assessment preview shows where authorized content would appear.',
               'A booking request goes to an illustrative clinician, who sees a visit packet with its sources.',
               'The clinician requests tests, and an illustrative lab collects a sample and releases a report.',
               'The clinician reviews the report and updates a care plan.',
@@ -434,7 +434,7 @@ export const ARTICLES: Article[] = [
           {
             kind: 'ul',
             items: [
-              'All people, clinics, labs and fees are illustrative. The names are made up, and no real organisation is involved or endorses the preview.',
+              'All people, clinics, labs and fees are illustrative. The names are made up, and no real organization is involved or endorses the preview.',
               'No assessment questions are included, and no scores are produced.',
               'Reports show no result values.',
               'Nothing is sent anywhere. Information stays in this browser tab and is cleared when you close it.',

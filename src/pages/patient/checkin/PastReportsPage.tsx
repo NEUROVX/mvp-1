@@ -50,6 +50,7 @@ export default function PastReportsPage() {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const files = state.uploads
+  const allDemo = files.length > 0 && files.every((f) => f.demo)
   const booked = hasReached(state.stage, 'booking-requested')
   const onward = booked ? '/app/care/visit' : '/app/care/find-clinician'
 
@@ -165,9 +166,13 @@ export default function PastReportsPage() {
 
       {files.length ? (
         <section aria-labelledby="added-heading" className="space-y-3">
-          <PanelHeading id="added-heading">
-            Added {files.length === 1 ? 'file' : 'files'} ({files.length})
-          </PanelHeading>
+          {/* Demo data is labelled once for the list; per file only when mixed with files added here. */}
+          <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+            <PanelHeading id="added-heading">
+              Added {files.length === 1 ? 'file' : 'files'} ({files.length})
+            </PanelHeading>
+            {allDemo ? <DemoTag>Demo files</DemoTag> : null}
+          </div>
           <ul className="divide-y divide-border rounded-lg border border-border bg-surface">
             {files.map((f) => (
               <li key={f.id} className="flex items-start gap-4 p-4 sm:items-center sm:px-5">
@@ -177,7 +182,7 @@ export default function PastReportsPage() {
                 <div className="min-w-0 flex-1 space-y-0.5">
                   <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
                     <span className="text-label break-all text-ink">{f.name}</span>
-                    {f.demo ? <DemoTag>Demo file</DemoTag> : null}
+                    {f.demo && !allDemo ? <DemoTag>Demo file</DemoTag> : null}
                   </p>
                   <p className="text-body-md text-muted">
                     {f.kind === 'pdf' ? 'PDF' : 'Image'} · {f.sizeLabel} · Ready - kept in this browser tab only

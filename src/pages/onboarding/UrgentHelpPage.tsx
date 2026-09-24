@@ -1,4 +1,4 @@
-import { ChevronLeft } from 'lucide-react'
+import { ChevronLeft, Phone } from 'lucide-react'
 import { useNavigate } from 'react-router'
 import { Button, Callout } from '@/components/ui'
 import { TaskLede, TaskTitle } from '@/features/intake/ui'
@@ -38,7 +38,15 @@ export default function UrgentHelpPage() {
         </p>
       </div>
 
-      <Callout tone="error" title="Get help now">
+      <Callout
+        tone="error"
+        title="Get help now"
+        action={
+          <Button href="tel:112" size="lg" iconLeft={<Phone className="size-5" />}>
+            Call 112
+          </Button>
+        }
+      >
         <p className="text-body-lg">
           Call <strong className="font-bold">112</strong> now (India national emergency number) or go to the nearest
           emergency department. Many states also use <strong className="font-bold">108</strong> for ambulances.

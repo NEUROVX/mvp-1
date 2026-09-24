@@ -110,7 +110,7 @@ function ContextHeader() {
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-1">
-          <DemoControls className="mr-2 hidden lg:inline-flex" />
+          <DemoControls className="mr-2 max-lg:hidden" />
           <Link to="/app/support" className="inline-flex min-h-11 items-center gap-2 rounded-md px-3 text-body-md font-medium text-muted hover:text-ink">
             <CircleHelp aria-hidden="true" className="size-5" strokeWidth={1.75} />
             Help

@@ -50,7 +50,7 @@ export default function NeuroLearnPage({ context }: { context: LearnContext }) {
       r.kind === 'urgent'
         ? 'NeuroLearn showed an urgent safety message.'
         : r.kind === 'fallback'
-          ? 'NeuroLearn does not have a reviewed answer for that yet.'
+          ? 'NeuroLearn does not have a prepared answer for that yet.'
           : 'NeuroLearn answered your question.',
     )
   }
@@ -116,7 +116,10 @@ export default function NeuroLearnPage({ context }: { context: LearnContext }) {
           />
 
           <Callout tone="info" title="NeuroLearn provides education, not a diagnosis or treatment plan." className="mt-6">
-            <p>In this preview, answers are pre-written and reviewed for wording only - they are not generated.</p>
+            <p>
+              In this preview, answers are written in advance and are not generated. They have not been clinically
+              reviewed yet.
+            </p>
           </Callout>
 
           {exchanges.length ? (
@@ -342,7 +345,7 @@ function FallbackBody({
 }) {
   return (
     <>
-      <p className="mt-3 text-body-lg text-ink">I don’t have a reviewed answer for that yet.</p>
+      <p className="mt-3 text-body-lg text-ink">I don’t have a prepared answer for that yet.</p>
       <p className="mt-2 text-body-md text-muted">
         Rather than guess, NeuroLearn only gives answers that have been prepared in advance. A clinician can help with this
         question. You can save it to ask at the visit.

@@ -63,7 +63,8 @@ export default function AccessSetupPage() {
     return `${[first, last].filter(Boolean).join('.').toLowerCase()}@example.com`
   })
   const [permissions, setPermissions] = useState<PermissionKey[]>(state.permissions)
-  const [agreement, setAgreement] = useState<Agreement | undefined>(state.persona === 'limited-helper' ? 'not-sure' : 'yes')
+  // Never pre-answered: the helper states the patient's agreement themselves (PATIENT.md › Identity and permission).
+  const [agreement, setAgreement] = useState<Agreement | undefined>(undefined)
   const [errors, setErrors] = useState<Partial<Record<Field, string>>>({})
   const summaryRef = useRef<HTMLDivElement>(null)
 

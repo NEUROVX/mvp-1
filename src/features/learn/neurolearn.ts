@@ -171,11 +171,12 @@ const URGENT: RegExp[] = [
 const RULES: Array<{ id: AnswerId; patterns: RegExp[] }> = [
   {
     id: 'which-test',
+    // Only questions about tests or scans. "What medicine should she take?" must not land here.
     patterns: [
-      /\bwhich tests?\b/,
-      /\bwhat tests? (should|do|would|will)\b/,
-      /\bshould (i|we|she|he|they|my \w+) (get|have|take|do|book)\b/,
-      /\b(need|get) (a |any )?(test|tests|scan)\b/,
+      /\bwhich (tests?|scans?)\b/,
+      /\bwhat (tests?|scans?) (should|do|would|will)\b/,
+      /\bshould (i|we|she|he|they|my \w+) (get|have|take|do|book) (a |an |any |the )?(\w+ )?(tests?|scans?|mri|ct|pet)\b/,
+      /\b(need|get) (a |an |any )?(\w+ )?(tests?|scans?|mri|ct|pet)\b/,
       /\bbest test\b/,
     ],
   },
@@ -206,9 +207,10 @@ const RULES: Array<{ id: AnswerId; patterns: RegExp[] }> = [
       /\bdiagnos/,
       /\b(do|does) (i|she|he|they|my \w+) have\b/,
       /\bmedicines?\b|\bmedications?\b|\bdose\b|\bdrugs?\b|\bprescri/,
+      /\bshould (i|we|she|he|they|my \w+) (take|stop|start)\b/,
       /\btreatment\b|\bcure\b/,
       /\bstage\b/,
-      /\b(my|her|his|their|mum'?s|mom'?s|mother'?s|father'?s|dad'?s) (report|result|results|score)\b/,
+      /\b(my|her|his|their|mum'?s|mom'?s|mother'?s|father'?s|dad'?s) (\w+ )?(report|result|results|score)\b/,
     ],
   },
 ]

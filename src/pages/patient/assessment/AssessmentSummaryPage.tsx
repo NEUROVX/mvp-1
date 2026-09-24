@@ -76,7 +76,7 @@ export default function AssessmentSummaryPage() {
     : [
         { term: 'Assessment', detail: 'Memory and thinking assessment - preview' },
         { term: 'Status', detail: `Stopped in section ${a.section} of 3 - not completed` },
-        { term: 'Result', detail: 'No reliable score available' },
+        { term: 'Result', detail: 'Not available - no score was produced' },
         { term: 'Date', detail: <span className="tabular">{EPISODE_DATES.assessment}</span> },
         { term: 'Mode', detail: 'Self-guided preview on this device' },
         { term: 'Next', detail: 'Needs an assisted assessment' },
@@ -132,7 +132,7 @@ export default function AssessmentSummaryPage() {
         lede={
           completed
             ? 'Here is what was shared and what was completed. A clinician has not reviewed it yet.'
-            : 'No reliable score is available. That is not a result about memory or thinking.'
+            : 'No score was produced. Stopping early is not a result about memory or thinking.'
         }
         meta={
           <div className="flex flex-wrap items-center gap-2">
@@ -162,7 +162,7 @@ export default function AssessmentSummaryPage() {
                 Edit your history
               </Button>
               <p className="mt-2 text-body-md text-muted">
-                Check-in answers can be changed. Completed assessment responses are locked and cannot be edited.
+                Check-in answers can be changed. Assessment responses are locked and cannot be edited.
               </p>
             </div>
           </div>

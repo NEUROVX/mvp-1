@@ -208,7 +208,7 @@ function AccessibilityContent() {
         <FactList
           items={[
             'Let you reach and use everything with a keyboard, with a visible focus outline.',
-            'Keep buttons and form fields at least 48 pixels tall, and other links at least 44 pixels.',
+            'Keep buttons and form fields at least 48 pixels tall, and standalone links at least 44 pixels.',
             'Reflow down to 320 pixels wide without sideways scrolling.',
             'Write status in words, never show it by colour alone.',
             'Give every form field a visible label, with errors that say how to fix them.',

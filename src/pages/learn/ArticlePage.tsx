@@ -97,7 +97,9 @@ export default function ArticlePage({ context }: { context: LearnContext }) {
             </button>
             <Link to={neurolearnPath(context, article.askQuestion)} className={toolClass}>
               <BookOpen aria-hidden="true" className="size-5" strokeWidth={1.75} />
-              Ask NeuroLearn about this
+              {/* Shorter on phones so the tools fit in two tidy rows instead of three ragged ones. */}
+              <span className="sm:hidden">Ask NeuroLearn</span>
+              <span className="hidden sm:inline">Ask NeuroLearn about this</span>
             </Link>
             <button type="button" onClick={() => window.print()} className={toolClass}>
               <Printer aria-hidden="true" className="size-5" strokeWidth={1.75} />
