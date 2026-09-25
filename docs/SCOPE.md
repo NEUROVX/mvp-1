@@ -14,7 +14,7 @@ One fictional care episode, carried across three connected workspaces:
 
 > Meera helps her mother Asha (68) share what has changed → Asha does an assessment preview → Meera requests an appointment with Dr. Kavya Rao → the **clinician workspace** accepts it, sees the visit packet with its sources, and orders two tests → Meera books a home collection → the **lab workspace** collects, processes and releases the Vitamin B12 report → the clinician reviews it and updates the care plan → Home shows "Your clinician added a care update".
 
-Every action updates one shared store (`src/demo/store.tsx`). Presenters can also jump to any point in time with the **Demo** button (bottom-left on private screens) or a deep link: `/app?demo=<stage>&as=<persona>`.
+Every action updates one shared store (`src/demo/store.tsx`). Presenters can also jump to any point in time with the **Demo** button (in the header of every signed-in screen) or a deep link: `/app?demo=<stage>&as=<persona>`.
 
 ## 2. Decisions on conflicts between the specs
 

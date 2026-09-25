@@ -16,19 +16,13 @@ npm run check        # typecheck + locked-token guard + copy guard
 
 Requires Node 20+.
 
-## Demo script (5 minutes)
+## Live demo and guides
 
-1. **Homepage** `/`: "Brain care. Connected." with the editorial split hero and the "Your next step" preview. Click **Explore your care journey**, then **Get started**.
-2. **Setup** `/start`: care for a family member. Names are prefilled with the fictional Asha Rao (68), helped by her daughter Meera.
-3. **Patient Home** `/app`: one next step, the Careline and nothing else competing. Click **Start care check-in**. A sudden-change answer routes to urgent help, not a booking.
-4. **Assessment preview**: the respondent hand-off ("Now it is Asha's turn"), a shell with placeholder content only, then **Demo completion**. No score is produced.
-5. **Find a clinician** → Dr. Kavya Rao (illustrative) → review the visit packet → **Request appointment**. Home now says the request is pending, not confirmed.
-6. **Clinician workspace** `/pro/clinician`: accept the request, open the record ("Draft summary - review required", with sources kept apart), then **Order investigations**.
-7. Back to the patient: **Choose where to complete your tests**. Providers that can do every requested test come first. Book a home collection.
-8. **Lab workspace** `/pro/lab`: mark collected, then received, then processing, then **Release report**. Release, delivery and clinician review stay separate states.
-9. **Clinician**: **Mark reviewed and update care plan**. The patient's Home now shows "Your clinician added a care update".
+- **Live:** https://neurovx-mvp.vercel.app (auto-deploys from `main`)
+- **Presenting:** [`docs/DEMO-SCRIPT.md`](docs/DEMO-SCRIPT.md). A 15-minute end-to-end story, a 7-minute connected-care version, exception add-ons, and a deep-link table for every stage.
+- **Running and navigating the repo:** [`docs/LOCAL-GUIDE.md`](docs/LOCAL-GUIDE.md). Setup, commands, the Demo panel and deep links, a route and code map, QA, deploy and troubleshooting.
 
-Jump to any point in the episode with the **Demo** button (bottom-left on private screens) or a deep link, for example `/app?demo=report-released&as=patient`. Stages are listed in [`docs/SCOPE.md`](docs/SCOPE.md) §5.
+Jump to any point in the episode with the **Demo** button in the header of every signed-in screen, or a deep link such as `/app?demo=report-released&as=patient`. Stages are listed in [`docs/SCOPE.md`](docs/SCOPE.md) §5.
 
 ## What's inside
 
@@ -64,7 +58,7 @@ React 19 · Vite 7 · TypeScript · React Router 7 · Tailwind CSS v4 · lucide-
 
 ## Deploy
 
-This is a static single-page app. On Vercel, `vercel.json` rewrites every path to `index.html`. On any other static host, serve `dist/` with an SPA fallback.
+This is a static single-page app. The Vercel project `neurovx-mvp-1` is linked to this repo: pushes to `main` deploy to https://neurovx-mvp.vercel.app, and pull requests get preview deployments (behind Vercel login). `vercel.json` rewrites every path to `index.html`. On any other static host, serve `dist/` with an SPA fallback.
 
 ## Contributing
 
