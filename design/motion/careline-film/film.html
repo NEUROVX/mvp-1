@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>NeuroVX Careline film</title>
+<!--
+  NeuroVX brand film: "One Careline". 15 seconds, 1920x1080.
+  Deterministic: every pixel is a pure function of time t (seconds), so
+  render.mjs can step it frame by frame. Open in a browser to scrub:
+  ?t=7.2 freezes a moment; with no ?t= it plays in real time on a loop.
+  Tokens, type and copy come from DESIGN.md. Synthetic, illustrative content only.
+-->
+<style>
+  @font-face {
+    font-family: 'Inter';
+    src: url('../../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2');
+    font-weight: 100 900;
+  }
+  :root {
+    --primary: #1D4ED8; --primary-hover: #1E40AF; --navy: #0B1F3A; --surface: #FFFFFF;
+    --canvas: #F2F7FC; --muted: #465E77; --border: #D9E5F2; --control: #7184A0; --soft: #EAF2FF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--surface); }
+  body { font-family: Inter, 'Noto Sans', Arial, sans-serif; color: var(--navy);
+         font-feature-settings: 'tnum' 0, 'cv11' 1; -webkit-font-smoothing: antialiased; }
+  #stage { position: absolute; inset: 0; overflow: hidden; background: var(--surface); }
+  #cam { position: absolute; inset: 0; transform-origin: 960px 540px; }
+  .abs { position: absolute; }
+  svg.layer { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: visible; }
+  .line { position: absolute; white-space: nowrap; }
+  .m { display: inline-block; overflow: hidden; vertical-align: top; padding: 0.06em 0.02em 0.16em; margin: -0.06em -0.02em -0.16em; }
+  .w { display: inline-block; will-change: transform; }
+  .panel { position: absolute; background: var(--surface); border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .ph { padding: 36px 36px 26px; border-bottom: 1.5px solid var(--border); }
+  .ph .k { font-size: 30px; font-weight: 700; letter-spacing: -0.015em; color: var(--navy); }
+  .ph .s { font-size: 21px; font-weight: 400; color: var(--muted); margin-top: 6px; }
+  .row { position: relative; height: 104px; padding: 22px 36px 0 96px; }
+  .row .hl { position: absolute; inset: 6px 12px; border-radius: 10px; background: var(--soft); opacity: 0; }
+  .row svg { position: absolute; left: 36px; top: 26px; width: 36px; height: 36px; overflow: visible; }
+  .row .lb { position: relative; font-size: 26px; font-weight: 600; color: var(--navy); line-height: 1.3; }
+  .roll { position: relative; height: 30px; overflow: hidden; margin-top: 4px; }
+  .roll > div { position: absolute; left: 0; top: 0; }
+  .roll span { display: block; height: 30px; line-height: 30px; font-size: 21px; font-weight: 500; color: var(--muted); }
+  .roll span.done { color: var(--primary-hover); }
+  #card { position: absolute; left: 410px; top: 250px; width: 1100px; height: 580px; padding: 72px 80px; }
+  .chip { display: inline-flex; align-items: center; gap: 10px; height: 46px; padding: 0 18px 0 14px; border-radius: 6px;
+          background: var(--soft); color: var(--primary-hover); font-size: 22px; font-weight: 600; }
+  .btn { display: inline-flex; align-items: center; gap: 14px; height: 76px; padding: 0 34px; border-radius: 10px;
+         background: var(--primary); color: #fff; font-size: 27px; font-weight: 600; transform-origin: 50% 50%; }
+</style>
+</head>
+<body>
+<div id="stage"><div id="cam"></div></div>
+<script>
+/* ---------------------------------------------------------------- tokens */
+const C = { primary:'#1D4ED8', hover:'#1E40AF', navy:'#0B1F3A', surface:'#FFFFFF', canvas:'#F2F7FC',
+            muted:'#465E77', border:'#D9E5F2', control:'#7184A0', soft:'#EAF2FF' };
+const DURATION = 15;
+
+/* ---------------------------------------------------------------- easing */
+function bezier(x1, y1, x2, y2) {
+  const cx = 3*x1, bx = 3*(x2-x1)-cx, ax = 1-cx-bx, cy = 3*y1, by = 3*(y2-y1)-cy, ay = 1-cy-by;
+  const X = s => ((ax*s+bx)*s+cx)*s, Y = s => ((ay*s+by)*s+cy)*s, dX = s => (3*ax*s+2*bx)*s+cx;
+  return x => { if (x <= 0) return 0; if (x >= 1) return 1;
+    let s = x; for (let i = 0; i < 8; i++) { const d = X(s)-x; if (Math.abs(d) < 1e-6) break; s -= d/(dX(s)||1e-6); }
+    return Y(Math.min(1, Math.max(0, s))); };
+}
+const OUT   = bezier(0.16, 1, 0.3, 1);      // expo-out: arrivals
+const EMPH  = bezier(0.2, 0, 0, 1);         // emphasized: big moves
+const INOUT = bezier(0.65, 0, 0.35, 1);     // travel between checkpoints
+const IN    = bezier(0.55, 0, 0.8, 0.2);    // exits
+const BACK  = x => { x = clamp(x); const c1 = 1.5, c3 = c1+1; return 1 + c3*Math.pow(x-1,3) + c1*Math.pow(x-1,2); };
+function clamp(x, a = 0, b = 1) { return Math.min(b, Math.max(a, x)); }
+function lerp(a, b, e) { return a + (b-a)*e; }
+function p(t, start, dur, ease = OUT) { return ease(clamp((t-start)/dur)); }
+function hex(c) { return [1,3,5].map(i => parseInt(c.slice(i, i+2), 16)); }
+function mix(a, b, e) { const A = hex(a), B = hex(b); return `rgb(${A.map((v,i) => Math.round(lerp(v, B[i], e))).join(',')})`; }
+
+/* ---------------------------------------------------------------- dom helpers */
+const cam = document.getElementById('cam'), stage = document.getElementById('stage');
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, cls, parent = cam, html) { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; parent.appendChild(e); return e; }
+function sv(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+function set(e, attrs) { for (const k in attrs) e.setAttribute(k, attrs[k]); }
+function svgLayer(parent = cam) { const s = document.createElementNS(NS, 'svg'); s.setAttribute('class', 'layer'); s.setAttribute('viewBox', '0 0 1920 1080'); parent.appendChild(s); return s; }
+/** Split text into masked units (words, or characters) for kinetic reveals. */
+function kinetic(text, style, { chars = false, parent = cam } = {}) {
+  const line = el('div', 'line', parent); Object.assign(line.style, style);
+  const parts = chars ? [...text] : text.split(' ');
+  const inner = parts.map((part, i) => {
+    const m = el('span', 'm', line); const w = el('span', 'w', m); w.textContent = part;
+    if (!chars && i < parts.length-1) line.appendChild(document.createTextNode(' '));
+    return w;
+  });
+  return { line, inner };
+}
+/** Masked slide-in, optional slide-out; stagger per unit. */
+function reveal(k, t, a, { st = 0.06, d = 0.8, out = null, ost = 0.03, od = 0.45, rise = 108 } = {}) {
+  k.inner.forEach((w, i) => {
+    const ein = p(t, a + i*st, d, OUT);
+    const eout = out == null ? 0 : p(t, out + i*ost, od, IN);
+    w.style.transform = `translate3d(0, ${((1-ein)*rise - eout*rise).toFixed(2)}%, 0)`;
+  });
+  k.line.style.visibility = (t < a || (out != null && t > out + ost*k.inner.length + od)) ? 'hidden' : 'visible';
+}
+/** Status text that rolls to the next state (status is always written, never colour alone). */
+function roller(parent, states) {
+  const box = el('div', 'roll', parent), col = el('div', '', box);
+  const spans = states.map((s, i) => { const sp = el('span', i === states.length-1 ? 'done' : '', col); sp.textContent = s; return sp; });
+  return { col, spans, n: states.length };
+}
+function check(parent, attrs) { return sv('path', { d: 'M-7 0.5 L-2.2 5.2 L7.5 -4.8', fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', ...attrs }, parent); }
+
+/* =================================================================== BUILD */
+
+/* ---- Lines layer (under everything that is text) */
+const lines = svgLayer();
+const baseLine = sv('line', { 'stroke-width': 4, 'stroke-linecap': 'round' }, lines);
+const progLine = sv('line', { stroke: C.primary, 'stroke-width': 4, 'stroke-linecap': 'round' }, lines);
+const startDot = sv('circle', { fill: C.primary }, lines);
+
+/* ---- Scene 1: the concern */
+const s1a = kinetic('A family notices', { left: '160px', top: '300px', fontSize: '46px', fontWeight: 500, color: C.muted, letterSpacing: '-0.01em' });
+const s1b = kinetic('something has changed.', { left: '152px', top: '372px', fontSize: '124px', fontWeight: 700, letterSpacing: '-0.035em', lineHeight: 1.08 });
+
+/* ---- Scene 2: the Careline (checkpoints from DESIGN.md › The care journey) */
+const NODE_X = [300, 740, 1180, 1620], LINE_Y = 600;
+const s2h = kinetic('A clear next step at every stage.', { left: '156px', top: '300px', fontSize: '84px', fontWeight: 700, letterSpacing: '-0.03em' });
+const STEPS = ['Share your concerns', 'Meet a clinician', 'Complete recommended tests', 'Continue your care'];
+const nodes = NODE_X.map((x, i) => {
+  const g = sv('g', {}, lines);
+  const ring = sv('circle', { r: 36, fill: C.soft }, g);
+  const c = sv('circle', { r: 24, 'stroke-width': 3 }, g);
+  const num = sv('text', { 'text-anchor': 'middle', 'dominant-baseline': 'central', 'font-size': 22, 'font-weight': 700, 'font-family': 'Inter' }, g);
+  num.textContent = i + 1;
+  const ck = check(g, { stroke: C.primary, 'stroke-width': 3.5, transform: 'scale(1.5)', 'stroke-dasharray': 24 });
+  const lab = el('div', 'abs'); Object.assign(lab.style, { left: `${x-220}px`, top: `${LINE_Y+50}px`, width: '440px', textAlign: 'center' });
+  const title = el('div', '', lab); Object.assign(title.style, { whiteSpace: 'nowrap', fontSize: '29px', fontWeight: 600, letterSpacing: '-0.01em' }); title.textContent = STEPS[i];
+  const rl = roller(lab, ['Not started', 'Current step', 'Completed']);
+  rl.col.parentElement.style.cssText += 'width:440px;margin-top:8px;height:32px;';
+  rl.col.style.cssText = 'width:440px;left:0;';
+  rl.spans.forEach(sp => { sp.style.textAlign = 'center'; sp.style.fontSize = '23px'; sp.style.height = '32px'; sp.style.lineHeight = '32px'; });
+  return { g, ring, c, num, ck, lab, rl, x };
+});
+const head = sv('circle', { r: 9, fill: C.primary, stroke: C.surface, 'stroke-width': 3 }, lines);
+// Careline timing: head travels in steps and settles on each checkpoint.
+const SEG = [[3.00, 0.42], [3.52, 0.46], [4.08, 0.46], [4.64, 0.46]]; // [start, duration] into node i
+const SEG_END = [5.20, 0.35];                                            // into the right edge
+
+/* ---- Scene 3: three connected workspaces */
+const TOP_Y = 212, PANEL_Y = 296, PANEL_H = 610, PANEL_W = 520, PANEL_X = [160, 700, 1240];
+const PANEL_CX = PANEL_X.map(x => x + PANEL_W/2);
+const s3h = kinetic('One journey. Three connected workspaces.', { left: '157px', top: '66px', fontSize: '62px', fontWeight: 700, letterSpacing: '-0.028em' });
+const PANELS = [
+  { k: 'Family', s: 'Care partner access', rows: [
+    ['Changes shared', ['Not started', 'Completed']],
+    ['Appointment', ['Not started', 'Requested', 'Confirmed']],
+    ['Home collection', ['Not started', 'Booked']],
+    ['Care plan', ['No update yet', 'Updated by clinician']] ] },
+  { k: 'Clinician', s: 'Illustrative clinic', rows: [
+    ['Appointment request', ['Waiting', 'Accepted']],
+    ['Draft summary', ['Review required', 'Reviewed with sources']],
+    ['Tests', ['Not ordered', 'Two tests ordered']],
+    ['Report review', ['Waiting for report', 'Clinician reviewed']] ] },
+  { k: 'Laboratory', s: 'Example Diagnostics (illustrative)', rows: [
+    ['Order', ['Waiting', 'Received']],
+    ['Home collection', ['Arranged', 'Collected']],
+    ['Vitamin B12 report', ['Not started', 'Processing', 'Lab report released']],
+    ['Delivery', ['Pending', 'Delivered to clinician']] ] },
+];
+// One store, three views: each event updates one row, and the signal travels the Careline to reach it.
+const EVENTS = [
+  [0,0,1, 6.62], [0,1,1, 6.86], [1,0,1, 7.14], [0,1,2, 7.40], [1,1,1, 7.66], [1,2,1, 7.88],
+  [0,2,1, 8.14], [2,0,1, 8.44], [2,1,1, 8.66], [2,2,1, 8.86], [2,2,2, 9.08], [2,3,1, 9.28],
+  [1,3,1, 9.54], [0,3,1, 9.80],
+];
+const panels = PANELS.map((P, pi) => {
+  const d = el('div', 'panel'); Object.assign(d.style, { left: `${PANEL_X[pi]}px`, top: `${PANEL_Y}px`, width: `${PANEL_W}px`, height: `${PANEL_H}px` });
+  const inner = el('div', '', d); inner.style.width = `${PANEL_W}px`;
+  const ph = el('div', 'ph', inner); el('div', 'k', ph).textContent = `${P.k} workspace`; el('div', 's', ph).textContent = P.s;
+  const rows = P.rows.map(([label, states]) => {
+    const r = el('div', 'row', inner); const hl = el('div', 'hl', r);
+    const ic = document.createElementNS(NS, 'svg'); ic.setAttribute('viewBox', '-18 -18 36 36'); r.appendChild(ic);
+    const ring = sv('circle', { r: 15, 'stroke-width': 2.5, fill: C.surface }, ic);
+    const fill = sv('circle', { r: 15, fill: C.primary }, ic);
+    const dot = sv('circle', { r: 5, fill: C.primary }, ic);
+    const ck = check(ic, { stroke: C.surface, 'stroke-width': 3, 'stroke-dasharray': 24 });
+    el('div', 'lb', r).textContent = label;
+    const rl = roller(r, states);
+    return { hl, ring, fill, dot, ck, rl, events: [] };
+  });
+  return { d, inner, rows };
+});
+EVENTS.forEach(([pi, ri, si, time]) => panels[pi].rows[ri].events[si-1] = time);
+const topNodes = PANEL_CX.map(x => {
+  const g = sv('g', {}, lines);
+  const conn = sv('line', { x1: x, x2: x, stroke: C.primary, 'stroke-width': 3, 'stroke-linecap': 'round' }, g);
+  const ping = sv('circle', { cx: x, cy: TOP_Y, fill: 'none', stroke: C.primary, 'stroke-width': 2.5 }, g);
+  const c = sv('circle', { cx: x, cy: TOP_Y, r: 14, fill: C.surface, stroke: C.primary, 'stroke-width': 3 }, g);
+  return { g, conn, ping, c, x };
+});
+const trail = sv('line', { stroke: C.hover, 'stroke-width': 6, 'stroke-linecap': 'round' }, lines);
+const pulse = sv('circle', { r: 10, fill: C.primary, stroke: C.surface, 'stroke-width': 3 }, lines);
+const drop = sv('circle', { r: 6, fill: C.primary }, lines);
+
+/* ---- Scene 4: the next-step card (copy from src/demo/episode.ts › reviewed) */
+const CARD = { x: 410, y: 250, w: 1100, h: 580 };
+const card = el('div'); card.id = 'card';
+const cChip = el('div', 'chip', card,
+  `<svg width="24" height="24" viewBox="-12 -12 24 24"><circle r="10" fill="none" stroke="${C.hover}" stroke-width="2"/><path d="M-4.5 0.3 L-1.3 3.4 L4.8 -3" fill="none" stroke="${C.hover}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Clinician reviewed</span>`);
+const cTitle = kinetic('Your clinician added a care update', { left: '80px', top: '150px', fontSize: '54px', fontWeight: 700, letterSpacing: '-0.028em', position: 'absolute' }, { parent: card });
+const cBody = el('div', 'abs', card); Object.assign(cBody.style, { left: '80px', top: '252px', width: '820px', fontSize: '29px', lineHeight: 1.55, color: C.muted });
+cBody.textContent = 'They reviewed the lab report with its source and updated the care plan.';
+const cOwner = el('div', 'abs', card); Object.assign(cOwner.style, { left: '80px', top: '352px', fontSize: '22px', fontWeight: 500, color: C.muted });
+cOwner.textContent = 'From your clinician · Illustrative';
+const cBtn = el('div', 'btn abs', card,
+  `<span>View care plan</span><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`);
+Object.assign(cBtn.style, { left: '80px', top: '432px' });
+Object.assign(cChip.style, { position: 'absolute', left: '80px', top: '72px' });
+const focusRing = el('div', 'abs', card); Object.assign(focusRing.style, { left: '74px', top: '426px', borderRadius: '13px', border: `3px solid ${C.primary}` });
+
+/* ---- Scene 5: the wordmark (the Careline glyph from src/components/ui/Brand.tsx) */
+const glyph = svgLayer(); // above cards
+const gPath = sv('path', { fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, glyph);
+const gA = sv('circle', { fill: C.surface, stroke: C.navy }, glyph);
+const gB = sv('circle', { fill: C.primary, stroke: C.primary }, glyph);
+const wm = kinetic('NeuroVX', { fontSize: '168px', fontWeight: 700, letterSpacing: '-0.035em', lineHeight: 1 }, { chars: true });
+const tag = kinetic('Brain care. Connected.', { fontSize: '58px', fontWeight: 600, letterSpacing: '-0.02em' });
+tag.inner[2].style.color = C.primary;
+const tagRule = sv('path', { fill: 'none', stroke: C.primary, 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, glyph);
+const foot = el('div', 'line'); Object.assign(foot.style, { left: '960px', top: '978px', transform: 'translateX(-50%)', fontSize: '23px', fontWeight: 500, color: C.muted });
+foot.textContent = 'Product preview - not for clinical use  ·  Synthetic, illustrative data';
+
+let LOCK = null; // measured once fonts are ready
+function measure() {
+  const S = 7.4, wmW = wm.line.getBoundingClientRect().width, gap = 0.36*168*0.9, gW = 29*S;
+  const total = gW + gap + wmW, x0 = 960 - total/2 - 3*S + 3*S*0.0, cy = 470;
+  LOCK = { S, x0: 960 - total/2, cy, wmX: 960 - total/2 + gW + gap, wmW };
+  const tw = tag.line.getBoundingClientRect().width; LOCK.tagX = 960 - tw/2; LOCK.tagW = tw;
+  const c = tag.inner[2].getBoundingClientRect(); LOCK.conn = { x: c.left - tag.line.getBoundingClientRect().left, w: c.width };
+}
+
+/* =================================================================== RENDER */
+function render(t) {
+  /* ---- camera: slow push through each act, reset on the cuts */
+  const push = t < 5.6 ? lerp(1, 1.035, p(t, 0, 5.6, INOUT)) : t < 12.3 ? lerp(1.0, 1.02, p(t, 5.6, 6.7, INOUT)) : lerp(1.04, 1.0, p(t, 12.3, 2.7, EMPH));
+  cam.style.transform = `scale(${push.toFixed(5)})`;
+  const bgE = p(t, 5.45, 0.7, INOUT) * (1 - p(t, 12.35, 0.6, INOUT));
+  stage.style.background = mix(C.surface, C.canvas, bgE);
+
+  /* ---- Act 1 · 0.0–2.8: a single point becomes a line */
+  const dotR = 13 * BACK(p(t, 0.12, 0.5, x => x));
+  const lineY = lerp(LINE_Y, TOP_Y, p(t, 5.45, 0.75, EMPH));
+  const drawn = p(t, 0.5, 1.0, EMPH);
+  const x2 = lerp(160, 1760, drawn);
+  const retract = p(t, 9.95, 0.6, INOUT);
+  const lx1 = lerp(160, 1760, retract);
+  set(startDot, { cx: 160, cy: lineY, r: Math.max(0, dotR * (1 - p(t, 2.45, 0.4, IN))) });
+  // the first stroke is blue; it cools to the quiet track before the journey fills it again
+  const cool = p(t, 2.35, 0.55, INOUT);
+  set(baseLine, { x1: lx1, x2: Math.max(lx1, x2), y1: lineY, y2: lineY, stroke: mix(C.primary, C.border, cool), opacity: t < 10.6 ? 1 : 0 });
+  reveal(s1a, t, 0.55, { st: 0.06, d: 0.8, out: 2.25, ost: 0.03, od: 0.4 });
+  reveal(s1b, t, 0.72, { st: 0.075, d: 0.9, out: 2.3, ost: 0.035, od: 0.42 });
+
+  /* ---- Act 2 · 2.6–5.9: the Careline, one checkpoint at a time */
+  reveal(s2h, t, 2.72, { st: 0.05, d: 0.8, out: 4.98, ost: 0.02, od: 0.36 });
+  let hx = 160;
+  SEG.forEach(([a, d], i) => { if (t >= a) hx = lerp(i === 0 ? 160 : NODE_X[i-1], NODE_X[i], p(t, a, d, INOUT)); });
+  if (t >= SEG_END[0]) hx = lerp(NODE_X[3], 1760, p(t, SEG_END[0], SEG_END[1], INOUT));
+  const progOn = t >= SEG[0][0];
+  set(progLine, { x1: lx1, x2: Math.max(lx1, hx), y1: lineY, y2: lineY, opacity: progOn && t < 10.6 ? 1 : 0 });
+  set(head, { cx: hx, cy: lineY, r: 9, opacity: (t > 2.95 && t < 5.5) ? 1 - p(t, 5.3, 0.2) : 0 });
+  nodes.forEach((n, i) => {
+    const pop = BACK(p(t, 2.55 + i*0.09, 0.55, x => x));
+    const gone = p(t, 5.1 + i*0.05, 0.35, IN);
+    const reach = SEG[i][0] + SEG[i][1] - 0.04;
+    const leave = i < 3 ? SEG[i+1][0] + 0.12 : 99;
+    const cur = p(t, reach, 0.22, OUT) * (1 - p(t, leave, 0.3, OUT));
+    const done = p(t, leave, 0.3, OUT);
+    const s = Math.max(0, pop * (1 - gone));
+    set(n.g, { transform: `translate(${n.x} ${lineY}) scale(${s.toFixed(4)})`, opacity: s > 0.001 ? 1 : 0 });
+    set(n.c, { fill: mix(C.surface, C.primary, cur), stroke: mix(C.control, C.primary, Math.max(cur, done)) });
+    const ringR = 24 + 14 * BACK(p(t, reach, 0.5, x => x)) * (1 - done);
+    set(n.ring, { r: ringR, opacity: cur > 0 || done < 1 ? Math.min(1, cur * 1.4) : 0 });
+    set(n.num, { fill: mix(C.muted, C.surface, cur), opacity: 1 - done });
+    set(n.ck, { 'stroke-dashoffset': 24 * (1 - p(t, leave + 0.05, 0.35, OUT)), opacity: done > 0 ? 1 : 0 });
+    const lab = p(t, 2.7 + i*0.09, 0.7, OUT), labOut = p(t, 5.08 + i*0.04, 0.3, IN);
+    n.lab.style.opacity = (lab * (1 - labOut)).toFixed(3);
+    n.lab.style.transform = `translateY(${((1-lab)*24 + labOut*16).toFixed(1)}px)`;
+    const roll = p(t, reach, 0.4, OUT) + p(t, leave, 0.4, OUT);
+    n.rl.col.style.transform = `translateY(${(-roll*32).toFixed(2)}px)`;
+  });
+
+  /* ---- Act 3 · 5.6–10.2: one journey, three workspaces, one store */
+  reveal(s3h, t, 5.78, { st: 0.045, d: 0.8, out: 9.9, ost: 0.02, od: 0.35 });
+  topNodes.forEach((n, i) => {
+    const pop = BACK(p(t, 6.08 + i*0.08, 0.5, x => x)) * (1 - p(t, 9.95 + i*0.04, 0.3, IN));
+    set(n.c, { r: Math.max(0, 14*pop) });
+    const cn = p(t, 6.2 + i*0.08, 0.35, OUT) * (1 - p(t, 9.9, 0.25, IN));
+    set(n.conn, { y1: TOP_Y + 14, y2: TOP_Y + 14 + (PANEL_Y - TOP_Y - 14) * cn, opacity: cn > 0.01 ? 1 : 0 });
+    // ping when the signal arrives at this workspace
+    let last = -9; EVENTS.forEach(e => { if (e[0] === i && e[3] - 0.14 <= t) last = e[3] - 0.14; });
+    const pe = clamp((t - last) / 0.55);
+    set(n.ping, { r: 14 + 30*OUT(pe), opacity: pe < 1 ? (0.55*(1-pe)).toFixed(3) : 0 });
+  });
+  panels.forEach((P, pi) => {
+    if (pi === 0) return; // the family panel is driven by Act 4 (it becomes the card)
+    const e = p(t, 5.98 + pi*0.1, 0.8, EMPH), ex = p(t, 9.9 + pi*0.06, 0.45, IN);
+    P.d.style.clipPath = `inset(0 0 ${((1-e)*100).toFixed(2)}% 0 round 16px)`;
+    P.d.style.transform = `translateY(${((1-e)*30 + ex*60).toFixed(1)}px)`;
+    P.d.style.opacity = (1 - ex).toFixed(3);
+    P.d.style.visibility = t < 5.98 ? 'hidden' : 'visible';
+  });
+  panels.forEach(P => P.rows.forEach((r, ri) => {
+    const pos = r.events.reduce((s, et) => s + p(t, et, 0.42, OUT), 0);
+    const n = r.rl.n, full = clamp(pos - (n - 2));
+    r.rl.col.style.transform = `translateY(${(-pos*30).toFixed(2)}px)`;
+    set(r.ring, { stroke: mix(C.control, C.primary, clamp(pos)) });
+    set(r.fill, { r: 15 * full, opacity: full > 0 ? 1 : 0 });
+    set(r.dot, { r: 5 * OUT(clamp(pos)) * (1 - full) });
+    set(r.ck, { 'stroke-dashoffset': 24 * (1 - clamp((full - 0.35) / 0.65)) });
+    const lastE = r.events.filter(et => et <= t).pop();
+    r.hl.style.opacity = lastE == null ? 0 : (1 - p(t, lastE, 0.75, OUT)).toFixed(3);
+    // rows stagger in with their panel
+    const inn = p(t, 6.2 + ri*0.06, 0.6, OUT);
+    r.hl.parentElement.style.opacity = inn.toFixed(3);
+    r.hl.parentElement.style.transform = `translateY(${((1-inn)*18).toFixed(1)}px)`;
+  }));
+  // the signal: travels the Careline to whichever workspace is updated next
+  let px = null, pxLag = null, dropY = null;
+  for (let k = 0; k < EVENTS.length; k++) {
+    const [pi, , , et] = EVENTS[k], prev = k ? EVENTS[k-1][0] : 0;
+    const a = et - 0.4, b = et - 0.14;
+    if (prev !== pi && t >= a && t <= b) {
+      const f = tt => lerp(PANEL_CX[prev], PANEL_CX[pi], INOUT(clamp((tt - a) / (b - a))));
+      px = f(t); pxLag = f(t - 0.07);
+    }
+    if (t >= b && t <= et) dropY = { x: PANEL_CX[pi], y: lerp(TOP_Y + 14, PANEL_Y + 6, INOUT(clamp((t - b) / (et - b)))) };
+  }
+  set(pulse, { cx: px ?? 0, cy: TOP_Y, opacity: px == null ? 0 : 1 });
+  set(trail, { x1: pxLag ?? 0, x2: px ?? 0, y1: TOP_Y, y2: TOP_Y, opacity: px == null ? 0 : 0.9 });
+  set(drop, { cx: dropY?.x ?? 0, cy: dropY?.y ?? 0, opacity: dropY ? 1 : 0 });
+
+  /* ---- Act 4 · 9.9–12.4: the family panel becomes Home's next step */
+  const fam = panels[0];
+  const famIn = p(t, 5.98, 0.8, EMPH);
+  const toCard = p(t, 10.05, 0.85, EMPH);
+  const toLine = p(t, 12.32, 0.55, INOUT);
+  const R0 = { x: PANEL_X[0], y: PANEL_Y, w: PANEL_W, h: PANEL_H };
+  const RL = { x: 410, y: 538, w: 1100, h: 4 };
+  const rect = k => lerp(lerp(R0[k], CARD[k], toCard), RL[k], toLine);
+  Object.assign(fam.d.style, { left: `${rect('x')}px`, top: `${rect('y')}px`, width: `${rect('w')}px`, height: `${rect('h')}px`,
+    clipPath: `inset(0 0 ${((1-famIn)*100).toFixed(2)}% 0 round 16px)`, transform: `translateY(${((1-famIn)*30).toFixed(1)}px)`,
+    borderRadius: `${lerp(16, 2, toLine)}px`, background: mix(C.surface, C.primary, clamp((toLine - 0.55) / 0.4)),
+    borderColor: toLine > 0 ? mix(C.border, C.primary, clamp(toLine * 1.6)) : C.border,
+    boxShadow: `0 4px 20px rgba(11,31,58,${(0.05 + 0.05*toCard*(1-toLine)).toFixed(3)})`,
+    visibility: t < 5.98 || t > 12.87 ? 'hidden' : 'visible' });
+  fam.inner.style.opacity = (1 - p(t, 9.9, 0.2, IN)).toFixed(3);
+  const cin = k => p(t, 10.55 + k*0.1, 0.75, OUT), cout = p(t, 12.1, 0.25, IN);
+  card.style.visibility = t > 10.4 && t < 12.4 ? 'visible' : 'hidden';
+  card.style.opacity = (1 - cout).toFixed(3);
+  card.style.transform = `translateY(${(-cout*14).toFixed(1)}px)`;
+  [cChip, cBody, cOwner, cBtn].forEach((e, k) => {
+    const v = cin([0, 3, 4, 5][k]);
+    e.style.opacity = v.toFixed(3);
+    if (e !== cBtn) e.style.transform = `translateY(${((1-v)*22).toFixed(1)}px)`;
+  });
+  reveal(cTitle, t, 10.62, { st: 0.04, d: 0.75 });
+  // one intentional press: the next step is taken
+  const press = p(t, 11.55, 0.12, OUT) * (1 - p(t, 11.72, 0.3, OUT));
+  const bIn = cin(5);
+  cBtn.style.transform = `translateY(${((1-bIn)*22).toFixed(1)}px) scale(${(1 - 0.045*press).toFixed(4)})`;
+  cBtn.style.background = mix(C.primary, C.hover, Math.max(press, p(t, 11.55, 0.15) * (1 - p(t, 11.9, 0.3))));
+  const fr = p(t, 11.5, 0.2, OUT) * (1 - p(t, 12.0, 0.2));
+  const br = cBtn.getBoundingClientRect ? { w: cBtn.offsetWidth, h: cBtn.offsetHeight } : { w: 0, h: 0 };
+  Object.assign(focusRing.style, { width: `${br.w + 12}px`, height: `${br.h + 12}px`, opacity: fr.toFixed(3) });
+
+  /* ---- Act 5 · 12.3–15.0: the card collapses into the line; the line becomes the mark */
+  if (LOCK) {
+    const S = LOCK.S, gx = LOCK.x0 - 3*S, gy = LOCK.cy - 10*S;
+    const G = [[3, 14], [13, 14], [19, 6], [29, 6]].map(([u, v]) => [gx + u*S, gy + v*S]);
+    const L = [0, 10/26, 16/26, 1].map(f => [410 + 1100*f, 540]);
+    const pts = G.map((g, k) => { const e = p(t, 12.86 + k*0.04, 0.7, EMPH); return [lerp(L[k][0], g[0], e), lerp(L[k][1], g[1], e)]; });
+    const shape = p(t, 12.86, 0.8, EMPH);
+    set(gPath, { d: `M${pts[0]} L${pts[1]} L${pts[2]} L${pts[3]}`, stroke: mix(C.primary, C.navy, shape),
+                 'stroke-width': lerp(4, 2*S, shape), opacity: t >= 12.87 ? 1 : 0 });
+    const a = BACK(p(t, 13.3, 0.55, x => x)), b = BACK(p(t, 13.42, 0.55, x => x));
+    set(gA, { cx: pts[0][0], cy: pts[0][1], r: Math.max(0, 2.5*S*a), 'stroke-width': 1.75*S*Math.min(1, a) });
+    set(gB, { cx: pts[3][0], cy: pts[3][1], r: Math.max(0, 2.75*S*b), 'stroke-width': 1.5*S*Math.min(1, b) });
+    Object.assign(wm.line.style, { left: `${LOCK.wmX}px`, top: `${LOCK.cy - 96}px` });
+    reveal(wm, t, 13.38, { st: 0.04, d: 0.85, rise: 112 });
+    Object.assign(tag.line.style, { left: `${LOCK.tagX}px`, top: `${LOCK.cy + 118}px` });
+    reveal(tag, t, 13.95, { st: 0.09, d: 0.8 });
+    // a small Careline draws beneath "Connected."
+    const u = p(t, 14.35, 0.55, EMPH), ux = LOCK.tagX + LOCK.conn.x, uy = LOCK.cy + 118 + 84;
+    set(tagRule, { d: `M${ux} ${uy} L${ux + LOCK.conn.w * u} ${uy}`, opacity: u > 0.001 ? 1 : 0 });
+    foot.style.opacity = p(t, 14.2, 0.6, OUT).toFixed(3);
+  }
+  const endVis = t >= 12.8 ? 'visible' : 'hidden';
+  glyph.style.visibility = endVis; foot.style.visibility = endVis;
+}
+
+/* =================================================================== RUN */
+window.render = render;
+window.DURATION = DURATION;
+window.EVENTS_FOR_AUDIO = {
+  nodes: SEG.map(([a, d]) => a + d), rows: EVENTS,
+  whoosh: [0.5, 2.3, 5.45, 9.95, 12.32, 12.86], press: 11.55, mark: 13.3, reveal: 0.55,
+};
+document.fonts.ready.then(() => {
+  measure();
+  window.READY = true;
+  const q = new URLSearchParams(location.search).get('t');
+  if (q != null) render(parseFloat(q));
+  else if (!navigator.webdriver) { const t0 = performance.now(); const loop = () => { render(((performance.now() - t0) / 1000) % (DURATION + 1)); requestAnimationFrame(loop); }; loop(); }
+  else render(0);
+});
+</script>
+</body>
+</html>
