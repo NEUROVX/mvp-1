@@ -1,6 +1,6 @@
 # Handoff — NeuroVX MVP-1 demo
 
-**Last updated:** 24 Sep 2026 · **Branch history:** built on `claude/clever-hawking-7j7qra`, wrapped up on `claude/ecstatic-noether-4v7wj4`, both merged to `main` via PR.
+**Last updated:** 25 Sep 2026 · **Branch history:** built on `claude/clever-hawking-7j7qra`, wrapped up on `claude/ecstatic-noether-4v7wj4`, both merged to `main` via PR.
 
 ## Done
 - The design system is locked to DESIGN.md (Connected Care v1.0). The Tailwind v4 token block has the default palette cleared, and Inter is self-hosted.
@@ -29,9 +29,11 @@
 - On the clinician record at 390 and 320px, the tab strip scrolls sideways inside its own region. The page itself does not scroll, and the active tab stays in view.
 - Home keeps "Your test visit is booked" throughout the Collection-arranged stage while the lab collects and processes. This is PATIENT.md's Home state table; test progress shows the detail.
 
+- **Deployed to Vercel.** Project `neurovx-mvp-1` (team *Neurovx*) is Git-linked to `NEUROVX/mvp-1`, so every push to `main` deploys to production at **https://neurovx-mvp.vercel.app**. That URL is public. It was verified by HTTP checks on deep links and by matching the live JS bundle's SHA-256 against the local build of `main` that passed the sweep. PR preview URLs sit behind the team's Vercel Deployment Protection (login required).
+- **Docs for people:** [`DEMO-SCRIPT.md`](DEMO-SCRIPT.md) (presenter script, click-verified) and [`LOCAL-GUIDE.md`](LOCAL-GUIDE.md) (setup, navigation, code map, QA, deploy).
+
 ## Open work
-1. **Optional:** deploy a preview to Vercel (the app is static and `vercel.json` is present).
-2. User-test with the prompts in DESIGN.md › Prototype evaluation, ideally with one care partner and one clinician.
+1. User-test with the prompts in DESIGN.md › Prototype evaluation, ideally with one care partner and one clinician.
 
 ## Non-goals (do not build without a new decision)
 Real authentication or a backend, payments, live availability, real maps, real uploads, scoring or NeuroRisk, hospital operations, a device store or checkout, trial matching, sponsor data access, notifications, and translations. See SCOPE.md §7.
