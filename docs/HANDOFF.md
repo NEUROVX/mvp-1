@@ -1,6 +1,6 @@
 # Handoff — NeuroVX MVP-1 demo
 
-**Last updated:** 25 Sep 2026 · **Branch history:** built on `claude/clever-hawking-7j7qra`, wrapped up on `claude/ecstatic-noether-4v7wj4`, both merged to `main` via PR.
+**Last updated:** 26 Sep 2026 · **Branch history:** built on `claude/clever-hawking-7j7qra`, wrapped up on `claude/ecstatic-noether-4v7wj4`, both merged to `main` via PR.
 
 ## Done
 - The design system is locked to DESIGN.md (Connected Care v1.0). The Tailwind v4 token block has the default palette cleared, and Inter is self-hosted.
@@ -22,6 +22,9 @@
   - Booking review now remembers each unticked previous report (`booking.share.excludedUploadIds`). Reports added later still join the packet. The visit hub and the clinician packet show only the shared reports.
   - The visit-hub line "current time stays until the clinic confirms the change" now survives a reload (`booking.previous`) and clears when the clinic accepts.
 - **Final sweep (`qa/final`, against `npm run preview`):** 93 routes × 1440/390/320 = 279 captures, with **0 overflow, 0 console errors and 0 axe violations**. `npm run check` and `npm run build` pass.
+
+- **New NeuroVX logo (26 Sep 2026).** The supplied artwork was vectorised into transparent SVGs: masters are in `design/brand/` (see its README), the app lockups are in `src/assets/brand/`, and the favicon and Apple touch icon are in `public/`. `Logo`/`Wordmark` in `Brand.tsx` replace the old text wordmark in every header, the patient sidebar and the public footer (white on navy). Narrow patient and in-app focused headers show the mark alone below 390px, so their text labels still fit. The sweep after the change (`qa/logo`): 279 captures, 0 overflow, 0 console errors, 0 axe violations.
+  - Not changed: the Careline brand film (`design/motion/careline-film/`) still ends on the old text wordmark. Re-render it if the film should carry the new logo.
 
 ## Known limits (by design, not bugs)
 - The clinician workspace belongs only to Dr. Kavya Rao, and the lab workspace only to Example Diagnostics. If a presenter books another clinician or Example City Lab, the patient side is correct, but those workspaces still show their own queue.

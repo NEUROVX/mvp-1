@@ -33,6 +33,14 @@ Widths: `max-w-page` 1200 · `max-w-reading` 680 · `max-w-task` 720. Helpers: `
 
 Guards: `npm run check:tokens` (no raw colours or palette classes outside `src/styles`) and `npm run check:copy` (banned claims, brands, screen IDs, durations). Both must pass.
 
+## Logo
+
+The NeuroVX logo is fixed brand artwork: a line-drawn brain mark with a star, and the NEUROVX wordmark whose O is an open ring with a dot. Vector masters and usage notes live in [`design/brand/`](../../design/brand/README.md).
+
+- **In the app, use only `Logo` or `Wordmark`.** They load `src/assets/brand/neurovx-lockup.svg` (full colour, for white or canvas surfaces) or `neurovx-lockup-white.svg` (for navy). Never redraw the logo in type or recolour it.
+- The artwork keeps its own teal-to-navy brand colours and gradients inside the SVG files. They are **not** UI tokens: do not reuse them for text, buttons or surfaces. DESIGN.md's token and no-gradient rules apply to the interface around the logo.
+- The lockup is at least 32px tall. Below that, use the mark alone (`collapse`). The favicon and Apple touch icon use a heavier small-size cut of the mark, because the master's hairlines disappear at 16–32px.
+
 ## Kit (`import { … } from '@/components/ui'`)
 
 - `Button` — `variant`: primary | secondary | quiet | destructive | on-navy · `size`: md (48px) | lg (52px patient primary) · `to` (router link) | `href` | `onClick` · `iconLeft`/`iconRight` · `loading`/`loadingLabel` · `fullWidth`. One primary per task area.
@@ -44,7 +52,7 @@ Guards: `npm run check:tokens` (no raw colours or palette classes outside `src/s
 - `Dialog` (native `<dialog>`: focus in, Escape, focus return), `Tabs` (roving tabindex), `Segmented` (List / Map).
 - `Timeline` (chronological record: date, type, source, review state, action).
 - `SampleMap` (abstract map; pins select list items; never a real location).
-- `Wordmark`, `CarelineGlyph`, `FlowProgress` ("Step 1 of 3 · …").
+- `Logo` (the lockup image; `onNavy` for the white version), `Wordmark` (the logo as the home link: `size` md 40px | sm 36px, `compact` 32px below 400px, `collapse` mark only below 390px, `onNavy`), `CarelineGlyph` (the decorative Careline motif, not the logo), `FlowProgress` ("Step 1 of 3 · …").
 
 Store (`@/demo/store`): `useDemo()` → `{ state, set, setStage, jumpTo, setPersona, reset }` · `usePeople()` → names and context lines · `useEpisode()` → `{ stage, next, careline }`.
 Episode (`@/demo/episode`): `hasReached`, `nextStepFor`, `carelineFor`, `STAGE_META`, `GOLDEN_PATH`, plus shared selectors every workspace must use instead of re-deriving: `labCollectionFor` (the booked sample collection: provider, slot, type and recorded collection time), `collectedEventFor` (the "Sample collected" timeline event) and `sharedUploads` (previous reports actually in the visit packet, honouring `booking.share.excludedUploadIds`). Fixtures (`@/demo/fixtures`): `CLINICIANS`, `ORDERS`, `LAB_PROVIDERS`, `REPORTS`, `PENDING_REPORT`, `TIMELINE`, `CARE_PLAN`, `CARE_PLAN_SUMMARY`, `ORG`, `EPISODE_DATES`, label maps and `…ById` helpers.

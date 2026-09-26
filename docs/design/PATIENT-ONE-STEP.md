@@ -110,7 +110,7 @@ Use everyday language: "Past reports", "Book a consultation", "Waiting for clini
 
 ### The deliberately small application shell
 
-Desktop: one 72px header, a centered main column up to 720px, generous unused space. Header contains the text wordmark **NeuroVX**, three links **Home / Appointments / Reports**, and **Help / Profile**. No sidebar. No notification bell until notifications provide a real need.
+Desktop: one 72px header, a centered main column up to 720px, generous unused space. Header contains the NeuroVX logo, three links **Home / Appointments / Reports**, and **Help / Profile**. No sidebar. No notification bell until notifications provide a real need.
 
 Mobile: wordmark plus Help/Profile in a compact header; three labeled bottom destinations **Home / Appointments / Reports**. Use labels, not icons alone. Keep safe-area padding so controls are never covered.
 
@@ -164,7 +164,7 @@ Flat, quiet surfaces. Use one subtle 1px panel border and an optional barely vis
 
 ## Shapes
 
-16px panel corners, 10px buttons and inputs. No pill-shaped label on every line. Use simple outline icons sparingly; never as the only instruction. Render the wordmark as text rather than loading a nonexistent logo file.
+16px panel corners, 10px buttons and inputs. No pill-shaped label on every line. Use simple outline icons sparingly; never as the only instruction. Use the NeuroVX logo lockup through the `Wordmark` component (see IMPLEMENTATION.md › Logo); never redraw it as text.
 
 ## Components
 

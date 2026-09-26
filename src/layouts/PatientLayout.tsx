@@ -42,7 +42,7 @@ export function PatientLayout() {
 function Sidebar() {
   return (
     <aside className="fixed inset-y-0 left-0 z-30 hidden w-60 flex-col border-r border-border bg-surface lg:flex">
-      <div className="flex h-[72px] items-center gap-2 px-5">
+      <div className="flex flex-col items-start gap-1 px-5 pt-4 pb-2">
         <Wordmark to="/app" />
         <DemoTag>Demo</DemoTag>
       </div>
@@ -101,7 +101,7 @@ function ContextHeader() {
       <div className="page-gutter mx-auto flex min-h-[72px] max-w-page items-center justify-between gap-4 py-3">
         <div className="flex min-w-0 items-center gap-3">
           <div className="lg:hidden">
-            <Wordmark to="/app" size="sm" />
+            <Wordmark to="/app" size="sm" collapse />
           </div>
           <p className="hidden min-w-0 text-body-md text-ink lg:block">
             <span className="text-label">{careTitle}</span>
