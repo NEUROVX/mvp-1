@@ -1,4 +1,4 @@
-import { ArrowLink, Button, CarelineGlyph } from '@/components/ui'
+import { ArrowLink, Button, LogoMark } from '@/components/ui'
 import { usePageTitle } from '@/lib/hooks'
 
 export default function NotFoundPage() {
@@ -7,7 +7,7 @@ export default function NotFoundPage() {
     <div className="bg-surface">
       <div className="page-gutter mx-auto max-w-page pt-16 pb-20 md:pt-24 md:pb-28 lg:pt-28 lg:pb-32">
         <div className="max-w-reading">
-          <CarelineGlyph className="h-6 w-10" />
+          <LogoMark className="h-16" />
           <h1 className="mt-6 text-heading-lg-mobile text-ink md:text-heading-lg">We could not find that page</h1>
           <p className="mt-4 text-body-lg text-muted">
             The link may be out of date, or the page may not be part of this preview. Nothing you entered has been lost.

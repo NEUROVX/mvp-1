@@ -164,7 +164,7 @@ Flat, quiet surfaces. Use one subtle 1px panel border and an optional barely vis
 
 ## Shapes
 
-16px panel corners, 10px buttons and inputs. No pill-shaped label on every line. Use simple outline icons sparingly; never as the only instruction. Render the wordmark as text rather than loading a nonexistent logo file.
+16px panel corners, 10px buttons and inputs. No pill-shaped label on every line. Use simple outline icons sparingly; never as the only instruction. Use the NeuroVX logo files in `public/brand/` (via `Wordmark`, `LogoLockup`, `LogoMark`); do not redraw the logo.
 
 ## Components
 
