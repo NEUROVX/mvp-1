@@ -28,7 +28,7 @@ export function FocusedLayout() {
                 <LogoLockup size="sm" compact />
               </span>
             ) : (
-              <Wordmark to={inApp ? '/app' : '/'} size="sm" compact />
+              <Wordmark to={inApp ? '/app' : '/'} size="sm" compact collapse={inApp} />
             )}
             <span className="hidden sm:inline-flex">
               <DemoTag>Demo</DemoTag>

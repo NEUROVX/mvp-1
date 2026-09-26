@@ -10,6 +10,7 @@ export function Wordmark({
   onNavy,
   size = 'md',
   compact,
+  collapse,
   className,
 }: {
   to?: string
@@ -17,6 +18,8 @@ export function Wordmark({
   size?: 'sm' | 'md'
   /** Hide the glyph below 400px so tight headers fit at 320px. */
   compact?: boolean
+  /** Show only the brain mark below 390px, for headers that must keep their text labels. */
+  collapse?: boolean
   className?: string
 }) {
   return (
@@ -24,22 +27,33 @@ export function Wordmark({
       to={to}
       className={clsx('inline-flex min-h-11 items-center gap-2 rounded-sm', onNavy ? 'text-white' : 'text-navy', className)}
     >
-      <LogoLockup size={size} compact={compact} onNavy={onNavy} />
+      <LogoLockup size={size} compact={compact} collapse={collapse} onNavy={onNavy} />
       <span className="sr-only">home</span>
     </Link>
   )
 }
 
 /** The logo lockup without a link, for headers where leaving would lose progress. */
-export function LogoLockup({ size = 'md', compact, onNavy }: { size?: 'sm' | 'md'; compact?: boolean; onNavy?: boolean }) {
+export function LogoLockup({
+  size = 'md',
+  compact,
+  collapse,
+  onNavy,
+}: {
+  size?: 'sm' | 'md'
+  compact?: boolean
+  collapse?: boolean
+  onNavy?: boolean
+}) {
   return (
     <span className="inline-flex items-center gap-2">
-      <LogoMark className={clsx(size === 'sm' ? 'h-8' : 'h-10', compact && 'hidden min-[400px]:block')} onNavy={onNavy} />
+      <LogoMark className={clsx(size === 'sm' ? 'h-8' : 'h-10', compact && !collapse && 'hidden min-[400px]:block')} onNavy={onNavy} />
       <img
         src={LOGO_WORDMARK}
         alt="NeuroVX"
-        className={clsx('w-auto', size === 'sm' ? 'h-3.5' : 'h-4', onNavy && 'brightness-0 invert')}
+        className={clsx('w-auto', size === 'sm' ? 'h-3.5' : 'h-4', onNavy && 'brightness-0 invert', collapse && 'max-[389px]:hidden')}
       />
+      {collapse && <span className="sr-only min-[390px]:hidden">NeuroVX</span>}
     </span>
   )
 }
