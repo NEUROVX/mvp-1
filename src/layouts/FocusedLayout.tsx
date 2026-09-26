@@ -1,6 +1,6 @@
 import { CircleHelp } from 'lucide-react'
 import { Link, Outlet, useLocation } from 'react-router'
-import { CarelineGlyph, DemoTag, Wordmark } from '@/components/ui'
+import { DemoTag, Logo, Wordmark } from '@/components/ui'
 import { usePeople } from '@/demo/store'
 import { useRouteFocus } from '@/lib/hooks'
 import { DemoControls, PrototypeFooter, SkipLink } from './shared'
@@ -24,12 +24,11 @@ export function FocusedLayout() {
         <div className="page-gutter mx-auto flex min-h-[72px] max-w-page items-center justify-between gap-3 py-3">
           <div className="flex shrink-0 items-center gap-2">
             {inSession ? (
-              <span className="inline-flex min-h-11 items-center gap-2 text-navy">
-                <CarelineGlyph className="hidden h-4 w-7 min-[400px]:block" />
-                <span className="text-heading-sm font-bold tracking-[-0.02em]">NeuroVX</span>
+              <span className="inline-flex min-h-11 items-center">
+                <Logo className="h-8 min-[400px]:h-9" />
               </span>
             ) : (
-              <Wordmark to={inApp ? '/app' : '/'} size="sm" compact />
+              <Wordmark to={inApp ? '/app' : '/'} size="sm" compact collapse={inApp} />
             )}
             <span className="hidden sm:inline-flex">
               <DemoTag>Demo</DemoTag>
